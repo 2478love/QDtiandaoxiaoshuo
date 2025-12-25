@@ -1,0 +1,33 @@
+/**
+ * @fileoverview 工具函数统一导出模块
+ * @module utils
+ * @description 导出所有工具函数，包括 ID 生成、哈希、验证、加密等
+ */
+
+// 统一导出所有工具函数
+export * from './id';
+export * from './hash';
+export * from './validation';
+export {
+  // 密码相关
+  hashPassword,
+  verifyPassword,
+  verifyPasswordHash,
+  passwordNeedsUpgrade,
+  // API Key 相关
+  encryptApiKey,
+  decryptApiKey,
+  apiKeyNeedsReencryption,
+  EncryptionError,
+  // XSS 防护
+  sanitizeHtml,
+  sanitizeRichText,
+  sanitizePlainText,
+  escapeHtml,
+  sanitizeInput,
+  isSafeUrl,
+  sanitizeUrl,
+  // 兼容
+  needsHashUpgrade,
+} from './crypto';
+export type { PasswordHashResult } from './crypto';
