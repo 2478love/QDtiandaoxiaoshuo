@@ -57,37 +57,21 @@ const getSavedAISessions = (): AIChatSession[] => {
   return [];
 };
 
-// 保存 AI 会话（异步保存到 IndexedDB）
+// 保存 AI 会话（只使用 localStorage）
 const saveAISessions = (sessions: AIChatSession[]) => {
   cachedSessions = sessions;
 
-  // 同步保存到 localStorage（快速备份）
+  // 保存到 localStorage
   try {
     localStorage.setItem(AI_SESSIONS_KEY, JSON.stringify(sessions));
   } catch (e) {
-    console.error('Failed to save AI sessions to localStorage:', e);
+    console.error('Failed to save AI sessions:', e);
   }
-
-  // 异步保存到 IndexedDB
-  import('../../../../services/storage/StorageService').then(({ storage }) => {
-    storage.set(AI_SESSIONS_KEY, sessions).catch(err => {
-      console.error('Failed to save AI sessions to IndexedDB:', err);
-    });
-  });
 };
 
-// 异步加载 AI 会话（从 IndexedDB）
+// 加载 AI 会话
 const loadAISessionsAsync = async (): Promise<AIChatSession[]> => {
-  try {
-    const { storage } = await import('../../../../services/storage/StorageService');
-    await storage.init();
-    const sessions = await storage.get<AIChatSession[]>(AI_SESSIONS_KEY, []);
-    cachedSessions = sessions;
-    return sessions;
-  } catch (e) {
-    console.error('Failed to load AI sessions from IndexedDB:', e);
-    return getSavedAISessions();
-  }
+  return getSavedAISessions();
 };
 
 // Store 接口定义
@@ -220,6 +204,10 @@ interface EditorState {
   // AI 生成状态
   isAiGenerating: boolean;
   aiGeneratingType: 'mindmap' | 'character' | 'worldview' | 'event' | 'reference' | null;
+
+  // 联网搜索
+  webSearchEnabled: boolean;
+  isSearching: boolean;
 
   // 语音朗读
   isSpeaking: boolean;
@@ -370,6 +358,10 @@ interface EditorActions {
   setIsAiGenerating: (generating: boolean) => void;
   setAiGeneratingType: (type: 'mindmap' | 'character' | 'worldview' | 'event' | 'reference' | null) => void;
 
+  // 联网搜索操作
+  setWebSearchEnabled: (enabled: boolean) => void;
+  setIsSearching: (searching: boolean) => void;
+
   // 语音朗读操作
   setIsSpeaking: (speaking: boolean) => void;
   setVoice: (voice: string) => void;
@@ -486,6 +478,9 @@ const initialState: EditorState = {
 
   isAiGenerating: false,
   aiGeneratingType: null,
+
+  webSearchEnabled: false,
+  isSearching: false,
 
   isSpeaking: false,
   voice: 'Microsoft Yunxi Online (Natural) - Chinese (Mainland)',
@@ -688,6 +683,10 @@ export const useEditorStore = create<EditorState & EditorActions>((set, get) => 
   // AI 生成操作
   setIsAiGenerating: (isAiGenerating) => set({ isAiGenerating }),
   setAiGeneratingType: (aiGeneratingType) => set({ aiGeneratingType }),
+
+  // 联网搜索操作
+  setWebSearchEnabled: (webSearchEnabled) => set({ webSearchEnabled }),
+  setIsSearching: (isSearching) => set({ isSearching }),
 
   // 语音朗读操作
   setIsSpeaking: (isSpeaking) => set({ isSpeaking }),

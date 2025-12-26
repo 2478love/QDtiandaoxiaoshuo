@@ -6,6 +6,13 @@ import { generateCreativeContentStream, GenerateOptions } from '../../../../serv
 import { getAvailableModels } from '../../../../config/apiConfig';
 import { PromptEntry } from '../../../../types';
 import { createMessageId } from '../../../../utils/id';
+import {
+  performWebSearch,
+  extractSearchQuery,
+  formatSearchResultsAsContext,
+  getSearchSettings,
+  saveSearchSettings,
+} from '../../../../services/api/webSearch';
 
 const AIAssistantChat: React.FC = () => {
   const {
@@ -29,6 +36,8 @@ const AIAssistantChat: React.FC = () => {
     maxTokens,
     characters,
     worldviews,
+    webSearchEnabled,
+    isSearching,
     setAiSessions,
     setCurrentSessionId,
     setChatInput,
@@ -39,6 +48,8 @@ const AIAssistantChat: React.FC = () => {
     setIsStreaming,
     setTemperature,
     setMaxTokens,
+    setWebSearchEnabled,
+    setIsSearching,
   } = useEditorStore();
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -61,6 +72,12 @@ const AIAssistantChat: React.FC = () => {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
+
+  // 初始化联网搜索设置
+  useEffect(() => {
+    const settings = getSearchSettings();
+    setWebSearchEnabled(settings.enabled);
+  }, [setWebSearchEnabled]);
 
   // 插入内容到章节
   const insertToContent = useCallback((content: string) => {
@@ -205,7 +222,31 @@ const AIAssistantChat: React.FC = () => {
     });
     setAiSessions(sessionsWithMessages);
 
-    const systemPrompt = buildSystemPrompt();
+    let systemPrompt = buildSystemPrompt();
+    let searchContext = '';
+
+    // 如果启用联网搜索，先执行搜索
+    if (webSearchEnabled) {
+      setIsSearching(true);
+      try {
+        // 提取搜索关键词或直接使用用户输入
+        const searchQuery = extractSearchQuery(text) || text;
+        console.log('[AI助手] 执行联网搜索:', searchQuery);
+
+        const searchResult = await performWebSearch(searchQuery);
+        if (searchResult.success && searchResult.results.length > 0) {
+          searchContext = formatSearchResultsAsContext(searchResult.results);
+          console.log('[AI助手] 搜索成功，获取到', searchResult.results.length, '条结果');
+        }
+      } catch (error) {
+        console.error('[AI助手] 联网搜索失败:', error);
+      } finally {
+        setIsSearching(false);
+      }
+    }
+
+    // 组合最终的提示
+    const finalPrompt = searchContext + text;
     const options: GenerateOptions = {
       temperature,
       maxTokens: maxTokens,
@@ -214,7 +255,7 @@ const AIAssistantChat: React.FC = () => {
 
     try {
       let content = '';
-      await generateCreativeContentStream(text, (chunk) => {
+      await generateCreativeContentStream(finalPrompt, (chunk) => {
         content += chunk;
         setAiSessions(prev => prev.map(s => {
           if (s.id === sessionId) {
@@ -244,7 +285,7 @@ const AIAssistantChat: React.FC = () => {
     } finally {
       setIsStreaming(false);
     }
-  }, [chatInput, isStreaming, currentSessionId, aiSessions, selectedModel, temperature, maxTokens, buildSystemPrompt, setChatInput, setIsStreaming, setCurrentSessionId, setAiSessions]);
+  }, [chatInput, isStreaming, currentSessionId, aiSessions, selectedModel, temperature, maxTokens, webSearchEnabled, buildSystemPrompt, setChatInput, setIsStreaming, setCurrentSessionId, setAiSessions, setIsSearching]);
 
   return (
     <div className="flex-1 flex flex-col relative overflow-hidden">
@@ -435,6 +476,30 @@ const AIAssistantChat: React.FC = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
+            </button>
+            {/* 联网搜索开关 */}
+            <button
+              className={`p-1.5 rounded-lg transition-colors flex items-center gap-1 ${
+                webSearchEnabled
+                  ? 'text-green-500 bg-green-50 dark:bg-green-900/20'
+                  : `${themeClasses.textMuted} hover:text-green-500 hover:bg-slate-50 dark:hover:bg-slate-800`
+              }`}
+              title={webSearchEnabled ? '联网搜索已开启' : '点击开启联网搜索'}
+              onClick={() => {
+                const newState = !webSearchEnabled;
+                setWebSearchEnabled(newState);
+                saveSearchSettings({ enabled: newState });
+              }}
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+              </svg>
+              {isSearching && (
+                <svg className="w-3 h-3 animate-spin" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                </svg>
+              )}
             </button>
           </div>
           <div className="flex items-center gap-2">

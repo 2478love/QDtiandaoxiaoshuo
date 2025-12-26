@@ -199,21 +199,10 @@ const loadSettingsFromStorage = async (): Promise<SettingsLoadResult> => {
   try {
     let storedSettings: StoredSettings | null = null;
 
-    // 优先从 IndexedDB 加载
-    try {
-      const { storage } = await import('../services/storage/StorageService');
-      await storage.init();
-      storedSettings = await storage.get<StoredSettings>(API_SETTINGS_KEY, null);
-    } catch (e) {
-      console.warn('[ApiConfig] IndexedDB 加载失败，回退到 localStorage:', e);
-    }
-
-    // 如果 IndexedDB 没有，尝试 localStorage
-    if (!storedSettings) {
-      const saved = localStorage.getItem(API_SETTINGS_KEY);
-      if (saved) {
-        storedSettings = JSON.parse(saved);
-      }
+    // 从 localStorage 加载
+    const saved = localStorage.getItem(API_SETTINGS_KEY);
+    if (saved) {
+      storedSettings = JSON.parse(saved);
     }
 
     if (storedSettings) {
@@ -363,16 +352,8 @@ export const saveApiSettings = async (settings: ApiSettings): Promise<void> => {
       _encrypted: true,
     };
 
-    // 保存到 localStorage（同步，确保即使页面关闭也能保存）
+    // 保存到 localStorage
     localStorage.setItem(API_SETTINGS_KEY, JSON.stringify(settingsToStore));
-
-    // 异步保存到 IndexedDB
-    try {
-      const { storage } = await import('../services/storage/StorageService');
-      await storage.set(API_SETTINGS_KEY, settingsToStore);
-    } catch (e) {
-      console.warn('[ApiConfig] IndexedDB 保存失败:', e);
-    }
   } catch (e) {
     console.error('[ApiConfig] 保存设置失败:', e);
 

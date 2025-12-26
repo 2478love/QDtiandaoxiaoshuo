@@ -5,8 +5,29 @@
  * @version 1.0.0
  */
 
-import { storage } from '../storage/StorageService';
 import { createId } from '../../utils/id';
+
+// localStorage 简单存储辅助函数
+const localStorageHelper = {
+  get: <T>(key: string, defaultValue: T): T => {
+    try {
+      const stored = localStorage.getItem(key);
+      if (stored !== null) {
+        return JSON.parse(stored) as T;
+      }
+    } catch (error) {
+      console.warn(`[Storage] 读取 ${key} 失败:`, error);
+    }
+    return defaultValue;
+  },
+  set: <T>(key: string, value: T): void => {
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
+    } catch (error) {
+      console.error(`[Storage] 保存 ${key} 失败:`, error);
+    }
+  }
+};
 
 // ==================== 类型定义 ====================
 
@@ -194,7 +215,7 @@ class SyncService {
    */
   private async loadQueue(): Promise<void> {
     try {
-      const savedQueue = await storage.get<SyncItem[]>(SYNC_QUEUE_KEY, []);
+      const savedQueue = localStorageHelper.get<SyncItem[]>(SYNC_QUEUE_KEY, []);
       this.queue = savedQueue;
     } catch (error) {
       console.error('[SyncService] 加载队列失败:', error);
@@ -207,7 +228,7 @@ class SyncService {
    */
   private async saveQueue(): Promise<void> {
     try {
-      await storage.set(SYNC_QUEUE_KEY, this.queue);
+      localStorageHelper.set(SYNC_QUEUE_KEY, this.queue);
     } catch (error) {
       console.error('[SyncService] 保存队列失败:', error);
     }
@@ -343,16 +364,15 @@ class SyncService {
    */
   private async syncItem(item: SyncItem): Promise<void> {
     // 这里执行实际的数据同步逻辑
-    // 在纯前端场景，主要是确保数据已保存到 IndexedDB/localStorage
-    // 如果有远程服务器，这里会发送 HTTP 请求
+    // 在纯前端场景，主要是确保数据已保存到 localStorage
 
     switch (item.operation) {
       case 'create':
       case 'update':
-        await storage.set(item.key, item.data);
+        localStorageHelper.set(item.key, item.data);
         break;
       case 'delete':
-        await storage.remove(item.key);
+        localStorage.removeItem(item.key);
         break;
     }
   }
