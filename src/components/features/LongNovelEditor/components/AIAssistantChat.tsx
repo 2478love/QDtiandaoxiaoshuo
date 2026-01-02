@@ -36,6 +36,13 @@ const AIAssistantChat: React.FC = () => {
     maxTokens,
     characters,
     worldviews,
+    timelineEvents,
+    references,
+    outlineNodes,
+    foreshadowings,
+    mindMaps,
+    locations,
+    items,
     webSearchEnabled,
     isSearching,
     setAiSessions,
@@ -149,24 +156,156 @@ const AIAssistantChat: React.FC = () => {
     }
   }, [chatInput, currentChapter, setChatInput]);
 
-  // 构建系统提示
+  // 辅助函数：将思维导图节点转换为文本
+  const mindMapNodeToText = useCallback((node: { title: string; children: any[] }, depth = 0): string => {
+    const indent = '  '.repeat(depth);
+    let text = `${indent}- ${node.title}`;
+    if (node.children && node.children.length > 0) {
+      text += '\n' + node.children.map(child => mindMapNodeToText(child, depth + 1)).join('\n');
+    }
+    return text;
+  }, []);
+
+  // 构建系统提示 - 包含所有创作数据
   const buildSystemPrompt = useCallback(() => {
-    let prompt = '你是一个专业的网文创作助手，名为"笔灵"。你精通各种网文流派，能够帮助作者进行情节构思、人物塑造、文笔润色等工作。';
+    let prompt = '你是一个专业的网文创作助手，名为"笔灵"。你精通各种网文流派，能够帮助作者进行情节构思、人物塑造、文笔润色等工作。请基于以下小说设定和资料来提供帮助：';
 
+    // 人物角色
     if (characters.length > 0) {
-      prompt += `\n\n当前小说的主要角色：\n${characters.slice(0, 5).map(c => `- ${c.name}: ${c.description?.slice(0, 100) || '暂无描述'}`).join('\n')}`;
+      prompt += `\n\n【人物角色】（共${characters.length}个）\n`;
+      prompt += characters.slice(0, 8).map(c => {
+        let charInfo = `- ${c.name}（${c.role || '角色'}）`;
+        if (c.age) charInfo += `，年龄：${c.age}`;
+        if (c.gender) charInfo += `，性别：${c.gender}`;
+        if (c.personality) charInfo += `\n  性格：${c.personality.slice(0, 50)}`;
+        if (c.description) charInfo += `\n  描述：${c.description.slice(0, 100)}`;
+        if (c.traits && c.traits.length > 0) charInfo += `\n  特点：${c.traits.slice(0, 5).join('、')}`;
+        return charInfo;
+      }).join('\n');
     }
 
+    // 世界观设定
     if (worldviews.length > 0) {
-      prompt += `\n\n世界观设定：\n${worldviews.slice(0, 3).map(w => `- ${w.name}: ${w.description?.slice(0, 100) || '暂无描述'}`).join('\n')}`;
+      prompt += `\n\n【世界观设定】（共${worldviews.length}个）\n`;
+      prompt += worldviews.slice(0, 5).map(w => {
+        let info = `- ${w.title}（${w.category || '通用'}）`;
+        if (w.content) info += `\n  ${w.content.slice(0, 150)}`;
+        if (w.magicSystem) info += `\n  力量体系：${w.magicSystem.slice(0, 100)}`;
+        return info;
+      }).join('\n');
     }
 
-    if (currentChapter) {
-      prompt += `\n\n当前正在编写的章节：${currentChapter.title}\n章节内容预览：${currentChapter.content.slice(0, 500)}${currentChapter.content.length > 500 ? '...' : ''}`;
+    // 事件线/时间线
+    if (timelineEvents.length > 0) {
+      prompt += `\n\n【事件线】（共${timelineEvents.length}个事件）\n`;
+      prompt += timelineEvents.slice(0, 10).map(e => {
+        let info = `- [${e.time}] ${e.title}`;
+        if (e.eventType) info += `（${e.eventType}）`;
+        if (e.description) info += `\n  ${e.description.slice(0, 100)}`;
+        if (e.location) info += `\n  地点：${e.location}`;
+        return info;
+      }).join('\n');
     }
+
+    // 大纲结构
+    if (outlineNodes.length > 0) {
+      prompt += `\n\n【大纲结构】（共${outlineNodes.length}个节点）\n`;
+      const nodesByType = {
+        volume: outlineNodes.filter(n => n.type === 'volume'),
+        chapter: outlineNodes.filter(n => n.type === 'chapter'),
+        scene: outlineNodes.filter(n => n.type === 'scene'),
+        note: outlineNodes.filter(n => n.type === 'note')
+      };
+      if (nodesByType.volume.length > 0) {
+        prompt += '卷：' + nodesByType.volume.slice(0, 5).map(n => n.title).join('、') + '\n';
+      }
+      if (nodesByType.chapter.length > 0) {
+        prompt += '章节大纲：\n' + nodesByType.chapter.slice(0, 8).map(n => {
+          let info = `- ${n.title}`;
+          if (n.status !== 'planned') info += `（${n.status === 'completed' ? '已完成' : '写作中'}）`;
+          if (n.content) info += `：${n.content.slice(0, 80)}`;
+          return info;
+        }).join('\n');
+      }
+    }
+
+    // 伏笔追踪
+    if (foreshadowings.length > 0) {
+      const planted = foreshadowings.filter(f => f.status === 'planted');
+      const resolved = foreshadowings.filter(f => f.status === 'resolved');
+      prompt += `\n\n【伏笔追踪】（已埋设${planted.length}个，已回收${resolved.length}个）\n`;
+      // 优先显示未回收的伏笔
+      prompt += planted.slice(0, 6).map(f => {
+        let info = `- [待回收] ${f.title}`;
+        if (f.importance === 'high') info += '（重要）';
+        if (f.description) info += `\n  ${f.description.slice(0, 80)}`;
+        if (f.plantedPosition) info += `\n  埋设于：${f.plantedPosition}`;
+        return info;
+      }).join('\n');
+    }
+
+    // 思维导图
+    if (mindMaps.length > 0) {
+      prompt += `\n\n【思维导图】（共${mindMaps.length}个）\n`;
+      prompt += mindMaps.slice(0, 3).map(map => {
+        let info = `【${map.name}】\n`;
+        info += mindMapNodeToText(map.root, 0);
+        return info;
+      }).join('\n\n');
+    }
+
+    // 语料库/参考资料
+    if (references.length > 0) {
+      prompt += `\n\n【语料库】（共${references.length}条素材）\n`;
+      prompt += references.slice(0, 5).map(r => {
+        let info = `- ${r.title}（${r.category || '通用'}）`;
+        if (r.content) info += `\n  ${r.content.slice(0, 120)}`;
+        return info;
+      }).join('\n');
+    }
+
+    // 场景/地点
+    if (locations.length > 0) {
+      prompt += `\n\n【重要场景/地点】（共${locations.length}个）\n`;
+      prompt += locations.slice(0, 6).map(l => {
+        let info = `- ${l.name}（${l.type || '地点'}）`;
+        if (l.region) info += `，位于${l.region}`;
+        if (l.description) info += `\n  ${l.description.slice(0, 80)}`;
+        return info;
+      }).join('\n');
+    }
+
+    // 道具/技能
+    if (items.length > 0) {
+      prompt += `\n\n【道具/技能】（共${items.length}个）\n`;
+      const typeNames: Record<string, string> = {
+        weapon: '武器', armor: '防具', accessory: '饰品',
+        skill: '技能', technique: '功法', artifact: '神器', other: '其他'
+      };
+      prompt += items.slice(0, 6).map(i => {
+        let info = `- ${i.name}（${typeNames[i.type] || i.type}）`;
+        if (i.category) info += `[${i.category}]`;
+        if (i.description) info += `\n  ${i.description.slice(0, 80)}`;
+        if (i.effects) info += `\n  效果：${i.effects.slice(0, 60)}`;
+        return info;
+      }).join('\n');
+    }
+
+    // 当前章节
+    if (currentChapter) {
+      prompt += `\n\n【当前章节】${currentChapter.title}\n`;
+      if (currentChapter.content) {
+        const preview = currentChapter.content.slice(-800); // 取最后800字作为上下文
+        prompt += `章节内容（最近部分）：\n${preview}${currentChapter.content.length > 800 ? '...' : ''}`;
+      } else {
+        prompt += '（章节内容为空，正在开始写作）';
+      }
+    }
+
+    prompt += '\n\n请基于以上设定和资料，帮助作者进行创作。保持设定的一致性，避免与已有内容产生矛盾。';
 
     return prompt;
-  }, [characters, worldviews, currentChapter]);
+  }, [characters, worldviews, timelineEvents, references, outlineNodes, foreshadowings, mindMaps, locations, items, currentChapter, mindMapNodeToText]);
 
   // 发送消息
   const sendMessage = useCallback(async () => {
