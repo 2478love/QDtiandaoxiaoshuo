@@ -1,6 +1,6 @@
 import React, { useMemo, useRef, useState } from 'react';
-import { Novel, ViewState } from '../../../types';
-import { createNovelId } from '../../../utils/id';
+import { Novel, ViewState, Chapter } from '../../../types';
+import { createNovelId, createChapterId } from '../../../utils/id';
 
 interface NovelManagerProps {
   onNavigate: (view: ViewState) => void;
@@ -15,6 +15,87 @@ interface NovelManagerProps {
 const CATEGORIES = [
   '玄幻奇幻', '武侠仙侠', '都市生活', '历史军事', '游戏竞技', '科幻未来', '悬疑灵异', '二次元'
 ];
+
+// 章节标题匹配正则
+const CHAPTER_PATTERNS = [
+  /^第[一二三四五六七八九十百千万零0-9]+[章节回卷][\s\S]*$/,
+  /^[第][0-9]+[章节回卷][\s\S]*$/,
+  /^Chapter\s*[0-9]+[\s\S]*/i,
+  /^[0-9]+[\.、．]\s*.+$/,
+  /^【第[一二三四五六七八九十百千万零0-9]+[章节回卷]】[\s\S]*$/,
+];
+
+// 解析 TXT 内容并自动分章
+const parseTxtToChapters = (content: string, novelTitle: string): Chapter[] => {
+  const lines = content.split('\n');
+  const chapters: Chapter[] = [];
+  let currentChapter: { title: string; content: string[] } | null = null;
+  let chapterIndex = 0;
+
+  for (const line of lines) {
+    const trimmedLine = line.trim();
+
+    // 检查是否是章节标题
+    const isChapterTitle = CHAPTER_PATTERNS.some(pattern => pattern.test(trimmedLine));
+
+    if (isChapterTitle && trimmedLine.length > 0 && trimmedLine.length < 100) {
+      // 保存之前的章节
+      if (currentChapter && currentChapter.content.length > 0) {
+        const chapterContent = currentChapter.content.join('\n').trim();
+        if (chapterContent.length > 0) {
+          chapters.push({
+            id: createChapterId(),
+            title: currentChapter.title,
+            content: chapterContent,
+            wordCount: chapterContent.length,
+          });
+        }
+      }
+      // 开始新章节
+      currentChapter = {
+        title: trimmedLine,
+        content: []
+      };
+      chapterIndex++;
+    } else if (currentChapter) {
+      // 添加到当前章节
+      currentChapter.content.push(line);
+    } else if (trimmedLine.length > 0) {
+      // 第一个章节之前的内容，创建一个序章
+      if (!currentChapter) {
+        currentChapter = {
+          title: '序章',
+          content: [line]
+        };
+      }
+    }
+  }
+
+  // 保存最后一个章节
+  if (currentChapter && currentChapter.content.length > 0) {
+    const chapterContent = currentChapter.content.join('\n').trim();
+    if (chapterContent.length > 0) {
+      chapters.push({
+        id: createChapterId(),
+        title: currentChapter.title,
+        content: chapterContent,
+        wordCount: chapterContent.length,
+      });
+    }
+  }
+
+  // 如果没有找到任何章节标题，将整个内容作为一个章节
+  if (chapters.length === 0 && content.trim().length > 0) {
+    chapters.push({
+      id: createChapterId(),
+      title: '第一章',
+      content: content.trim(),
+      wordCount: content.trim().length,
+    });
+  }
+
+  return chapters;
+};
 
 const NovelManager: React.FC<NovelManagerProps> = ({
   onNavigate,
@@ -38,6 +119,14 @@ const NovelManager: React.FC<NovelManagerProps> = ({
   });
   const [tagInput, setTagInput] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const txtImportRef = useRef<HTMLInputElement>(null);
+  const [showImportModal, setShowImportModal] = useState(false);
+  const [importPreview, setImportPreview] = useState<{
+    filename: string;
+    chapters: { title: string; wordCount: number }[];
+    totalWords: number;
+  } | null>(null);
+  const [pendingImportContent, setPendingImportContent] = useState<string>('');
 
   const filteredNovels = useMemo(() => {
     return novels.filter(n => {
@@ -95,6 +184,79 @@ const NovelManager: React.FC<NovelManagerProps> = ({
       setForm(prev => ({ ...prev, cover: reader.result as string }));
     };
     reader.readAsDataURL(file);
+  };
+
+  // TXT 文件导入处理
+  const handleTxtImport = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const content = e.target?.result as string;
+      if (!content) return;
+
+      // 解析章节
+      const filename = file.name.replace(/\.txt$/i, '');
+      const chapters = parseTxtToChapters(content, filename);
+      const totalWords = chapters.reduce((sum, ch) => sum + ch.wordCount, 0);
+
+      // 设置预览
+      setImportPreview({
+        filename,
+        chapters: chapters.map(ch => ({ title: ch.title, wordCount: ch.wordCount })),
+        totalWords
+      });
+      setPendingImportContent(content);
+      setShowImportModal(true);
+    };
+
+    reader.readAsText(file, 'UTF-8');
+    event.target.value = '';
+  };
+
+  // 确认导入 TXT
+  const confirmTxtImport = () => {
+    if (!importPreview || !pendingImportContent) return;
+
+    const chapters = parseTxtToChapters(pendingImportContent, importPreview.filename);
+
+    const newNovel: Novel = {
+      id: createNovelId(),
+      title: importPreview.filename,
+      description: `从 TXT 文件导入，共 ${chapters.length} 章`,
+      type: '未分类',
+      targetWordCount: importPreview.totalWords * 1.5,
+      wordCount: importPreview.totalWords,
+      status: 'ongoing',
+      tags: ['导入'],
+      chapters,
+      updatedAt: new Date().toLocaleDateString('zh-CN')
+    };
+
+    onSaveNovel(newNovel);
+    setShowImportModal(false);
+    setImportPreview(null);
+    setPendingImportContent('');
+    alert(`成功导入《${importPreview.filename}》，共 ${chapters.length} 章，${importPreview.totalWords.toLocaleString()} 字`);
+  };
+
+  // 项目副本（复制小说）
+  const duplicateNovel = (novel: Novel) => {
+    const newNovel: Novel = {
+      ...novel,
+      id: createNovelId(),
+      title: `${novel.title} (副本)`,
+      description: novel.description,
+      chapters: novel.chapters?.map(ch => ({
+        ...ch,
+        id: createChapterId()
+      })) || [],
+      updatedAt: new Date().toLocaleDateString('zh-CN')
+    };
+
+    onSaveNovel(newNovel);
+    alert(`已创建《${novel.title}》的副本`);
   };
 
   if (viewMode === 'create') {
@@ -236,6 +398,49 @@ const NovelManager: React.FC<NovelManagerProps> = ({
 
   return (
     <div className="space-y-6">
+      {/* TXT 导入预览模态框 */}
+      {showImportModal && importPreview && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 max-w-lg w-full mx-4 space-y-4 shadow-xl">
+            <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100">确认导入</h3>
+            <div className="space-y-2">
+              <p className="text-sm text-slate-600 dark:text-slate-400">
+                文件：<span className="font-medium text-slate-800 dark:text-slate-200">{importPreview.filename}.txt</span>
+              </p>
+              <p className="text-sm text-slate-600 dark:text-slate-400">
+                检测到 <span className="font-medium text-indigo-600">{importPreview.chapters.length}</span> 个章节，
+                共 <span className="font-medium text-indigo-600">{importPreview.totalWords.toLocaleString()}</span> 字
+              </p>
+            </div>
+            <div className="max-h-48 overflow-y-auto space-y-1 p-3 bg-slate-50 dark:bg-slate-800 rounded-xl">
+              {importPreview.chapters.slice(0, 20).map((ch, idx) => (
+                <div key={idx} className="flex justify-between text-xs">
+                  <span className="text-slate-600 dark:text-slate-400 truncate flex-1">{ch.title}</span>
+                  <span className="text-slate-400 dark:text-slate-500 ml-2">{ch.wordCount.toLocaleString()} 字</span>
+                </div>
+              ))}
+              {importPreview.chapters.length > 20 && (
+                <p className="text-xs text-slate-400 text-center mt-2">... 还有 {importPreview.chapters.length - 20} 个章节</p>
+              )}
+            </div>
+            <div className="flex gap-3">
+              <button
+                onClick={() => { setShowImportModal(false); setImportPreview(null); setPendingImportContent(''); }}
+                className="flex-1 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-sm"
+              >
+                取消
+              </button>
+              <button
+                onClick={confirmTxtImport}
+                className="flex-1 py-2 rounded-xl bg-indigo-600 text-white text-sm font-medium"
+              >
+                确认导入
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-slate-800 dark:text-slate-100">小说管理</h1>
@@ -248,6 +453,22 @@ const NovelManager: React.FC<NovelManagerProps> = ({
             placeholder="搜索作品"
             className="px-4 py-2 rounded-2xl border border-slate-200 dark:border-slate-700 text-sm bg-white dark:bg-slate-900"
           />
+          <input
+            ref={txtImportRef}
+            type="file"
+            accept=".txt"
+            onChange={handleTxtImport}
+            className="hidden"
+          />
+          <button
+            className="px-4 py-2 rounded-2xl border border-slate-200 dark:border-slate-700 text-sm hover:border-indigo-400 transition-colors flex items-center gap-1"
+            onClick={() => txtImportRef.current?.click()}
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+            </svg>
+            导入TXT
+          </button>
           <button className="px-4 py-2 rounded-2xl bg-slate-900 text-white text-sm" onClick={() => setViewMode('create')}>
             新建小说
           </button>
@@ -282,6 +503,12 @@ const NovelManager: React.FC<NovelManagerProps> = ({
                 <div className="flex items-center gap-2">
                   <button className="text-sm text-indigo-500 hover:text-indigo-600" onClick={() => onNovelClick(novel)}>
                     进入编辑
+                  </button>
+                  <button
+                    className="text-sm text-emerald-500 hover:text-emerald-600"
+                    onClick={() => duplicateNovel(novel)}
+                  >
+                    复制
                   </button>
                   {onDeleteNovel && (
                     <button

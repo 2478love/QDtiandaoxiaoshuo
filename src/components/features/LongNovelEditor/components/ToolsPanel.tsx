@@ -3,6 +3,7 @@ import { useEditorStore, SearchResult, CreativeManagementTab } from '../store/ed
 import { useEditorContext } from '../context/EditorContext';
 import { Chapter, WritingGoal, WritingRecord, ChapterTemplate } from '../../../../types';
 import { createChapterId } from '../../../../utils/id';
+import { generateCreativeContentStream, GenerateOptions } from '../../../../services/api/gemini';
 
 // 格式化番茄钟时间
 const formatPomodoroTime = (seconds: number): string => {
@@ -69,6 +70,27 @@ const ToolsPanel: React.FC = () => {
     setPomodoroMode,
     pomodoroCount,
     setPomodoroCount,
+    // 批量精修
+    showBatchPolish,
+    setShowBatchPolish,
+    batchPolishProgress,
+    setBatchPolishProgress,
+    isBatchPolishing,
+    setIsBatchPolishing,
+    batchPolishPaused,
+    setBatchPolishPaused,
+    // Diff 对比编辑器
+    showDiffEditor,
+    setShowDiffEditor,
+    diffOriginalContent,
+    setDiffOriginalContent,
+    diffRewrittenContent,
+    setDiffRewrittenContent,
+    isDiffProcessing,
+    setIsDiffProcessing,
+    // AI 设置
+    selectedModel,
+    temperature,
   } = useEditorStore();
 
   // 文件输入 ref
@@ -339,6 +361,150 @@ const ToolsPanel: React.FC = () => {
     });
     e.target.value = '';
   }, [chapters, onUpdateNovel]);
+
+  // 批量精修功能
+  const [batchPolishChapters, setBatchPolishChapters] = useState<string[]>([]);
+  const batchPolishAbortRef = useRef<boolean>(false);
+
+  const startBatchPolish = useCallback(async () => {
+    if (batchPolishChapters.length === 0) {
+      alert('请先选择要精修的章节');
+      return;
+    }
+
+    setIsBatchPolishing(true);
+    setBatchPolishPaused(false);
+    batchPolishAbortRef.current = false;
+
+    const chaptersToPolish = chapters.filter(c => batchPolishChapters.includes(c.id));
+    let updatedChapters = [...chapters];
+
+    for (let i = 0; i < chaptersToPolish.length; i++) {
+      if (batchPolishAbortRef.current) break;
+
+      // 检查暂停状态
+      while (useEditorStore.getState().batchPolishPaused && !batchPolishAbortRef.current) {
+        await new Promise(resolve => setTimeout(resolve, 500));
+      }
+      if (batchPolishAbortRef.current) break;
+
+      const chapter = chaptersToPolish[i];
+      setBatchPolishProgress({
+        current: i + 1,
+        total: chaptersToPolish.length,
+        currentChapter: chapter.title
+      });
+
+      if (!chapter.content.trim()) continue;
+
+      const prompt = `请对以下小说章节内容进行精修润色，保持原意和人物性格，提升文笔质量，使表达更加生动流畅。只输出修改后的内容，不要输出任何解释：
+
+${chapter.content}`;
+
+      try {
+        let polishedContent = '';
+        await generateCreativeContentStream(prompt, (chunk) => {
+          polishedContent += chunk;
+        }, selectedModel, { temperature });
+
+        if (polishedContent.trim()) {
+          updatedChapters = updatedChapters.map(c =>
+            c.id === chapter.id ? { ...c, content: polishedContent, wordCount: polishedContent.length } : c
+          );
+        }
+      } catch (error) {
+        console.error(`章节 "${chapter.title}" 精修失败:`, error);
+      }
+
+      // 每章节完成后更新
+      onUpdateNovel({
+        chapters: updatedChapters,
+        wordCount: updatedChapters.reduce((sum, ch) => sum + ch.wordCount, 0)
+      });
+    }
+
+    setIsBatchPolishing(false);
+    setBatchPolishProgress(null);
+    setBatchPolishChapters([]);
+    alert('批量精修完成！');
+  }, [batchPolishChapters, chapters, selectedModel, temperature, onUpdateNovel, setIsBatchPolishing, setBatchPolishPaused, setBatchPolishProgress]);
+
+  const toggleBatchPolishChapter = useCallback((chapterId: string) => {
+    setBatchPolishChapters(prev =>
+      prev.includes(chapterId)
+        ? prev.filter(id => id !== chapterId)
+        : [...prev, chapterId]
+    );
+  }, []);
+
+  const selectAllChaptersForPolish = useCallback(() => {
+    setBatchPolishChapters(chapters.map(c => c.id));
+  }, [chapters]);
+
+  const clearPolishSelection = useCallback(() => {
+    setBatchPolishChapters([]);
+  }, []);
+
+  const pauseBatchPolish = useCallback(() => {
+    setBatchPolishPaused(!batchPolishPaused);
+  }, [batchPolishPaused, setBatchPolishPaused]);
+
+  const stopBatchPolish = useCallback(() => {
+    batchPolishAbortRef.current = true;
+    setIsBatchPolishing(false);
+    setBatchPolishProgress(null);
+  }, [setIsBatchPolishing, setBatchPolishProgress]);
+
+  // Diff 对比编辑器功能
+  const startDiffRewrite = useCallback(async () => {
+    if (!currentChapter || !currentChapter.content.trim()) {
+      alert('请先选择有内容的章节');
+      return;
+    }
+
+    setDiffOriginalContent(currentChapter.content);
+    setDiffRewrittenContent('');
+    setShowDiffEditor(true);
+    setIsDiffProcessing(true);
+
+    const prompt = `请对以下小说章节内容进行改写润色，保持原意和人物性格，提升文笔质量。只输出修改后的内容，不要输出任何解释：
+
+${currentChapter.content}`;
+
+    try {
+      let rewrittenContent = '';
+      await generateCreativeContentStream(prompt, (chunk) => {
+        rewrittenContent += chunk;
+        setDiffRewrittenContent(rewrittenContent);
+      }, selectedModel, { temperature });
+    } catch (error) {
+      console.error('改写失败:', error);
+      alert('改写失败，请重试');
+    } finally {
+      setIsDiffProcessing(false);
+    }
+  }, [currentChapter, selectedModel, temperature, setDiffOriginalContent, setDiffRewrittenContent, setShowDiffEditor, setIsDiffProcessing]);
+
+  const applyDiffRewrite = useCallback(() => {
+    if (!currentChapter || !diffRewrittenContent.trim()) return;
+
+    const updatedChapters = chapters.map(c =>
+      c.id === currentChapter.id ? { ...c, content: diffRewrittenContent, wordCount: diffRewrittenContent.length } : c
+    );
+    onUpdateNovel({
+      chapters: updatedChapters,
+      wordCount: updatedChapters.reduce((sum, ch) => sum + ch.wordCount, 0)
+    });
+    setShowDiffEditor(false);
+    setDiffOriginalContent('');
+    setDiffRewrittenContent('');
+  }, [currentChapter, diffRewrittenContent, chapters, onUpdateNovel, setShowDiffEditor, setDiffOriginalContent, setDiffRewrittenContent]);
+
+  const closeDiffEditor = useCallback(() => {
+    setShowDiffEditor(false);
+    setDiffOriginalContent('');
+    setDiffRewrittenContent('');
+  }, [setShowDiffEditor, setDiffOriginalContent, setDiffRewrittenContent]);
 
   // 番茄钟
   const pomodoroRef = useRef<NodeJS.Timeout | null>(null);
@@ -899,6 +1065,159 @@ const ToolsPanel: React.FC = () => {
             {characters.length < 2 ? '需要2+人物' : '生成对话'}
           </button>
         </div>
+      </section>
+
+      {/* 批量精修 */}
+      <section className={`space-y-3 rounded-2xl border ${themeClasses.card} ${themeClasses.border} p-4`}>
+        <div className="flex items-center justify-between">
+          <div>
+            <p className={`text-sm font-semibold ${themeClasses.text}`}>批量精修</p>
+            <p className={`text-xs ${themeClasses.textMuted}`}>一键润色多个章节</p>
+          </div>
+          <button
+            className={`px-3 py-1.5 rounded-xl text-xs border transition-colors ${themeClasses.border} hover:border-indigo-400`}
+            onClick={() => setShowBatchPolish(!showBatchPolish)}
+          >
+            {showBatchPolish ? '收起' : '展开'}
+          </button>
+        </div>
+        {showBatchPolish && (
+          <div className="space-y-3">
+            {isBatchPolishing ? (
+              <div className="space-y-2">
+                <div className="flex items-center justify-between text-xs">
+                  <span className={themeClasses.textMuted}>
+                    正在精修: {batchPolishProgress?.currentChapter}
+                  </span>
+                  <span>
+                    {batchPolishProgress?.current} / {batchPolishProgress?.total}
+                  </span>
+                </div>
+                <div className={`h-2 rounded-full overflow-hidden ${effectiveTheme === 'dark' ? 'bg-slate-700' : 'bg-slate-200'}`}>
+                  <div
+                    className="h-full bg-purple-500 transition-all duration-500"
+                    style={{ width: `${batchPolishProgress ? (batchPolishProgress.current / batchPolishProgress.total) * 100 : 0}%` }}
+                  />
+                </div>
+                <div className="flex gap-2">
+                  <button
+                    onClick={pauseBatchPolish}
+                    className={`flex-1 py-2 text-xs rounded-lg transition-colors ${
+                      batchPolishPaused
+                        ? 'bg-green-500 text-white hover:bg-green-600'
+                        : 'bg-amber-500 text-white hover:bg-amber-600'
+                    }`}
+                  >
+                    {batchPolishPaused ? '继续' : '暂停'}
+                  </button>
+                  <button
+                    onClick={stopBatchPolish}
+                    className="flex-1 py-2 text-xs bg-rose-500 text-white rounded-lg hover:bg-rose-600"
+                  >
+                    停止
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <>
+                <div className="flex gap-2 text-xs">
+                  <button
+                    onClick={selectAllChaptersForPolish}
+                    className={`px-2 py-1 rounded border ${themeClasses.border} hover:border-indigo-400`}
+                  >
+                    全选
+                  </button>
+                  <button
+                    onClick={clearPolishSelection}
+                    className={`px-2 py-1 rounded border ${themeClasses.border} hover:border-indigo-400`}
+                  >
+                    清空
+                  </button>
+                  <span className={`flex-1 text-right ${themeClasses.textMuted}`}>
+                    已选 {batchPolishChapters.length} 章
+                  </span>
+                </div>
+                <div className={`max-h-40 overflow-y-auto space-y-1 p-2 rounded-lg ${themeClasses.sidebar}`}>
+                  {chapters.map(chapter => (
+                    <label
+                      key={chapter.id}
+                      className={`flex items-center gap-2 p-2 rounded cursor-pointer hover:${effectiveTheme === 'dark' ? 'bg-slate-600' : 'bg-slate-100'} transition-colors`}
+                    >
+                      <input
+                        type="checkbox"
+                        checked={batchPolishChapters.includes(chapter.id)}
+                        onChange={() => toggleBatchPolishChapter(chapter.id)}
+                        className="accent-purple-500"
+                      />
+                      <span className="text-xs truncate flex-1">{chapter.title}</span>
+                      <span className={`text-[10px] ${themeClasses.textMuted}`}>{chapter.wordCount}字</span>
+                    </label>
+                  ))}
+                </div>
+                <button
+                  onClick={startBatchPolish}
+                  disabled={batchPolishChapters.length === 0}
+                  className="w-full py-2 text-sm bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  开始批量精修 ({batchPolishChapters.length} 章)
+                </button>
+              </>
+            )}
+          </div>
+        )}
+      </section>
+
+      {/* Diff 对比编辑 */}
+      <section className={`space-y-3 rounded-2xl border ${themeClasses.card} ${themeClasses.border} p-4`}>
+        <div className="flex items-center justify-between">
+          <div>
+            <p className={`text-sm font-semibold ${themeClasses.text}`}>对比改写</p>
+            <p className={`text-xs ${themeClasses.textMuted}`}>AI 改写并对比原文</p>
+          </div>
+          <button
+            className={`px-3 py-1.5 rounded-xl text-xs border transition-colors ${themeClasses.border} hover:border-indigo-400`}
+            onClick={startDiffRewrite}
+            disabled={!currentChapter || isDiffProcessing}
+          >
+            {isDiffProcessing ? '改写中...' : '开始改写'}
+          </button>
+        </div>
+        {showDiffEditor && (
+          <div className="space-y-3">
+            <div className="grid grid-cols-2 gap-2">
+              <div className={`p-2 rounded-lg ${themeClasses.sidebar}`}>
+                <p className={`text-xs font-medium ${themeClasses.text} mb-1`}>原文</p>
+                <div className={`text-xs ${themeClasses.textMuted} max-h-32 overflow-y-auto whitespace-pre-wrap`}>
+                  {diffOriginalContent.slice(0, 500)}{diffOriginalContent.length > 500 ? '...' : ''}
+                </div>
+              </div>
+              <div className={`p-2 rounded-lg ${themeClasses.sidebar}`}>
+                <p className={`text-xs font-medium ${themeClasses.text} mb-1`}>改写后</p>
+                <div className={`text-xs ${themeClasses.textMuted} max-h-32 overflow-y-auto whitespace-pre-wrap`}>
+                  {isDiffProcessing && !diffRewrittenContent && (
+                    <span className="animate-pulse">正在生成...</span>
+                  )}
+                  {diffRewrittenContent.slice(0, 500)}{diffRewrittenContent.length > 500 ? '...' : ''}
+                </div>
+              </div>
+            </div>
+            <div className="flex gap-2">
+              <button
+                onClick={applyDiffRewrite}
+                disabled={isDiffProcessing || !diffRewrittenContent.trim()}
+                className="flex-1 py-2 text-xs bg-green-500 text-white rounded-lg hover:bg-green-600 disabled:opacity-50"
+              >
+                应用改写
+              </button>
+              <button
+                onClick={closeDiffEditor}
+                className={`flex-1 py-2 text-xs rounded-lg border ${themeClasses.border} hover:border-slate-400`}
+              >
+                取消
+              </button>
+            </div>
+          </div>
+        )}
       </section>
 
       {/* 检查工具 */}

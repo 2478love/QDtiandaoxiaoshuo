@@ -213,6 +213,32 @@ interface EditorState {
   isSpeaking: boolean;
   voice: string;
   voiceRate: number;
+
+  // RAG 记忆系统
+  ragEnabled: boolean;
+  ragMemoryCount: number;
+  isIndexing: boolean;
+
+  // 三模态 AI 角色
+  aiRole: 'writer' | 'reviewer' | 'chat';
+
+  // 风格控制矩阵
+  stylePreservation: number; // 20-100，保留度
+  expansionLevel: 'conservative' | 'moderate' | 'aggressive'; // 扩写欲望
+  contentRating: 'safe' | 'moderate' | 'mature'; // 内容尺度
+  writingStyle: string; // 文风倾向
+
+  // 批量精修
+  showBatchPolish: boolean;
+  batchPolishProgress: { current: number; total: number; currentChapter: string } | null;
+  isBatchPolishing: boolean;
+  batchPolishPaused: boolean;
+
+  // Diff 对比编辑器
+  showDiffEditor: boolean;
+  diffOriginalContent: string;
+  diffRewrittenContent: string;
+  isDiffProcessing: boolean;
 }
 
 interface EditorActions {
@@ -367,6 +393,32 @@ interface EditorActions {
   setVoice: (voice: string) => void;
   setVoiceRate: (rate: number) => void;
 
+  // RAG 记忆系统操作
+  setRagEnabled: (enabled: boolean) => void;
+  setRagMemoryCount: (count: number) => void;
+  setIsIndexing: (indexing: boolean) => void;
+
+  // 三模态 AI 角色操作
+  setAiRole: (role: 'writer' | 'reviewer' | 'chat') => void;
+
+  // 风格控制矩阵操作
+  setStylePreservation: (value: number) => void;
+  setExpansionLevel: (level: 'conservative' | 'moderate' | 'aggressive') => void;
+  setContentRating: (rating: 'safe' | 'moderate' | 'mature') => void;
+  setWritingStyle: (style: string) => void;
+
+  // 批量精修操作
+  setShowBatchPolish: (show: boolean) => void;
+  setBatchPolishProgress: (progress: { current: number; total: number; currentChapter: string } | null) => void;
+  setIsBatchPolishing: (polishing: boolean) => void;
+  setBatchPolishPaused: (paused: boolean) => void;
+
+  // Diff 对比编辑器操作
+  setShowDiffEditor: (show: boolean) => void;
+  setDiffOriginalContent: (content: string) => void;
+  setDiffRewrittenContent: (content: string) => void;
+  setIsDiffProcessing: (processing: boolean) => void;
+
   // 从 Novel 初始化数据
   initializeFromNovel: (novel: Novel) => void;
 
@@ -485,6 +537,32 @@ const initialState: EditorState = {
   isSpeaking: false,
   voice: 'Microsoft Yunxi Online (Natural) - Chinese (Mainland)',
   voiceRate: 1.0,
+
+  // RAG 记忆系统
+  ragEnabled: true,
+  ragMemoryCount: 0,
+  isIndexing: false,
+
+  // 三模态 AI 角色
+  aiRole: 'chat',
+
+  // 风格控制矩阵
+  stylePreservation: 70,
+  expansionLevel: 'moderate',
+  contentRating: 'safe',
+  writingStyle: '网文轻小说',
+
+  // 批量精修
+  showBatchPolish: false,
+  batchPolishProgress: null,
+  isBatchPolishing: false,
+  batchPolishPaused: false,
+
+  // Diff 对比编辑器
+  showDiffEditor: false,
+  diffOriginalContent: '',
+  diffRewrittenContent: '',
+  isDiffProcessing: false,
 };
 
 export const useEditorStore = create<EditorState & EditorActions>((set, get) => ({
@@ -692,6 +770,32 @@ export const useEditorStore = create<EditorState & EditorActions>((set, get) => 
   setIsSpeaking: (isSpeaking) => set({ isSpeaking }),
   setVoice: (voice) => set({ voice }),
   setVoiceRate: (voiceRate) => set({ voiceRate }),
+
+  // RAG 记忆系统操作
+  setRagEnabled: (ragEnabled) => set({ ragEnabled }),
+  setRagMemoryCount: (ragMemoryCount) => set({ ragMemoryCount }),
+  setIsIndexing: (isIndexing) => set({ isIndexing }),
+
+  // 三模态 AI 角色操作
+  setAiRole: (aiRole) => set({ aiRole }),
+
+  // 风格控制矩阵操作
+  setStylePreservation: (stylePreservation) => set({ stylePreservation }),
+  setExpansionLevel: (expansionLevel) => set({ expansionLevel }),
+  setContentRating: (contentRating) => set({ contentRating }),
+  setWritingStyle: (writingStyle) => set({ writingStyle }),
+
+  // 批量精修操作
+  setShowBatchPolish: (showBatchPolish) => set({ showBatchPolish }),
+  setBatchPolishProgress: (batchPolishProgress) => set({ batchPolishProgress }),
+  setIsBatchPolishing: (isBatchPolishing) => set({ isBatchPolishing }),
+  setBatchPolishPaused: (batchPolishPaused) => set({ batchPolishPaused }),
+
+  // Diff 对比编辑器操作
+  setShowDiffEditor: (showDiffEditor) => set({ showDiffEditor }),
+  setDiffOriginalContent: (diffOriginalContent) => set({ diffOriginalContent }),
+  setDiffRewrittenContent: (diffRewrittenContent) => set({ diffRewrittenContent }),
+  setIsDiffProcessing: (isDiffProcessing) => set({ isDiffProcessing }),
 
   // 从 Novel 初始化数据
   initializeFromNovel: (novel) => {

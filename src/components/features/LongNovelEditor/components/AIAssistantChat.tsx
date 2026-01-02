@@ -13,6 +13,35 @@ import {
   getSearchSettings,
   saveSearchSettings,
 } from '../../../../services/api/webSearch';
+import ragService from '../../../../services/rag/RagService';
+
+// AI 角色配置
+const AI_ROLES = {
+  chat: {
+    name: '助手',
+    icon: '💬',
+    color: 'text-blue-500',
+    bgColor: 'bg-blue-50 dark:bg-blue-900/20',
+    description: '回答问题，提供创作建议',
+    systemPrompt: '你是一个专业的网文创作助手，名为"笔灵"。你精通各种网文流派，能够帮助作者进行情节构思、人物塑造、文笔润色等工作。',
+  },
+  writer: {
+    name: '作家',
+    icon: '✍️',
+    color: 'text-purple-500',
+    bgColor: 'bg-purple-50 dark:bg-purple-900/20',
+    description: '改写、润色、扩写内容',
+    systemPrompt: '你是一个专业的小说写手。你的任务是根据用户的指令改写、润色或扩写内容。你需要保持设定的一致性，保持人物性格，同时提升文笔质量。输出时直接给出改写后的内容，无需解释。',
+  },
+  reviewer: {
+    name: '审校',
+    icon: '🔍',
+    color: 'text-amber-500',
+    bgColor: 'bg-amber-50 dark:bg-amber-900/20',
+    description: '检查 OOC、逻辑漏洞',
+    systemPrompt: '你是一个专业的小说审校编辑。你的任务是检查内容是否存在人物崩坏（OOC）、逻辑漏洞、设定矛盾、情节不合理等问题。请指出具体问题并给出修改建议，格式化输出，使用序号列出问题。',
+  },
+};
 
 const AIAssistantChat: React.FC = () => {
   const {
@@ -45,6 +74,16 @@ const AIAssistantChat: React.FC = () => {
     items,
     webSearchEnabled,
     isSearching,
+    // RAG 和新功能状态
+    ragEnabled,
+    ragMemoryCount,
+    isIndexing,
+    aiRole,
+    stylePreservation,
+    expansionLevel,
+    contentRating,
+    writingStyle,
+    novel,
     setAiSessions,
     setCurrentSessionId,
     setChatInput,
@@ -57,6 +96,15 @@ const AIAssistantChat: React.FC = () => {
     setMaxTokens,
     setWebSearchEnabled,
     setIsSearching,
+    // RAG 和新功能操作
+    setRagEnabled,
+    setRagMemoryCount,
+    setIsIndexing,
+    setAiRole,
+    setStylePreservation,
+    setExpansionLevel,
+    setContentRating,
+    setWritingStyle,
   } = useEditorStore();
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -168,7 +216,18 @@ const AIAssistantChat: React.FC = () => {
 
   // 构建系统提示 - 包含所有创作数据
   const buildSystemPrompt = useCallback(() => {
-    let prompt = '你是一个专业的网文创作助手，名为"笔灵"。你精通各种网文流派，能够帮助作者进行情节构思、人物塑造、文笔润色等工作。请基于以下小说设定和资料来提供帮助：';
+    // 根据 AI 角色选择基础系统提示
+    const roleConfig = AI_ROLES[aiRole];
+    let prompt = roleConfig.systemPrompt;
+
+    // 添加风格控制指令
+    prompt += `\n\n【创作风格要求】`;
+    prompt += `\n- 保留度：${stylePreservation}%（${stylePreservation >= 80 ? '高度保留原文风格' : stylePreservation >= 50 ? '适度保留' : '大幅改写'}）`;
+    prompt += `\n- 扩写倾向：${expansionLevel === 'conservative' ? '保守（简洁精炼）' : expansionLevel === 'moderate' ? '适中' : '激进（详细展开）'}`;
+    prompt += `\n- 内容尺度：${contentRating === 'safe' ? '安全向（适合全年龄）' : contentRating === 'moderate' ? '普通（轻微描写）' : '成熟向'}`;
+    prompt += `\n- 文风倾向：${writingStyle}`;
+
+    prompt += '\n\n请基于以下小说设定和资料来提供帮助：';
 
     // 人物角色
     if (characters.length > 0) {
@@ -305,7 +364,7 @@ const AIAssistantChat: React.FC = () => {
     prompt += '\n\n请基于以上设定和资料，帮助作者进行创作。保持设定的一致性，避免与已有内容产生矛盾。';
 
     return prompt;
-  }, [characters, worldviews, timelineEvents, references, outlineNodes, foreshadowings, mindMaps, locations, items, currentChapter, mindMapNodeToText]);
+  }, [characters, worldviews, timelineEvents, references, outlineNodes, foreshadowings, mindMaps, locations, items, currentChapter, mindMapNodeToText, aiRole, stylePreservation, expansionLevel, contentRating, writingStyle]);
 
   // 发送消息
   const sendMessage = useCallback(async () => {
@@ -363,6 +422,20 @@ const AIAssistantChat: React.FC = () => {
 
     let systemPrompt = buildSystemPrompt();
     let searchContext = '';
+    let ragContext = '';
+
+    // RAG 记忆检索
+    if (ragEnabled && novel?.id) {
+      try {
+        const ragResults = ragService.searchContext(text, novel.id, 5);
+        if (ragResults.length > 0) {
+          ragContext = ragService.formatContextForPrompt(ragResults);
+          console.log('[AI助手] RAG 检索到', ragResults.length, '条相关记忆');
+        }
+      } catch (error) {
+        console.error('[AI助手] RAG 检索失败:', error);
+      }
+    }
 
     // 如果启用联网搜索，先执行搜索
     if (webSearchEnabled) {
@@ -385,7 +458,7 @@ const AIAssistantChat: React.FC = () => {
     }
 
     // 组合最终的提示
-    const finalPrompt = searchContext + text;
+    const finalPrompt = ragContext + searchContext + text;
     const options: GenerateOptions = {
       temperature,
       maxTokens: maxTokens,
@@ -424,7 +497,7 @@ const AIAssistantChat: React.FC = () => {
     } finally {
       setIsStreaming(false);
     }
-  }, [chatInput, isStreaming, currentSessionId, aiSessions, selectedModel, temperature, maxTokens, webSearchEnabled, buildSystemPrompt, setChatInput, setIsStreaming, setCurrentSessionId, setAiSessions, setIsSearching]);
+  }, [chatInput, isStreaming, currentSessionId, aiSessions, selectedModel, temperature, maxTokens, webSearchEnabled, ragEnabled, novel, buildSystemPrompt, setChatInput, setIsStreaming, setCurrentSessionId, setAiSessions, setIsSearching]);
 
   return (
     <div className="flex-1 flex flex-col relative overflow-hidden">
@@ -575,6 +648,42 @@ const AIAssistantChat: React.FC = () => {
 
       {/* 底部输入区域 */}
       <div className={`border-t ${themeClasses.border} p-3 space-y-2`}>
+        {/* AI 角色切换 */}
+        <div className="flex items-center gap-1 mb-2">
+          {(Object.keys(AI_ROLES) as Array<keyof typeof AI_ROLES>).map((role) => {
+            const config = AI_ROLES[role];
+            return (
+              <button
+                key={role}
+                onClick={() => setAiRole(role)}
+                className={`flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium rounded-lg transition-colors ${
+                  aiRole === role
+                    ? `${config.color} ${config.bgColor} border border-current`
+                    : `${themeClasses.textMuted} hover:bg-slate-50 dark:hover:bg-slate-800 border border-transparent`
+                }`}
+                title={config.description}
+              >
+                <span>{config.icon}</span>
+                <span>{config.name}</span>
+              </button>
+            );
+          })}
+          {/* RAG 记忆开关 */}
+          <div className="flex-1" />
+          <button
+            onClick={() => setRagEnabled(!ragEnabled)}
+            className={`flex items-center gap-1 px-2 py-1.5 text-xs font-medium rounded-lg transition-colors ${
+              ragEnabled
+                ? 'text-emerald-500 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800'
+                : `${themeClasses.textMuted} hover:bg-slate-50 dark:hover:bg-slate-800 border border-transparent`
+            }`}
+            title={ragEnabled ? 'RAG 记忆已开启' : '点击开启 RAG 记忆'}
+          >
+            <span>{isIndexing ? '📚' : '🧠'}</span>
+            <span>{isIndexing ? '索引中' : 'RAG'}</span>
+          </button>
+        </div>
+
         {/* 工具栏 */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1">
@@ -719,6 +828,65 @@ const AIAssistantChat: React.FC = () => {
                   <option value="4000">4000 tokens</option>
                   <option value="8000">8000 tokens</option>
                 </select>
+              </div>
+              {/* 风格控制矩阵 */}
+              <div className={`pt-2 border-t ${themeClasses.border}`}>
+                <div className={`text-xs font-medium ${themeClasses.text} mb-2`}>风格控制</div>
+                <div>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className={`text-xs ${themeClasses.textMuted}`}>保留度</label>
+                    <span className={`text-xs font-medium ${themeClasses.text}`}>{stylePreservation}%</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="20"
+                    max="100"
+                    step="5"
+                    value={stylePreservation}
+                    onChange={(e) => setStylePreservation(parseInt(e.target.value))}
+                    className="w-full h-1.5 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-purple-500"
+                  />
+                  <div className={`flex justify-between text-[10px] ${themeClasses.textMuted} mt-0.5`}>
+                    <span>大幅改写</span>
+                    <span>保留原文</span>
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-2 mt-2">
+                  <div>
+                    <label className={`text-xs ${themeClasses.textMuted} block mb-1`}>扩写倾向</label>
+                    <select
+                      value={expansionLevel}
+                      onChange={(e) => setExpansionLevel(e.target.value as 'conservative' | 'moderate' | 'aggressive')}
+                      className={`w-full px-2 py-1 text-xs ${themeClasses.input} border rounded-lg`}
+                    >
+                      <option value="conservative">保守（精炼）</option>
+                      <option value="moderate">适中</option>
+                      <option value="aggressive">激进（详细）</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className={`text-xs ${themeClasses.textMuted} block mb-1`}>内容尺度</label>
+                    <select
+                      value={contentRating}
+                      onChange={(e) => setContentRating(e.target.value as 'safe' | 'moderate' | 'mature')}
+                      className={`w-full px-2 py-1 text-xs ${themeClasses.input} border rounded-lg`}
+                    >
+                      <option value="safe">全年龄</option>
+                      <option value="moderate">普通</option>
+                      <option value="mature">成熟向</option>
+                    </select>
+                  </div>
+                </div>
+                <div className="mt-2">
+                  <label className={`text-xs ${themeClasses.textMuted} block mb-1`}>文风倾向</label>
+                  <input
+                    type="text"
+                    value={writingStyle}
+                    onChange={(e) => setWritingStyle(e.target.value)}
+                    placeholder="如：网文轻小说、古典文学、硬科幻..."
+                    className={`w-full px-2 py-1 text-xs ${themeClasses.input} border rounded-lg`}
+                  />
+                </div>
               </div>
             </div>
           </div>
