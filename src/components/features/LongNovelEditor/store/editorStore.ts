@@ -239,6 +239,10 @@ interface EditorState {
   diffOriginalContent: string;
   diffRewrittenContent: string;
   isDiffProcessing: boolean;
+
+  // AI 思维导图生成对话框
+  showAiMindMapDialog: boolean;
+  aiMindMapPrompt: string;
 }
 
 interface EditorActions {
@@ -419,6 +423,10 @@ interface EditorActions {
   setDiffRewrittenContent: (content: string) => void;
   setIsDiffProcessing: (processing: boolean) => void;
 
+  // AI 思维导图生成对话框操作
+  setShowAiMindMapDialog: (show: boolean) => void;
+  setAiMindMapPrompt: (prompt: string) => void;
+
   // 从 Novel 初始化数据
   initializeFromNovel: (novel: Novel) => void;
 
@@ -563,6 +571,10 @@ const initialState: EditorState = {
   diffOriginalContent: '',
   diffRewrittenContent: '',
   isDiffProcessing: false,
+
+  // AI 思维导图生成对话框
+  showAiMindMapDialog: false,
+  aiMindMapPrompt: '',
 };
 
 export const useEditorStore = create<EditorState & EditorActions>((set, get) => ({
@@ -796,6 +808,10 @@ export const useEditorStore = create<EditorState & EditorActions>((set, get) => 
   setDiffOriginalContent: (diffOriginalContent) => set({ diffOriginalContent }),
   setDiffRewrittenContent: (diffRewrittenContent) => set({ diffRewrittenContent }),
   setIsDiffProcessing: (isDiffProcessing) => set({ isDiffProcessing }),
+
+  // AI 思维导图生成对话框操作
+  setShowAiMindMapDialog: (showAiMindMapDialog) => set({ showAiMindMapDialog }),
+  setAiMindMapPrompt: (aiMindMapPrompt) => set({ aiMindMapPrompt }),
 
   // 从 Novel 初始化数据
   initializeFromNovel: (novel) => {

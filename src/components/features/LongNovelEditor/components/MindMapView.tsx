@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useEditorStore } from '../store/editorStore';
 import { useEditorContext } from '../context/EditorContext';
 import { MindMap, MindMapNode } from '../../../../types';
@@ -121,6 +121,10 @@ const MindMapView: React.FC = () => {
     setAiGeneratingType,
     characters,
     worldviews,
+    showAiMindMapDialog,
+    setShowAiMindMapDialog,
+    aiMindMapPrompt,
+    setAiMindMapPrompt,
   } = useEditorStore();
 
   // 当前选中的思维导图
@@ -253,20 +257,29 @@ const MindMapView: React.FC = () => {
       context += `\n已有人物：${characters.slice(0, 5).map(c => c.name).join('、')}`;
     }
     if (worldviews.length > 0) {
-      context += `\n已有世界观：${worldviews.slice(0, 3).map(w => w.title || w.name).join('、')}`;
+      context += `\n已有世界观：${worldviews.slice(0, 3).map(w => w.title).join('、')}`;
     }
     return context;
   }, [characters, worldviews]);
+
+  // 打开 AI 生成对话框
+  const openAiGenerateDialog = useCallback(() => {
+    if (!currentMap || !selectedNode) return;
+    setAiMindMapPrompt('');
+    setShowAiMindMapDialog(true);
+  }, [currentMap, selectedNode, setAiMindMapPrompt, setShowAiMindMapDialog]);
 
   // AI 生成思维导图子节点
   const aiGenerateMindMapNodes = useCallback(async () => {
     if (!currentMap || !selectedNode || isAiGenerating) return;
 
+    setShowAiMindMapDialog(false);
     setIsAiGenerating(true);
     setAiGeneratingType('mindmap');
 
     const context = buildCreativeContext();
     const currentNodePath = selectedNode.title;
+    const userDirection = aiMindMapPrompt.trim();
 
     const prompt = `你是一个专业的网络小说创作助手，正在帮助作者构建思维导图。
 
@@ -276,11 +289,13 @@ ${context}
 当前思维导图主题：${currentMap.name}
 当前选中节点：${currentNodePath}
 ${selectedNode.children.length > 0 ? `已有子节点：${selectedNode.children.map(c => c.title).join('、')}` : '该节点暂无子节点'}
+${userDirection ? `\n用户希望的生成方向：${userDirection}` : ''}
 
 请为当前节点生成 3-5 个合适的子节点标题，这些子节点应该：
 1. 与当前节点主题相关且有逻辑联系
 2. 适合网络小说创作场景
 3. 简洁明了，每个标题 2-8 个字
+${userDirection ? `4. 重点围绕用户指定的方向进行扩展` : ''}
 
 请直接输出子节点标题，每行一个，不要加序号或其他符号。`;
 
@@ -321,7 +336,7 @@ ${selectedNode.children.length > 0 ? `已有子节点：${selectedNode.children.
       setIsAiGenerating(false);
       setAiGeneratingType(null);
     }
-  }, [currentMap, selectedNode, selectedNodeId, isAiGenerating, novel?.title, buildCreativeContext, updateMindMap, onRecordActivity, setIsAiGenerating, setAiGeneratingType]);
+  }, [currentMap, selectedNode, selectedNodeId, isAiGenerating, novel?.title, aiMindMapPrompt, buildCreativeContext, updateMindMap, onRecordActivity, setIsAiGenerating, setAiGeneratingType, setShowAiMindMapDialog]);
 
   // 渲染思维导图节点
   const renderMindMapNode = (node: MindMapNode, level: number = 0, isLast: boolean = true, parentPath: boolean[] = []): React.ReactNode => {
@@ -445,11 +460,11 @@ ${selectedNode.children.length > 0 ? `已有子节点：${selectedNode.children.
       </div>
 
       {/* 思维导图画布 */}
-      <div className="flex-1 min-h-0 overflow-auto p-8">
+      <div className="flex-1 min-h-0 overflow-auto">
         {currentMap ? (
           <div
-            className="inline-flex min-w-full justify-center origin-top-left transition-transform duration-200"
-            style={{ transform: `scale(${mindMapScale})` }}
+            className="inline-flex min-w-full min-h-full p-12 pt-16"
+            style={{ transform: `scale(${mindMapScale})`, transformOrigin: 'top left' }}
           >
             {renderMindMapNode(currentMap.root)}
           </div>
@@ -497,7 +512,7 @@ ${selectedNode.children.length > 0 ? `已有子节点：${selectedNode.children.
           <div className="flex gap-2 ml-auto">
             <button
               className="px-4 py-2 rounded-xl bg-indigo-600 text-white text-xs hover:bg-indigo-700 transition-colors disabled:opacity-40 flex items-center gap-1.5"
-              onClick={aiGenerateMindMapNodes}
+              onClick={openAiGenerateDialog}
               disabled={!selectedNode || isAiGenerating}
             >
               {isAiGenerating && aiGeneratingType === 'mindmap' ? (
@@ -541,6 +556,64 @@ ${selectedNode.children.length > 0 ? `已有子节点：${selectedNode.children.
           </div>
         </div>
       </div>
+
+      {/* AI 生成方向对话框 */}
+      {showAiMindMapDialog && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-2xl shadow-xl w-full max-w-md mx-4 overflow-hidden">
+            <div className="px-6 py-4 border-b border-slate-200">
+              <h3 className="text-lg font-semibold text-slate-800">AI 生成子节点</h3>
+              <p className="text-sm text-slate-500 mt-1">
+                当前节点：<span className="text-indigo-600 font-medium">{selectedNode?.title}</span>
+              </p>
+            </div>
+            <div className="px-6 py-4">
+              <label className="block text-sm font-medium text-slate-700 mb-2">
+                生成方向（可选）
+              </label>
+              <textarea
+                value={aiMindMapPrompt}
+                onChange={(e) => setAiMindMapPrompt(e.target.value)}
+                placeholder="例如：围绕主角的成长经历展开、添加反派势力的分支、细化这个情节的发展..."
+                className="w-full h-32 px-4 py-3 border border-slate-200 rounded-xl text-sm resize-none focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+              />
+              <p className="text-xs text-slate-400 mt-2">
+                留空则由 AI 自动分析节点内容并生成相关子节点
+              </p>
+            </div>
+            <div className="px-6 py-4 bg-slate-50 flex gap-3 justify-end">
+              <button
+                onClick={() => setShowAiMindMapDialog(false)}
+                className="px-4 py-2 text-sm text-slate-600 hover:bg-slate-100 rounded-xl transition-colors"
+              >
+                取消
+              </button>
+              <button
+                onClick={aiGenerateMindMapNodes}
+                disabled={isAiGenerating}
+                className="px-4 py-2 text-sm bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition-colors disabled:opacity-50 flex items-center gap-2"
+              >
+                {isAiGenerating ? (
+                  <>
+                    <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                    </svg>
+                    生成中...
+                  </>
+                ) : (
+                  <>
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                    开始生成
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
