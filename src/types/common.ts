@@ -1,3 +1,5 @@
+import type { ReactNode } from 'react';
+
 export type Theme = 'light' | 'dark' | 'system';
 
 export enum ViewState {
@@ -16,5 +18,5 @@ export enum ViewState {
 export interface NavItem {
   id: ViewState;
   label: string;
-  icon: React.ReactNode;
+  icon: ReactNode;
 }

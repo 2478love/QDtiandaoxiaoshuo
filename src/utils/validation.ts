@@ -641,7 +641,7 @@ export const validateInput = <T>(
     return { success: true, data: result.data };
   }
 
-  const errors = result.error.errors.map(err => {
+  const errors = result.error.issues.map(err => {
     const path = err.path.join('.');
     return path ? `${path}: ${err.message}` : err.message;
   });
@@ -663,7 +663,7 @@ export const getFieldErrors = <T>(
   }
 
   const errors: Record<string, string> = {};
-  result.error.errors.forEach(err => {
+  result.error.issues.forEach(err => {
     const path = err.path.join('.');
     if (path && !errors[path]) {
       errors[path] = err.message;

@@ -13,7 +13,7 @@
  * - 集成 DOMPurify 进行 XSS 防护
  */
 
-import DOMPurify from 'dompurify';
+import DOMPurify, { type Config as DOMPurifyConfig } from 'dompurify';
 
 // ==================== 常量定义 ====================
 
@@ -476,7 +476,7 @@ export function apiKeyNeedsReencryption(encryptedKey: string): boolean {
 /**
  * DOMPurify 配置
  */
-const DOMPURIFY_CONFIG: DOMPurify.Config = {
+const DOMPURIFY_CONFIG: DOMPurifyConfig = {
   ALLOWED_TAGS: [
     'p', 'br', 'strong', 'em', 'u', 's', 'span',
     'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
@@ -493,29 +493,29 @@ const DOMPURIFY_CONFIG: DOMPurify.Config = {
  * 使用 DOMPurify 清理 HTML 内容
  */
 export function sanitizeHtml(dirty: string): string {
-  return DOMPurify.sanitize(dirty, DOMPURIFY_CONFIG);
+  return String(DOMPurify.sanitize(dirty, DOMPURIFY_CONFIG));
 }
 
 /**
  * 清理并允许更多富文本标签（用于小说内容）
  */
 export function sanitizeRichText(dirty: string): string {
-  return DOMPurify.sanitize(dirty, {
+  return String(DOMPurify.sanitize(dirty, {
     ...DOMPURIFY_CONFIG,
     ALLOWED_TAGS: [
-      ...DOMPURIFY_CONFIG.ALLOWED_TAGS as string[],
+      ...(DOMPURIFY_CONFIG.ALLOWED_TAGS as string[]),
       'ruby', 'rt', 'rp', // 日文注音
       'sub', 'sup', // 上下标
       'mark', 'del', 'ins', // 标记
     ],
-  });
+  }));
 }
 
 /**
  * 清理纯文本（移除所有 HTML）
  */
 export function sanitizePlainText(dirty: string): string {
-  return DOMPurify.sanitize(dirty, { ALLOWED_TAGS: [] });
+  return String(DOMPurify.sanitize(dirty, { ALLOWED_TAGS: [] }));
 }
 
 /**

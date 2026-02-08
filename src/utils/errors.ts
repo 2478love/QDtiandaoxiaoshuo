@@ -75,6 +75,13 @@ export enum ErrorSeverity {
 /**
  * 应用错误基类
  */
+export interface AppErrorOptions {
+  severity?: ErrorSeverity;
+  context?: Record<string, unknown>;
+  retryable?: boolean;
+  cause?: Error;
+}
+
 export class AppError extends Error {
   public readonly code: ErrorCode;
   public readonly severity: ErrorSeverity;
@@ -85,12 +92,7 @@ export class AppError extends Error {
   constructor(
     message: string,
     code: ErrorCode = ErrorCode.UNKNOWN,
-    options: {
-      severity?: ErrorSeverity;
-      context?: Record<string, unknown>;
-      retryable?: boolean;
-      cause?: Error;
-    } = {}
+    options: AppErrorOptions = {}
   ) {
     super(message);
     this.name = 'AppError';
@@ -136,7 +138,7 @@ export class AppError extends Error {
  * 网络错误
  */
 export class NetworkError extends AppError {
-  constructor(message: string, code: ErrorCode = ErrorCode.NETWORK_ERROR, options?: Parameters<typeof AppError.prototype.constructor>[2]) {
+  constructor(message: string, code: ErrorCode = ErrorCode.NETWORK_ERROR, options?: AppErrorOptions) {
     super(message, code, { retryable: true, ...options });
     this.name = 'NetworkError';
     Object.setPrototypeOf(this, NetworkError.prototype);
@@ -153,7 +155,7 @@ export class ApiError extends AppError {
     message: string,
     code: ErrorCode = ErrorCode.API_ERROR,
     statusCode?: number,
-    options?: Parameters<typeof AppError.prototype.constructor>[2]
+    options?: AppErrorOptions
   ) {
     const retryable = statusCode ? statusCode >= 500 || statusCode === 429 : false;
     super(message, code, { retryable, ...options });
@@ -169,7 +171,7 @@ export class ApiError extends AppError {
 export class ValidationError extends AppError {
   public readonly field?: string;
 
-  constructor(message: string, field?: string, options?: Parameters<typeof AppError.prototype.constructor>[2]) {
+  constructor(message: string, field?: string, options?: AppErrorOptions) {
     super(message, ErrorCode.VALIDATION_ERROR, { severity: ErrorSeverity.WARNING, ...options });
     this.name = 'ValidationError';
     this.field = field;

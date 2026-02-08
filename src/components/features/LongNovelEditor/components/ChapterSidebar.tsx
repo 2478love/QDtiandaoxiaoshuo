@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, memo } from 'react';
 import { useEditorStore } from '../store/editorStore';
-import { useEditorContext } from '../context/EditorContext';
+import { useEditorContext, type ThemeClasses } from '../context/EditorContext';
 import { Chapter, Volume } from '../../../../types';
 
 /**
@@ -16,8 +16,8 @@ interface ChapterItemProps {
   editingChapterTitle: string;
   showVolumePickerFor: string | null;
   volumes: Volume[];
-  themeClasses: Record<string, string>;
-  effectiveTheme: string;
+  themeClasses: ThemeClasses;
+  effectiveTheme: 'light' | 'gray' | 'dark';
   onSelect: () => void;
   onSetEditingChapterTitle: (title: string) => void;
   onSetEditingChapterId: (id: string | null) => void;

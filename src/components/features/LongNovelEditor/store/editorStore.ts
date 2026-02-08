@@ -256,7 +256,7 @@ interface EditorActions {
   setIsStreaming: (streaming: boolean) => void;
 
   // AI 会话操作
-  setAiSessions: (sessions: AIChatSession[]) => void;
+  setAiSessions: (sessions: AIChatSession[] | ((prev: AIChatSession[]) => AIChatSession[])) => void;
   addAiSession: (session: AIChatSession) => void;
   updateAiSession: (sessionId: string, updates: Partial<AIChatSession>) => void;
   deleteAiSession: (sessionId: string) => void;
@@ -373,7 +373,7 @@ interface EditorActions {
 
   // 番茄钟操作
   setShowPomodoro: (show: boolean) => void;
-  setPomodoroTime: (time: number) => void;
+  setPomodoroTime: (time: number | ((prev: number) => number)) => void;
   setPomodoroRunning: (running: boolean) => void;
   setPomodoroMode: (mode: 'work' | 'break') => void;
   setPomodoroCount: (count: number) => void;
@@ -591,8 +591,11 @@ export const useEditorStore = create<EditorState & EditorActions>((set, get) => 
 
   // AI 会话操作
   setAiSessions: (sessions) => {
-    set({ aiSessions: sessions });
-    saveAISessions(sessions);
+    const nextSessions = typeof sessions === 'function'
+      ? sessions(get().aiSessions)
+      : sessions;
+    set({ aiSessions: nextSessions });
+    saveAISessions(nextSessions);
   },
   addAiSession: (session) => {
     const newSessions = [...get().aiSessions, session];
@@ -759,7 +762,11 @@ export const useEditorStore = create<EditorState & EditorActions>((set, get) => 
 
   // 番茄钟操作
   setShowPomodoro: (showPomodoro) => set({ showPomodoro }),
-  setPomodoroTime: (pomodoroTime) => set({ pomodoroTime }),
+  setPomodoroTime: (timeOrUpdater) => set((state) => ({
+    pomodoroTime: typeof timeOrUpdater === 'function'
+      ? timeOrUpdater(state.pomodoroTime)
+      : timeOrUpdater,
+  })),
   setPomodoroRunning: (pomodoroRunning) => set({ pomodoroRunning }),
   setPomodoroMode: (pomodoroMode) => set({ pomodoroMode }),
   setPomodoroCount: (pomodoroCount) => set({ pomodoroCount }),

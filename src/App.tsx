@@ -17,7 +17,7 @@ import { OfflineIndicator } from './components/ui/ProgressModal';
 import { SessionExpiryWarning } from './components/ui/SessionExpiryWarning';
 import { usePersistentState, useOnlineStatus } from './hooks';
 import { ViewState, User, Theme, Novel, ActivityEntry, InviteRecord, PromptEntry, ShortWork, StoredUser, LoginHistoryEntry, LOGIN_MAX_ATTEMPTS, LOGIN_LOCKOUT_MINUTES } from './types';
-import { createId, createInviteCode, hashPassword, verifyPasswordHash, passwordNeedsUpgrade } from './utils';
+import { createId, createInviteCode, hashPassword, verifyPassword, passwordNeedsUpgrade } from './utils';
 import { defaultPrompts } from './data/defaultPrompts';
 
 // 检查用户是否被锁定
@@ -206,7 +206,7 @@ function App() {
     }
 
     // 使用安全的异步密码验证
-    const isValid = await verifyPasswordHash(payload.password, existing.passwordHash);
+    const isValid = await verifyPassword(payload.password, existing.passwordHash);
 
     // 创建登录历史记录
     const loginEntry: LoginHistoryEntry = {
@@ -292,7 +292,7 @@ function App() {
     }
 
     // 验证当前密码
-    const isValid = await verifyPasswordHash(currentPassword, storedUser.passwordHash);
+    const isValid = await verifyPassword(currentPassword, storedUser.passwordHash);
     if (!isValid) {
       return { success: false, message: '当前密码不正确' };
     }
@@ -303,7 +303,7 @@ function App() {
     }
 
     // 检查新密码是否与当前密码相同
-    const isSamePassword = await verifyPasswordHash(newPassword, storedUser.passwordHash);
+    const isSamePassword = await verifyPassword(newPassword, storedUser.passwordHash);
     if (isSamePassword) {
       return { success: false, message: '新密码不能与当前密码相同' };
     }

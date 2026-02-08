@@ -145,7 +145,7 @@ const ToolsPanel: React.FC = () => {
   const getTodayWrittenWords = useCallback((): number => {
     const today = new Date().toISOString().split('T')[0];
     const todayRecord = writingRecords.find(r => r.date === today);
-    return todayRecord?.wordCount || 0;
+    return todayRecord?.wordsWritten || 0;
   }, [writingRecords]);
 
   // 执行搜索
@@ -310,8 +310,8 @@ const ToolsPanel: React.FC = () => {
   const getTotalStats = useMemo(() => {
     const totalWords = chapters.reduce((sum, ch) => sum + ch.wordCount, 0);
     const totalDays = writingRecords.length;
-    const avgDaily = totalDays > 0 ? Math.round(writingRecords.reduce((sum, r) => sum + r.wordCount, 0) / totalDays) : 0;
-    const maxDaily = writingRecords.length > 0 ? Math.max(...writingRecords.map(r => r.wordCount)) : 0;
+    const avgDaily = totalDays > 0 ? Math.round(writingRecords.reduce((sum, r) => sum + r.wordsWritten, 0) / totalDays) : 0;
+    const maxDaily = writingRecords.length > 0 ? Math.max(...writingRecords.map(r => r.wordsWritten)) : 0;
     return { totalWords, totalDays, avgDaily, maxDaily };
   }, [chapters, writingRecords]);
 
@@ -324,7 +324,7 @@ const ToolsPanel: React.FC = () => {
       const record = writingRecords.find(r => r.date === dateStr);
       stats.push({
         date: `${date.getMonth() + 1}/${date.getDate()}`,
-        words: record?.wordCount || 0
+        words: record?.wordsWritten || 0
       });
     }
     return stats;
@@ -343,7 +343,7 @@ const ToolsPanel: React.FC = () => {
   const handleFileImport = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files || files.length === 0) return;
-    Array.from(files).forEach(file => {
+    Array.from(files as FileList).forEach((file: File) => {
       const reader = new FileReader();
       reader.onload = (ev) => {
         const content = ev.target?.result as string;

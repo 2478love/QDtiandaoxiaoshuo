@@ -271,7 +271,7 @@ export const useAppStore = create<AppState & AppActions>()(
 
       // ==================== 短篇作品 ====================
 
-      setShortWorks: (works) => set({ shortWorks }),
+      setShortWorks: (works) => set({ shortWorks: works }),
 
       // ==================== 重置 ====================
 

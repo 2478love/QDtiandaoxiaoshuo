@@ -27,7 +27,7 @@
  * }, 100);
  */
 
-import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo, type DependencyList } from 'react';
 
 /**
  * 防抖值 Hook
@@ -56,7 +56,7 @@ export function useDebouncedValue<T>(value: T, delay: number = 300): T {
 export function useDebouncedCallback<T extends (...args: any[]) => any>(
   callback: T,
   delay: number = 300,
-  deps: React.DependencyList = []
+  deps: DependencyList = []
 ): T {
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const callbackRef = useRef(callback);
@@ -95,7 +95,7 @@ export function useDebouncedCallback<T extends (...args: any[]) => any>(
 export function useThrottledCallback<T extends (...args: any[]) => any>(
   callback: T,
   delay: number = 300,
-  deps: React.DependencyList = []
+  deps: DependencyList = []
 ): T {
   const lastRunRef = useRef<number>(0);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);

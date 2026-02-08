@@ -831,15 +831,13 @@ const LongNovelEditor: React.FC<LongNovelEditorProps> = ({ novel, onUpdateNovel,
       createdAt: new Date().toISOString()
     };
     setCharacters(prev => [...prev, newCharacter]);
-    setShowCreativeModal(false);
-    setEditingItem(null);
+    setCreativeModalType(null);
   }, []);
 
   // 更新人物
   const updateCharacter = useCallback((id: string, data: Partial<Character>) => {
     setCharacters(prev => prev.map(c => c.id === id ? { ...c, ...data } : c));
-    setShowCreativeModal(false);
-    setEditingItem(null);
+    setCreativeModalType(null);
   }, []);
 
   // 删除人物
@@ -856,15 +854,13 @@ const LongNovelEditor: React.FC<LongNovelEditorProps> = ({ novel, onUpdateNovel,
       createdAt: new Date().toISOString()
     };
     setWorldviews(prev => [...prev, newWorldview]);
-    setShowCreativeModal(false);
-    setEditingItem(null);
+    setCreativeModalType(null);
   }, []);
 
   // 更新世界观
   const updateWorldview = useCallback((id: string, data: Partial<Worldview>) => {
     setWorldviews(prev => prev.map(w => w.id === id ? { ...w, ...data } : w));
-    setShowCreativeModal(false);
-    setEditingItem(null);
+    setCreativeModalType(null);
   }, []);
 
   // 删除世界观
@@ -881,15 +877,13 @@ const LongNovelEditor: React.FC<LongNovelEditorProps> = ({ novel, onUpdateNovel,
       createdAt: new Date().toISOString()
     };
     setTimelineEvents(prev => [...prev, newEvent]);
-    setShowCreativeModal(false);
-    setEditingItem(null);
+    setCreativeModalType(null);
   }, []);
 
   // 更新事件
   const updateTimelineEvent = useCallback((id: string, data: Partial<TimelineEvent>) => {
     setTimelineEvents(prev => prev.map(e => e.id === id ? { ...e, ...data } : e));
-    setShowCreativeModal(false);
-    setEditingItem(null);
+    setCreativeModalType(null);
   }, []);
 
   // 删除事件
@@ -906,15 +900,13 @@ const LongNovelEditor: React.FC<LongNovelEditorProps> = ({ novel, onUpdateNovel,
       createdAt: new Date().toISOString()
     };
     setReferences(prev => [...prev, newRef]);
-    setShowCreativeModal(false);
-    setEditingItem(null);
+    setCreativeModalType(null);
   }, []);
 
   // 更新资料
   const updateReference = useCallback((id: string, data: Partial<Reference>) => {
     setReferences(prev => prev.map(r => r.id === id ? { ...r, ...data } : r));
-    setShowCreativeModal(false);
-    setEditingItem(null);
+    setCreativeModalType(null);
   }, []);
 
   // 删除资料
@@ -2394,7 +2386,7 @@ ${charDescriptions}
     const previews: {title: string; content: string}[] = [];
     let loaded = 0;
 
-    Array.from(files).forEach(file => {
+    Array.from(files as FileList).forEach((file: File) => {
       const reader = new FileReader();
       reader.onload = (e) => {
         const content = e.target?.result as string;
