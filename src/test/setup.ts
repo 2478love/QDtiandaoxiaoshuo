@@ -3,20 +3,43 @@
  */
 
 import '@testing-library/jest-dom';
-import { afterEach, vi } from 'vitest';
+import { afterEach, beforeEach, vi } from 'vitest';
 
-// Mock localStorage
-const localStorageMock = {
-  getItem: vi.fn(),
-  setItem: vi.fn(),
-  removeItem: vi.fn(),
-  clear: vi.fn(),
-  length: 0,
-  key: vi.fn(),
-};
+// Provide a working localStorage implementation
+class LocalStorageMock {
+  private store: Record<string, string> = {};
 
-Object.defineProperty(window, 'localStorage', {
+  getItem(key: string): string | null {
+    return this.store[key] || null;
+  }
+
+  setItem(key: string, value: string): void {
+    this.store[key] = String(value);
+  }
+
+  removeItem(key: string): void {
+    delete this.store[key];
+  }
+
+  clear(): void {
+    this.store = {};
+  }
+
+  get length(): number {
+    return Object.keys(this.store).length;
+  }
+
+  key(index: number): string | null {
+    const keys = Object.keys(this.store);
+    return keys[index] || null;
+  }
+}
+
+const localStorageMock = new LocalStorageMock();
+
+Object.defineProperty(global, 'localStorage', {
   value: localStorageMock,
+  writable: true,
 });
 
 // Mock IndexedDB
@@ -58,23 +81,12 @@ global.IntersectionObserver = vi.fn().mockImplementation(() => ({
   disconnect: vi.fn(),
 }));
 
-// Mock crypto.subtle
+// Use real Web Crypto API from Node.js
+// Node.js 15+ provides a compatible crypto.subtle implementation
+import { webcrypto } from 'crypto';
 Object.defineProperty(global, 'crypto', {
-  value: {
-    subtle: {
-      importKey: vi.fn(),
-      deriveBits: vi.fn(),
-      deriveKey: vi.fn(),
-      encrypt: vi.fn(),
-      decrypt: vi.fn(),
-    },
-    getRandomValues: vi.fn((arr: Uint8Array) => {
-      for (let i = 0; i < arr.length; i++) {
-        arr[i] = Math.floor(Math.random() * 256);
-      }
-      return arr;
-    }),
-  },
+  value: webcrypto,
+  writable: false,
 });
 
 // Mock BroadcastChannel
@@ -104,7 +116,5 @@ Object.defineProperty(window, 'performance', {
 // 清理函数
 afterEach(() => {
   vi.clearAllMocks();
-  localStorageMock.getItem.mockClear();
-  localStorageMock.setItem.mockClear();
-  localStorageMock.removeItem.mockClear();
+  localStorageMock.clear();
 });
