@@ -1,17 +1,18 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { Suspense, lazy, useState, useEffect, useCallback, useMemo } from 'react';
 import Sidebar from './components/layout/Sidebar';
 import AuthModal from './components/layout/AuthModal';
 import { AuthPayload } from './components/layout/AuthModal';
-import Dashboard from './components/features/Dashboard';
-import WritingTool from './components/features/WritingTool';
-import NovelManager from './components/features/NovelManager';
-import ShortNovel from './components/features/ShortNovel';
-import BookBreaker from './components/features/BookBreaker';
-import MemberCenter from './components/features/MemberCenter';
-import InviteManager from './components/features/InviteManager';
-import Settings from './components/features/Settings';
-import PromptsLibrary from './components/features/PromptsLibrary';
-import LongNovelEditor from './components/features/LongNovelEditor';
+
+const Dashboard = lazy(() => import('./components/features/Dashboard'));
+const WritingTool = lazy(() => import('./components/features/WritingTool'));
+const NovelManager = lazy(() => import('./components/features/NovelManager'));
+const ShortNovel = lazy(() => import('./components/features/ShortNovel'));
+const BookBreaker = lazy(() => import('./components/features/BookBreaker'));
+const MemberCenter = lazy(() => import('./components/features/MemberCenter'));
+const InviteManager = lazy(() => import('./components/features/InviteManager'));
+const Settings = lazy(() => import('./components/features/Settings'));
+const PromptsLibrary = lazy(() => import('./components/features/PromptsLibrary'));
+const LongNovelEditor = lazy(() => import('./components/features/LongNovelEditor'));
 import { ToastProvider } from './components/ui/Toast';
 import { OfflineIndicator } from './components/ui/ProgressModal';
 import { SessionExpiryWarning } from './components/ui/SessionExpiryWarning';
@@ -384,6 +385,12 @@ function App() {
     recordActivity({ type: 'novel', description: `创建作品《${novel.title}》`, deltaPoints: 5 });
   };
 
+  const contentFallback = (
+    <div className="flex items-center justify-center py-16 text-sm text-slate-500 dark:text-slate-400">
+      正在加载模块...
+    </div>
+  );
+
   const renderContent = () => {
     switch (currentView) {
       case ViewState.DASHBOARD:
@@ -451,7 +458,9 @@ function App() {
               </header>
           )}
           <div className={currentView === ViewState.LONG_NOVEL ? "" : "px-6 lg:px-10 pb-10"}>
-              {renderContent()}
+              <Suspense fallback={contentFallback}>
+                {renderContent()}
+              </Suspense>
           </div>
         </main>
         <AuthModal
