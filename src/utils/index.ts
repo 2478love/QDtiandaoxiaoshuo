@@ -31,3 +31,29 @@ export {
   needsHashUpgrade,
 } from './crypto';
 export type { PasswordHashResult } from './crypto';
+
+// 专有名词检查
+export {
+  checkProperNouns,
+  replaceProperNouns,
+} from './properNounChecker';
+export type {
+  ProperNounVariant,
+  Location as ProperNounLocation,
+  ProperNounCheckResult,
+} from './properNounChecker';
+
+// 敏感词检测
+export {
+  checkSensitiveWords,
+  replaceSensitiveWords,
+  getSensitiveWordsDatabase,
+  addCustomSensitiveWord,
+} from './sensitiveWordChecker';
+export type {
+  SensitivityLevel,
+  SensitiveWord,
+  SensitiveWordMatch,
+  SensitiveWordCheckResult,
+} from './sensitiveWordChecker';
+
