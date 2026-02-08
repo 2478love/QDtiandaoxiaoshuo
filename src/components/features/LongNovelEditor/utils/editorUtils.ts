@@ -1,5 +1,6 @@
 import { MindMap, MindMapNode, ChapterTemplate } from '../../../../types';
 import { createId, createMindMapId } from '../../../../utils/id';
+import { escapeHtml } from '../../../../utils';
 
 // 节点颜色配置
 export const NODE_COLORS = [
@@ -224,12 +225,18 @@ export const exportToMarkdown = (title: string, content: string) => {
 
 // 导出为 Word
 export const exportToWord = (title: string, content: string) => {
+  const safeTitle = escapeHtml(title);
+  const safeParagraphs = content
+    .split('\n')
+    .map((p) => `<p>${escapeHtml(p)}</p>`)
+    .join('');
+
   const htmlContent = `
     <!DOCTYPE html>
     <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word'>
     <head>
       <meta charset="utf-8">
-      <title>${title}</title>
+      <title>${safeTitle}</title>
       <style>
         body { font-family: '微软雅黑', sans-serif; font-size: 14pt; line-height: 1.8; }
         h1 { font-size: 18pt; text-align: center; }
@@ -237,8 +244,8 @@ export const exportToWord = (title: string, content: string) => {
       </style>
     </head>
     <body>
-      <h1>${title}</h1>
-      ${content.split('\n').map(p => `<p>${p}</p>`).join('')}
+      <h1>${safeTitle}</h1>
+      ${safeParagraphs}
     </body>
     </html>
   `;
@@ -253,6 +260,13 @@ export const exportToWord = (title: string, content: string) => {
 
 // 导出为 PDF (通过打印)
 export const exportToPDF = (title: string, content: string) => {
+  const safeTitle = escapeHtml(title);
+  const safeParagraphs = content
+    .split('\n')
+    .filter((p) => p.trim())
+    .map((p) => `<p>${escapeHtml(p)}</p>`)
+    .join('');
+
   const printWindow = window.open('', '_blank');
   if (!printWindow) {
     alert('请允许弹出窗口以导出PDF');
@@ -263,7 +277,7 @@ export const exportToPDF = (title: string, content: string) => {
     <html>
     <head>
       <meta charset="utf-8">
-      <title>${title}</title>
+      <title>${safeTitle}</title>
       <style>
         body { font-family: '微软雅黑', sans-serif; font-size: 12pt; line-height: 1.8; padding: 40px; }
         h1 { font-size: 18pt; text-align: center; margin-bottom: 30px; }
@@ -274,8 +288,8 @@ export const exportToPDF = (title: string, content: string) => {
       </style>
     </head>
     <body>
-      <h1>${title}</h1>
-      ${content.split('\n').filter(p => p.trim()).map(p => `<p>${p}</p>`).join('')}
+      <h1>${safeTitle}</h1>
+      ${safeParagraphs}
     </body>
     </html>
   `);

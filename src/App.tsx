@@ -101,6 +101,16 @@ function App() {
     }
   }, []);
 
+  // 本地轻量安全策略：未勾选“记住我”时，不保留持久会话
+  useEffect(() => {
+    const rememberMe = localStorage.getItem('tiandao_remember_me') === 'true';
+    if (!rememberMe && sessionId) {
+      setSessionId(null);
+    }
+    // 仅在应用启动时检查一次
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   useEffect(() => {
     const root = window.document.documentElement;
     root.classList.remove('light', 'dark');

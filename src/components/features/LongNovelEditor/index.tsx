@@ -21,6 +21,7 @@ import {
   createRecordId,
   createGoalId
 } from '../../../utils/id';
+import { escapeHtml, isNovel, safeParseJson } from '../../../utils';
 
 // AI 助手会话相关类型
 interface AIChatMessage {
@@ -735,13 +736,20 @@ const LongNovelEditor: React.FC<LongNovelEditorProps> = ({ novel, onUpdateNovel,
       alert('请先选择章节');
       return;
     }
+
+    const safeTitle = escapeHtml(currentChapter.title);
+    const safeParagraphs = currentChapter.content
+      .split('\n')
+      .map((p) => `<p>${escapeHtml(p)}</p>`)
+      .join('');
+
     // 使用HTML格式创建Word兼容文档
     const htmlContent = `
       <!DOCTYPE html>
       <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word'>
       <head>
         <meta charset="utf-8">
-        <title>${currentChapter.title}</title>
+        <title>${safeTitle}</title>
         <style>
           body { font-family: '微软雅黑', sans-serif; font-size: 14pt; line-height: 1.8; }
           h1 { font-size: 18pt; text-align: center; }
@@ -749,8 +757,8 @@ const LongNovelEditor: React.FC<LongNovelEditorProps> = ({ novel, onUpdateNovel,
         </style>
       </head>
       <body>
-        <h1>${currentChapter.title}</h1>
-        ${currentChapter.content.split('\n').map(p => `<p>${p}</p>`).join('')}
+        <h1>${safeTitle}</h1>
+        ${safeParagraphs}
       </body>
       </html>
     `;
@@ -768,6 +776,14 @@ const LongNovelEditor: React.FC<LongNovelEditorProps> = ({ novel, onUpdateNovel,
       alert('请先选择章节');
       return;
     }
+
+    const safeTitle = escapeHtml(currentChapter.title);
+    const safeParagraphs = currentChapter.content
+      .split('\n')
+      .filter((p) => p.trim())
+      .map((p) => `<p>${escapeHtml(p)}</p>`)
+      .join('');
+
     // 创建打印友好的HTML并调用打印
     const printWindow = window.open('', '_blank');
     if (!printWindow) {
@@ -779,7 +795,7 @@ const LongNovelEditor: React.FC<LongNovelEditorProps> = ({ novel, onUpdateNovel,
       <html>
       <head>
         <meta charset="utf-8">
-        <title>${currentChapter.title}</title>
+        <title>${safeTitle}</title>
         <style>
           body { font-family: '微软雅黑', sans-serif; font-size: 12pt; line-height: 1.8; padding: 40px; }
           h1 { font-size: 18pt; text-align: center; margin-bottom: 30px; }
@@ -790,8 +806,8 @@ const LongNovelEditor: React.FC<LongNovelEditorProps> = ({ novel, onUpdateNovel,
         </style>
       </head>
       <body>
-        <h1>${currentChapter.title}</h1>
-        ${currentChapter.content.split('\n').filter(p => p.trim()).map(p => `<p>${p}</p>`).join('')}
+        <h1>${safeTitle}</h1>
+        ${safeParagraphs}
       </body>
       </html>
     `);
@@ -2558,19 +2574,32 @@ ${charDescriptions}
 
     const reader = new FileReader();
     reader.onload = (e) => {
+      const raw = e.target?.result;
+      if (typeof raw !== 'string') {
+        alert('备份文件内容不可读取');
+        return;
+      }
+
+      const parsed = safeParseJson(raw, (value): value is { version?: string; exportDate?: string; novel: Novel } => {
+        if (!value || typeof value !== 'object') return false;
+        const obj = value as Record<string, unknown>;
+        return isNovel(obj.novel);
+      });
+
+      if (!parsed.valid || !parsed.data) {
+        console.error('备份文件校验失败:', parsed.errors);
+        alert('无效的备份文件格式，请确认文件来源与结构正确');
+        return;
+      }
+
+      const data = parsed.data;
+
+      // 确认恢复
+      if (!window.confirm(`确定要从备份恢复吗？\n\n备份时间：${data.exportDate || '未知'}\n小说标题：${data.novel.title || '未命名'}\n\n注意：这将覆盖当前所有数据！`)) {
+        return;
+      }
+
       try {
-        const data = JSON.parse(e.target?.result as string);
-
-        if (!data.novel) {
-          alert('无效的备份文件格式');
-          return;
-        }
-
-        // 确认恢复
-        if (!window.confirm(`确定要从备份恢复吗？\n\n备份时间：${data.exportDate || '未知'}\n小说标题：${data.novel.title || '未命名'}\n\n注意：这将覆盖当前所有数据！`)) {
-          return;
-        }
-
         const novelData = data.novel;
 
         // 更新所有状态
@@ -2608,7 +2637,7 @@ ${charDescriptions}
         alert('备份恢复成功！');
       } catch (error) {
         console.error('备份恢复失败:', error);
-        alert('备份文件解析失败，请确保文件格式正确');
+        alert('备份恢复失败，请重试');
       }
     };
     reader.readAsText(file, 'UTF-8');

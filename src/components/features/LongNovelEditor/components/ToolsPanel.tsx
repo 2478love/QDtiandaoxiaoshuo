@@ -1,8 +1,9 @@
 import React, { useRef, useCallback, useMemo, useEffect, useState } from 'react';
 import { useEditorStore, SearchResult, CreativeManagementTab } from '../store/editorStore';
 import { useEditorContext } from '../context/EditorContext';
-import { Chapter, WritingGoal, WritingRecord, ChapterTemplate } from '../../../../types';
+import { Chapter, Novel, WritingGoal, WritingRecord, ChapterTemplate } from '../../../../types';
 import { createChapterId } from '../../../../utils/id';
+import { escapeHtml, isNovel, safeParseJson } from '../../../../utils';
 import { generateCreativeContentStream, GenerateOptions } from '../../../../services/api/gemini';
 
 // 格式化番茄钟时间
@@ -256,7 +257,14 @@ const ToolsPanel: React.FC = () => {
 
   const exportToWord = useCallback(() => {
     if (!currentChapter) return;
-    const content = `<html><head><meta charset="utf-8"></head><body><h1>${currentChapter.title}</h1><p>${currentChapter.content.replace(/\n/g, '</p><p>')}</p></body></html>`;
+
+    const safeTitle = escapeHtml(currentChapter.title);
+    const safeParagraphs = currentChapter.content
+      .split('\n')
+      .map((line) => `<p>${escapeHtml(line)}</p>`)
+      .join('');
+
+    const content = `<html><head><meta charset="utf-8"></head><body><h1>${safeTitle}</h1>${safeParagraphs}</body></html>`;
     const blob = new Blob([content], { type: 'application/msword' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -268,9 +276,16 @@ const ToolsPanel: React.FC = () => {
 
   const exportToPDF = useCallback(() => {
     if (!currentChapter) return;
+
+    const safeTitle = escapeHtml(currentChapter.title);
+    const safeParagraphs = currentChapter.content
+      .split('\n')
+      .map((line) => `<p>${escapeHtml(line)}</p>`)
+      .join('');
+
     const printWindow = window.open('', '_blank');
     if (printWindow) {
-      printWindow.document.write(`<html><head><title>${currentChapter.title}</title><style>body{font-family:sans-serif;padding:40px;line-height:1.8;}h1{margin-bottom:20px;}</style></head><body><h1>${currentChapter.title}</h1><p>${currentChapter.content.replace(/\n/g, '</p><p>')}</p></body></html>`);
+      printWindow.document.write(`<html><head><title>${safeTitle}</title><style>body{font-family:sans-serif;padding:40px;line-height:1.8;}h1{margin-bottom:20px;}</style></head><body><h1>${safeTitle}</h1>${safeParagraphs}</body></html>`);
       printWindow.document.close();
       printWindow.print();
     }
@@ -584,18 +599,28 @@ ${currentChapter.content}`;
   const handleBackupImport = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+
     const reader = new FileReader();
     reader.onload = (ev) => {
-      try {
-        const backup = JSON.parse(ev.target?.result as string);
-        if (!window.confirm('导入备份将覆盖当前所有数据，是否继续？')) return;
-        onUpdateNovel(backup);
-        alert('备份恢复成功！');
-      } catch {
-        alert('备份文件格式错误');
+      const raw = ev.target?.result;
+      if (typeof raw !== 'string') {
+        alert('备份文件内容不可读取');
+        return;
       }
+
+      const parsed = safeParseJson(raw, isNovel);
+      if (!parsed.valid || !parsed.data) {
+        console.error('备份文件校验失败:', parsed.errors);
+        alert('备份文件格式错误');
+        return;
+      }
+
+      if (!window.confirm('导入备份将覆盖当前所有数据，是否继续？')) return;
+      onUpdateNovel(parsed.data as Partial<Novel>);
+      alert('备份恢复成功！');
     };
-    reader.readAsText(file);
+
+    reader.readAsText(file, 'UTF-8');
     e.target.value = '';
   }, [onUpdateNovel]);
 
