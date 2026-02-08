@@ -57,3 +57,18 @@ export type {
   SensitiveWordCheckResult,
 } from './sensitiveWordChecker';
 
+// AI 去机械感优化
+export {
+  detectAIPatterns,
+  removeAITemplates,
+  generateOutlinePrompt,
+  generateContentFromOutlinePrompt,
+  generateReviewPrompt,
+  WRITING_STYLE_PRESETS,
+  ANTI_AI_PROMPT,
+} from './aiOptimizer';
+export type {
+  TwoStageGenerationConfig,
+  TwoStageGenerationResult,
+} from './aiOptimizer';
+
