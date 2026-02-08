@@ -1,0 +1,80 @@
+/**
+ * 工具函数统一导出
+ * 
+ * 提供所有分析工具的便捷访问
+ */
+
+// 写作风格增强器
+export {
+  analyzeWritingStyle,
+  analyzeDialogueQuality,
+  analyzeActionQuality,
+  analyzeSceneQuality,
+  analyzeSenseUsage,
+  generateEnhancementPrompt,
+  generateStyleReport,
+  type StyleAnalysis,
+  type WritingIssue,
+  type EnhancementOptions,
+} from './writingStyleEnhancer';
+
+// 情节张力分析器
+export {
+  analyzePlotTension,
+  analyzeConflict,
+  analyzeSuspense,
+  analyzeTwist,
+  analyzeClimax,
+  analyzePacing,
+  generateTensionReport,
+  generateTensionPrompt,
+  type PlotTensionAnalysis,
+  type ConflictAnalysis,
+  type SuspenseAnalysis,
+  type TwistAnalysis,
+  type ClimaxAnalysis,
+  type PacingAnalysis,
+  type TensionIssue,
+} from './plotTensionAnalyzer';
+
+// 情绪曲线追踪器
+export {
+  analyzeEmotion,
+  detectEmotionPoints,
+  analyzeEmotionCurve,
+  analyzeEmotionDistribution,
+  calculateResonance,
+  calculateBalance,
+  generateEmotionReport,
+  generateEmotionPrompt,
+  type EmotionAnalysis,
+  type EmotionPoint,
+  type EmotionCurve,
+  type EmotionDistribution,
+  type EmotionType,
+} from './emotionAnalyzer';
+
+// 综合分析工具
+export {
+  analyzeComprehensive,
+  generateComprehensiveReport,
+  generateComprehensivePrompt,
+  type ComprehensiveAnalysis,
+  type Priority,
+  type Recommendation,
+} from './comprehensiveAnalyzer';
+
+// 网文能力分析器（如果存在）
+export type {
+  WebNovelPattern,
+  ChapterStructure,
+  PlotArc,
+  CoolPoint,
+  WebNovelAnalysis,
+} from './webNovelAnalyzer';
+
+// 内容检查器（如果存在）
+// export { ... } from './contentChecker';
+
+// AI优化器（如果存在）
+// export { ... } from './aiOptimizer';
