@@ -163,6 +163,16 @@ npm run build
 npm run preview
 ```
 
+### 类型检查
+```bash
+npm run typecheck
+```
+
+### 运行测试
+```bash
+npm run test
+```
+
 ## 📦 技术栈
 
 - **React 19** - UI 框架
@@ -219,6 +229,15 @@ VITE_GEMINI_API_KEY=your_api_key_here
 - 响应式设计
 
 ## 🔄 更新日志
+
+### 2026-02-08
+- 🛠️ 修复大量 TypeScript 类型问题与状态更新错误，恢复稳定构建
+- ✅ 新增 `npm run typecheck` 与 `npm run test` 脚本，补充基础测试
+- ⚡ 主应用改为按功能模块懒加载（`React.lazy + Suspense`），显著降低主包体积
+- 🔒 本地安全加固：
+  - 备份导入增加结构校验（`safeParseJson + isNovel`）
+  - Word/PDF 导出内容增加 `escapeHtml` 处理，降低导出注入风险
+  - 未勾选“记住我”时不保留持久会话
 
 ### 2025-01-02
 - ✨ 新增 RAG 记忆系统，AI 能记住全书内容
