@@ -338,6 +338,20 @@ export {
   type IncrementalAnalysisResult,
 } from './incrementalAnalysisCache';
 
+// 快捷键管理系统
+export {
+  ShortcutManager,
+  globalShortcutManager,
+  initializeDefaultShortcuts,
+  setupShortcutListener,
+  DEFAULT_SHORTCUTS,
+  SHORTCUT_CATEGORIES,
+  type KeyModifier,
+  type ShortcutKey,
+  type ShortcutConfig,
+  type ShortcutCategory,
+} from './shortcutManager';
+
 // 内容检查器（如果存在）
 // export { ... } from './contentChecker';
 
