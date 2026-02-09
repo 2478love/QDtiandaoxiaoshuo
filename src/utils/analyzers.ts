@@ -64,6 +64,28 @@ export {
   type Recommendation,
 } from './comprehensiveAnalyzer';
 
+// 人物塑造评估器
+export {
+  extractCharacters,
+  checkConsistency,
+  analyzeDialogueStyle,
+  analyzeMotivation,
+  analyzeGrowth,
+  analyzeCharacters,
+  generateCharacterReport,
+  generateCharacterPrompt,
+  type CharacterProfile,
+  type CharacterAppearance,
+  type CharacterDialogue,
+  type CharacterAction,
+  type ConsistencyIssue,
+  type DialogueStyle,
+  type MotivationChain,
+  type CharacterGrowth,
+  type GrowthStage,
+  type CharacterAnalysis,
+} from './characterAnalyzer';
+
 // 网文能力分析器（如果存在）
 export type {
   WebNovelPattern,
