@@ -67,7 +67,7 @@ export {
 // 人物塑造评估器
 export {
   extractCharacters,
-  checkConsistency,
+  checkConsistency as checkCharacterStyleConsistency,
   analyzeDialogueStyle,
   analyzeMotivation,
   analyzeGrowth,
@@ -208,6 +208,21 @@ export {
   type Warning,
   type ChapterData,
 } from './consistencyChecker';
+
+// 批量大纲生成器
+export {
+  generateBatchOutline,
+  adjustOutline,
+  optimizeOutline,
+  exportOutlineAsText,
+  exportOutlineAsJSON,
+  type OutlineGenerationOptions,
+  type ChapterOutline,
+  type PlotType,
+  type CoolPoint,
+  type OutlineStructure,
+  type Arc,
+} from './batchOutlineGenerator';
 
 // 内容检查器（如果存在）
 // export { ... } from './contentChecker';
