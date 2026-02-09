@@ -352,6 +352,27 @@ export {
   type ShortcutCategory,
 } from './shortcutManager';
 
+// 批量章节操作工具
+export {
+  BatchSelectionManager,
+  batchDeleteChapters,
+  batchMoveChapters,
+  batchCopyChapters,
+  batchExportChapters,
+  batchAddTags,
+  batchRemoveTags,
+  batchSetVolume,
+  batchSortChapters,
+  batchFilterChapters,
+  generateBatchOperationReport,
+  BatchOperationHistory,
+  type ChapterWithTags,
+  type BatchOperation,
+  type BatchOperationResult,
+  type ChapterTag,
+  type BatchSelectionState,
+} from './batchChapterOperations';
+
 // 内容检查器（如果存在）
 // export { ... } from './contentChecker';
 
