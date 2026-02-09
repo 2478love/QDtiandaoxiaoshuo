@@ -438,7 +438,7 @@ function App() {
 
   return (
     <ToastProvider>
-      <div className="min-h-screen bg-[#f8fafc] dark:bg-slate-950 text-slate-800 dark:text-slate-200 transition-colors duration-300">
+      <div className="min-h-screen bg-[#F9FAFB] dark:bg-slate-950 text-slate-800 dark:text-slate-200 transition-colors duration-300">
         {/* 离线提醒 */}
         <OfflineIndicator isOnline={isOnline} />
 
@@ -453,12 +453,12 @@ function App() {
         <Sidebar currentView={currentView} onNavigate={setCurrentView} user={user} onLoginClick={() => setIsAuthModalOpen(true)} />
         <main className={`ml-64 min-h-screen transition-all duration-300`}>
           {currentView !== ViewState.LONG_NOVEL && (
-              <header className="flex justify-between items-center p-6 lg:px-10 lg:pt-10 mb-4">
+              <header className="flex justify-between items-center px-6 lg:px-10 pt-8 lg:pt-10 mb-2">
                   <div className="flex items-center gap-3">
                       <div className="flex items-center text-sm font-medium text-slate-400 dark:text-slate-500">
                           <span>天道</span>
-                          <svg className="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" /></svg>
-                          <span className="text-slate-800 dark:text-slate-200">
+                          <svg className="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" /></svg>
+                          <span className="text-slate-700 dark:text-slate-200">
                                {currentView === ViewState.DASHBOARD && '仪表盘'}
                                {currentView === ViewState.NOVEL_MANAGER && '小说管理'}
                                {currentView === ViewState.WRITING_TOOL && '创作工具'}

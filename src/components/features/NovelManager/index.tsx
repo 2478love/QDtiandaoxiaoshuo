@@ -1,6 +1,7 @@
 import React, { useMemo, useRef, useState } from 'react';
 import { Novel, ViewState, Chapter } from '../../../types';
 import { createNovelId, createChapterId } from '../../../utils/id';
+import { BookOpen, Upload, Search, Copy, Trash2, Edit3 } from 'lucide-react';
 
 interface NovelManagerProps {
   onNavigate: (view: ViewState) => void;
@@ -261,37 +262,37 @@ const NovelManager: React.FC<NovelManagerProps> = ({
 
   if (viewMode === 'create') {
     return (
-      <div className="max-w-5xl mx-auto space-y-6 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm p-8">
+      <div className="max-w-4xl mx-auto space-y-8 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm p-8">
         <button
           onClick={() => setViewMode('list')}
-          className="text-sm text-slate-500 hover:text-indigo-500 flex items-center gap-1"
+          className="text-sm text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-2 transition-colors"
         >
           <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"/></svg>
           返回列表
         </button>
-        <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">创建新小说</h2>
+        <h2 className="text-2xl font-semibold text-slate-900 dark:text-slate-100">创建新小说</h2>
 
         <form onSubmit={handleCreate} className="space-y-6">
           <div>
-            <div className="flex justify-between text-sm text-slate-400 mb-1">
-              <span>小说标题</span>
-              <span>{form.title.length} / 100</span>
+            <div className="flex justify-between text-sm text-slate-500 dark:text-slate-400 mb-2">
+              <label>小说标题</label>
+              <span className="text-xs">{form.title.length} / 100</span>
             </div>
             <input
               maxLength={100}
               value={form.title}
               onChange={(e) => setForm(prev => ({ ...prev, title: e.target.value }))}
               placeholder="请输入小说标题"
-              className="w-full h-12 rounded-2xl border border-slate-200 dark:border-slate-700 px-4 text-sm bg-white dark:bg-slate-900"
+              className="w-full h-12 rounded-lg border border-slate-200 dark:border-slate-700 px-4 text-sm bg-white dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
             />
           </div>
 
           <div>
-            <label className="text-sm text-slate-400 mb-1 block">小说类型</label>
+            <label className="text-sm text-slate-500 dark:text-slate-400 mb-2 block">小说类型</label>
             <select
               value={form.type}
               onChange={(e) => setForm(prev => ({ ...prev, type: e.target.value }))}
-              className="w-full h-12 rounded-2xl border border-slate-200 dark:border-slate-700 px-4 text-sm bg-white dark:bg-slate-900"
+              className="w-full h-12 rounded-lg border border-slate-200 dark:border-slate-700 px-4 text-sm bg-white dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
             >
               <option value="">请选择</option>
               {CATEGORIES.map(cat => (
@@ -301,22 +302,22 @@ const NovelManager: React.FC<NovelManagerProps> = ({
           </div>
 
           <div>
-            <div className="flex justify-between text-sm text-slate-400 mb-1">
-              <span>简介</span>
-              <span>{form.description.length} / 1000</span>
+            <div className="flex justify-between text-sm text-slate-500 dark:text-slate-400 mb-2">
+              <label>简介</label>
+              <span className="text-xs">{form.description.length} / 1000</span>
             </div>
             <textarea
               maxLength={1000}
               value={form.description}
               onChange={(e) => setForm(prev => ({ ...prev, description: e.target.value }))}
               placeholder="请输入小说简介"
-              className="w-full min-h-[120px] rounded-2xl border border-slate-200 dark:border-slate-700 px-4 py-3 text-sm bg-white dark:bg-slate-900"
+              className="w-full min-h-[120px] rounded-lg border border-slate-200 dark:border-slate-700 px-4 py-3 text-sm bg-white dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all resize-none"
             />
           </div>
 
           <div>
-            <label className="text-sm text-slate-400 mb-2 block">目标字数</label>
-            <div className="flex items-center gap-3">
+            <label className="text-sm text-slate-500 dark:text-slate-400 mb-3 block">目标字数</label>
+            <div className="flex items-center gap-4">
               <input
                 type="range"
                 min={50000}
@@ -324,34 +325,38 @@ const NovelManager: React.FC<NovelManagerProps> = ({
                 step={50000}
                 value={form.targetWordCount}
                 onChange={(e) => setForm(prev => ({ ...prev, targetWordCount: Number(e.target.value) }))}
-                className="flex-1 accent-indigo-500"
+                className="flex-1 accent-indigo-600"
               />
-              <span className="w-24 text-right text-sm text-indigo-600">{form.targetWordCount.toLocaleString()}</span>
+              <span className="w-28 text-right text-sm font-medium text-indigo-600 dark:text-indigo-400">{form.targetWordCount.toLocaleString()} 字</span>
             </div>
           </div>
 
           <div>
-            <label className="text-sm text-slate-400 mb-2 block">封面上传</label>
-            <div className="flex items-center gap-4">
-              <div className="w-40 h-40 border border-dashed border-slate-200 dark:border-slate-700 rounded-2xl flex items-center justify-center bg-slate-50 dark:bg-slate-900/40">
+            <label className="text-sm text-slate-500 dark:text-slate-400 mb-3 block">封面上传</label>
+            <div className="flex items-start gap-6">
+              <div className="w-32 h-40 border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-lg flex items-center justify-center bg-slate-50 dark:bg-slate-900/40 overflow-hidden">
                 {form.cover ? (
-                  <img src={form.cover} alt="cover" className="w-full h-full object-cover rounded-2xl" />
+                  <img src={form.cover} alt="cover" className="w-full h-full object-cover" />
                 ) : (
-                  <span className="text-slate-400 text-xl">+</span>
+                  <Upload className="w-8 h-8 text-slate-300 dark:text-slate-600" />
                 )}
               </div>
-              <div className="space-y-2 text-xs text-slate-400">
-                <p>支持 JPG/PNG/GIF/WEBP 格式，文件不超过 5 MB</p>
-                <div className="flex gap-2">
+              <div className="flex-1 space-y-3">
+                <p className="text-xs text-slate-500 dark:text-slate-400">支持 JPG/PNG/GIF/WEBP 格式，文件不超过 5 MB</p>
+                <div className="flex gap-3">
                   <button
                     type="button"
-                    className="px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-sm"
+                    className="px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 text-sm hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
                     onClick={() => fileInputRef.current?.click()}
                   >
-                    点击上传
+                    选择文件
                   </button>
                   {form.cover && (
-                    <button type="button" className="text-sm text-rose-500" onClick={() => setForm(prev => ({ ...prev, cover: '' }))}>
+                    <button 
+                      type="button" 
+                      className="text-sm text-rose-600 dark:text-rose-500 hover:text-rose-700 dark:hover:text-rose-400 transition-colors" 
+                      onClick={() => setForm(prev => ({ ...prev, cover: '' }))}
+                    >
                       移除封面
                     </button>
                   )}
@@ -362,32 +367,56 @@ const NovelManager: React.FC<NovelManagerProps> = ({
           </div>
 
           <div>
-            <label className="text-sm text-slate-400 mb-2 block">标签</label>
-            <div className="flex gap-2">
+            <label className="text-sm text-slate-500 dark:text-slate-400 mb-3 block">标签</label>
+            <div className="flex gap-3">
               <input
                 value={tagInput}
                 onChange={(e) => setTagInput(e.target.value)}
-                placeholder="添加标签"
-                className="flex-1 h-11 rounded-2xl border border-slate-200 dark:border-slate-700 px-4 text-sm bg-white dark:bg-slate-900"
+                onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), handleTagAdd())}
+                placeholder="添加标签后按回车"
+                className="flex-1 h-11 rounded-lg border border-slate-200 dark:border-slate-700 px-4 text-sm bg-white dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
               />
-              <button type="button" className="px-4 py-2 text-sm rounded-2xl border border-slate-200 dark:border-slate-700" onClick={handleTagAdd}>
+              <button 
+                type="button" 
+                className="px-6 py-2 text-sm rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors font-medium" 
+                onClick={handleTagAdd}
+              >
                 添加
               </button>
             </div>
-            <div className="flex flex-wrap gap-2 mt-2">
-              {form.tags.map(tag => (
-                <span key={tag} className="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-xs rounded-full text-slate-500 dark:text-slate-300">
-                  {tag}
-                </span>
-              ))}
-            </div>
+            {form.tags.length > 0 && (
+              <div className="flex flex-wrap gap-2 mt-3">
+                {form.tags.map(tag => (
+                  <span 
+                    key={tag} 
+                    className="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 text-xs rounded-full text-slate-600 dark:text-slate-300 flex items-center gap-2"
+                  >
+                    {tag}
+                    <button
+                      type="button"
+                      onClick={() => setForm(prev => ({ ...prev, tags: prev.tags.filter(t => t !== tag) }))}
+                      className="hover:text-rose-600 transition-colors"
+                    >
+                      ×
+                    </button>
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
 
-          <div className="flex gap-3">
-            <button type="button" className="flex-1 h-11 rounded-2xl border border-slate-200 dark:border-slate-700" onClick={() => setViewMode('list')}>
+          <div className="flex gap-3 pt-4">
+            <button 
+              type="button" 
+              className="flex-1 h-12 rounded-lg border border-slate-200 dark:border-slate-700 font-medium hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors" 
+              onClick={() => setViewMode('list')}
+            >
               取消
             </button>
-            <button type="submit" className="flex-1 h-11 rounded-2xl bg-indigo-600 text-white font-semibold">
+            <button 
+              type="submit" 
+              className="flex-1 h-12 rounded-lg bg-indigo-600 text-white font-medium hover:bg-indigo-700 transition-colors shadow-sm"
+            >
               创建小说
             </button>
           </div>
@@ -397,42 +426,44 @@ const NovelManager: React.FC<NovelManagerProps> = ({
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 max-w-7xl mx-auto">
       {/* TXT 导入预览模态框 */}
       {showImportModal && importPreview && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 max-w-lg w-full mx-4 space-y-4 shadow-xl">
-            <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100">确认导入</h3>
-            <div className="space-y-2">
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-white dark:bg-slate-900 rounded-xl p-8 max-w-lg w-full space-y-6 shadow-2xl border border-slate-200 dark:border-slate-800">
+            <h3 className="text-xl font-semibold text-slate-900 dark:text-slate-100">确认导入</h3>
+            <div className="space-y-3">
               <p className="text-sm text-slate-600 dark:text-slate-400">
-                文件：<span className="font-medium text-slate-800 dark:text-slate-200">{importPreview.filename}.txt</span>
+                文件：<span className="font-medium text-slate-900 dark:text-slate-100">{importPreview.filename}.txt</span>
               </p>
               <p className="text-sm text-slate-600 dark:text-slate-400">
-                检测到 <span className="font-medium text-indigo-600">{importPreview.chapters.length}</span> 个章节，
-                共 <span className="font-medium text-indigo-600">{importPreview.totalWords.toLocaleString()}</span> 字
+                检测到 <span className="font-semibold text-indigo-600 dark:text-indigo-400">{importPreview.chapters.length}</span> 个章节，
+                共 <span className="font-semibold text-indigo-600 dark:text-indigo-400">{importPreview.totalWords.toLocaleString()}</span> 字
               </p>
             </div>
-            <div className="max-h-48 overflow-y-auto space-y-1 p-3 bg-slate-50 dark:bg-slate-800 rounded-xl">
+            <div className="max-h-64 overflow-y-auto space-y-2 p-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-200 dark:border-slate-700">
               {importPreview.chapters.slice(0, 20).map((ch, idx) => (
-                <div key={idx} className="flex justify-between text-xs">
-                  <span className="text-slate-600 dark:text-slate-400 truncate flex-1">{ch.title}</span>
-                  <span className="text-slate-400 dark:text-slate-500 ml-2">{ch.wordCount.toLocaleString()} 字</span>
+                <div key={idx} className="flex justify-between text-xs py-1">
+                  <span className="text-slate-700 dark:text-slate-300 truncate flex-1">{ch.title}</span>
+                  <span className="text-slate-500 dark:text-slate-400 ml-3 flex-shrink-0">{ch.wordCount.toLocaleString()} 字</span>
                 </div>
               ))}
               {importPreview.chapters.length > 20 && (
-                <p className="text-xs text-slate-400 text-center mt-2">... 还有 {importPreview.chapters.length - 20} 个章节</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 text-center pt-2 border-t border-slate-200 dark:border-slate-700">
+                  ... 还有 {importPreview.chapters.length - 20} 个章节
+                </p>
               )}
             </div>
             <div className="flex gap-3">
               <button
                 onClick={() => { setShowImportModal(false); setImportPreview(null); setPendingImportContent(''); }}
-                className="flex-1 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-sm"
+                className="flex-1 py-3 rounded-lg border border-slate-200 dark:border-slate-700 text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
               >
                 取消
               </button>
               <button
                 onClick={confirmTxtImport}
-                className="flex-1 py-2 rounded-xl bg-indigo-600 text-white text-sm font-medium"
+                className="flex-1 py-3 rounded-lg bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700 transition-colors shadow-sm"
               >
                 确认导入
               </button>
@@ -443,16 +474,19 @@ const NovelManager: React.FC<NovelManagerProps> = ({
 
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800 dark:text-slate-100">小说管理</h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400">共 {novels.length} 部作品</p>
+          <h1 className="text-3xl font-semibold text-slate-900 dark:text-slate-100">小说管理</h1>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">共 {novels.length} 部作品</p>
         </div>
         <div className="flex gap-3">
-          <input
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="搜索作品"
-            className="px-4 py-2 rounded-2xl border border-slate-200 dark:border-slate-700 text-sm bg-white dark:bg-slate-900"
-          />
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+            <input
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="搜索作品"
+              className="pl-10 pr-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 text-sm bg-white dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all w-48"
+            />
+          </div>
           <input
             ref={txtImportRef}
             type="file"
@@ -461,72 +495,98 @@ const NovelManager: React.FC<NovelManagerProps> = ({
             className="hidden"
           />
           <button
-            className="px-4 py-2 rounded-2xl border border-slate-200 dark:border-slate-700 text-sm hover:border-indigo-400 transition-colors flex items-center gap-1"
+            className="px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 text-sm hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors flex items-center gap-2 font-medium"
             onClick={() => txtImportRef.current?.click()}
           >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-            </svg>
+            <Upload className="w-4 h-4" />
             导入TXT
           </button>
-          <button className="px-4 py-2 rounded-2xl bg-slate-900 text-white text-sm" onClick={() => setViewMode('create')}>
+          <button 
+            className="px-6 py-3 rounded-lg bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700 transition-colors shadow-sm" 
+            onClick={() => setViewMode('create')}
+          >
             新建小说
           </button>
         </div>
       </div>
 
-      <div className="flex gap-2 text-xs">
-        {['all', 'ongoing', 'completed'].map(key => (
+      <div className="flex gap-2">
+        {(['all', 'ongoing', 'completed'] as const).map(key => (
           <button
             key={key}
-            onClick={() => setStatusFilter(key as typeof statusFilter)}
-            className={`px-3 py-1 rounded-full border ${statusFilter === key ? 'bg-indigo-600 text-white border-indigo-600' : 'border-slate-200 dark:border-slate-700 text-slate-500'}`}
+            onClick={() => setStatusFilter(key)}
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+              statusFilter === key 
+                ? 'bg-indigo-600 text-white shadow-sm' 
+                : 'bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'
+            }`}
           >
             {key === 'all' ? '全部' : key === 'ongoing' ? '连载中' : '已完结'}
           </button>
         ))}
       </div>
 
-      <div className="grid gap-4">
+      <div className="grid gap-6">
         {filteredNovels.length === 0 ? (
-          <div className="rounded-3xl border border-dashed border-slate-200 dark:border-slate-800 h-64 flex items-center justify-center text-sm text-slate-500 dark:text-slate-400">
-            暂无作品，点击"新建小说"开始创作。
+          <div className="rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 h-80 flex flex-col items-center justify-center text-slate-500 dark:text-slate-400">
+            <BookOpen className="w-16 h-16 mb-4 text-slate-300 dark:text-slate-600" />
+            <p className="text-sm font-medium mb-2">暂无作品</p>
+            <p className="text-xs text-slate-400 dark:text-slate-500 mb-6">点击"新建小说"开始你的创作之旅</p>
+            <button 
+              className="px-6 py-3 rounded-lg bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700 transition-colors shadow-sm" 
+              onClick={() => setViewMode('create')}
+            >
+              开始创作
+            </button>
           </div>
         ) : (
           filteredNovels.map(novel => (
-            <div key={novel.id} className="border border-slate-200 dark:border-slate-800 rounded-3xl bg-white dark:bg-slate-900 p-6 flex flex-col gap-3 shadow-sm">
+            <div 
+              key={novel.id} 
+              className="border border-slate-200 dark:border-slate-800 rounded-xl bg-white dark:bg-slate-900 p-6 flex flex-col gap-4 shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-0.5"
+            >
               <div className="flex justify-between items-start">
-                <div>
-                  <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100">{novel.title}</h3>
-                  <p className="text-xs text-slate-400 dark:text-slate-500">更新于 {novel.updatedAt}</p>
+                <div className="flex-1">
+                  <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-1">{novel.title}</h3>
+                  <p className="text-xs text-slate-500 dark:text-slate-400">更新于 {novel.updatedAt}</p>
                 </div>
                 <div className="flex items-center gap-2">
-                  <button className="text-sm text-indigo-500 hover:text-indigo-600" onClick={() => onNovelClick(novel)}>
-                    进入编辑
+                  <button 
+                    className="p-2 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 rounded-lg transition-colors" 
+                    onClick={() => onNovelClick(novel)}
+                    title="进入编辑"
+                  >
+                    <Edit3 className="w-4 h-4" />
                   </button>
                   <button
-                    className="text-sm text-emerald-500 hover:text-emerald-600"
+                    className="p-2 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 rounded-lg transition-colors"
                     onClick={() => duplicateNovel(novel)}
+                    title="复制"
                   >
-                    复制
+                    <Copy className="w-4 h-4" />
                   </button>
                   {onDeleteNovel && (
                     <button
-                      className="text-sm text-rose-500 hover:text-rose-600"
+                      className="p-2 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-lg transition-colors"
                       onClick={() => {
                         if (window.confirm(`确定要删除《${novel.title}》吗？此操作不可撤销。`)) {
                           onDeleteNovel(novel.id);
                         }
                       }}
+                      title="删除"
                     >
-                      删除
+                      <Trash2 className="w-4 h-4" />
                     </button>
                   )}
                 </div>
               </div>
               <p className="text-sm text-slate-600 dark:text-slate-300 line-clamp-2">{novel.description}</p>
-              <div className="text-xs text-slate-400 dark:text-slate-500">
-                {novel.type} · {novel.wordCount} 字
+              <div className="flex items-center gap-4 text-xs text-slate-500 dark:text-slate-400 pt-3 border-t border-slate-100 dark:border-slate-800">
+                <span className="px-2.5 py-1 bg-slate-100 dark:bg-slate-800 rounded-full">{novel.type}</span>
+                <span>{novel.wordCount?.toLocaleString() || 0} 字</span>
+                {novel.chapters && novel.chapters.length > 0 && (
+                  <span>{novel.chapters.length} 章</span>
+                )}
               </div>
             </div>
           ))
