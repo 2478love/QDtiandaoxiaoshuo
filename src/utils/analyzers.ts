@@ -137,6 +137,20 @@ export {
   type RefinementPromptConfig,
 } from './batchRefinementPipeline';
 
+// 质量趋势分析器
+export {
+  calculateTrend,
+  analyzeQualityTrend,
+  generateTrendReport,
+  getTrendName,
+  exportTrendDataAsCSV,
+  calculateMovingAverage,
+  predictFutureTrend,
+  type QualityScore,
+  type QualityTrend,
+  type QualityTrendAnalysis,
+} from './qualityTrendAnalyzer';
+
 // 内容检查器（如果存在）
 // export { ... } from './contentChecker';
 
