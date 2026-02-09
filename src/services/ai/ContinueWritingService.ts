@@ -1,4 +1,7 @@
 // 智能续写服务
+import { SmartContextBuilder } from './SmartContextBuilder';
+import { Novel, Chapter } from '../../types';
+
 export interface ContinueResult {
   id: string;
   text: string;
@@ -43,23 +46,53 @@ export class ContinueWritingService {
     }
   };
 
+  /**
+   * 使用智能上下文生成续写
+   */
+  static async generateWithSmartContext(
+    novel: Novel,
+    currentChapter: Chapter,
+    recentContent: string,
+    options: ContinueOptions
+  ): Promise<ContinueResult[]> {
+    // 构建智能上下文
+    const smartContext = await SmartContextBuilder.build(
+      novel,
+      currentChapter,
+      recentContent,
+      {
+        includeWorldview: true,
+        includeCharacters: true,
+        includeForeshadowing: true,
+        includeRag: true,
+        recentContentLength: 3000,
+        ragTopK: 10
+      }
+    );
+
+    // 获取上下文统计
+    const stats = SmartContextBuilder.getContextStats(smartContext);
+    console.log('[SmartContinue] 上下文统计:', stats);
+
+    // 使用智能上下文生成续写
+    return this.generateMultiple(smartContext, options);
+  }
+
   // 构建提示词
   private static buildPrompt(context: string, style: ContinueOptions['style'], variant: number): string {
     const styleInfo = this.styleConfig[style];
-    const contextLength = context.length;
-    const recentContext = contextLength > 500 ? context.slice(-500) : context;
 
     const basePrompt = `你是一个专业的网络小说续写助手。
 
-前文内容：
-${recentContext}
+${context}
 
 续写要求：
 - 风格：${styleInfo.label}（${styleInfo.description}）
 - ${styleInfo.prompt}
 - 保持与前文的连贯性和一致性
+- 注意回收伏笔（如果有待回收的伏笔）
+- 保持人物性格一致
 - 语言流畅自然，符合网络小说风格
-- 不要重复前文内容
 
 `;
 
