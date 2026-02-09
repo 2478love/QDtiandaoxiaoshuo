@@ -224,6 +224,31 @@ export {
   type Arc,
 } from './batchOutlineGenerator';
 
+// 批量初稿生成器
+export {
+  createDraftTask,
+  createBatchDraftPipeline,
+  updateTaskStatus as updateDraftTaskStatus,
+  updatePipelineProgress as updateDraftPipelineProgress,
+  getNextTask as getNextDraftTask,
+  pausePipeline as pauseDraftPipeline,
+  resumePipeline as resumeDraftPipeline,
+  stopPipeline as stopDraftPipeline,
+  retryFailedTasks as retryFailedDraftTasks,
+  generateDraftPrompt,
+  generateBatchDraftReport,
+  exportDraftResults,
+  savePipelineProgress as saveDraftPipelineProgress,
+  loadPipelineProgress as loadDraftPipelineProgress,
+  clearPipelineProgress as clearDraftPipelineProgress,
+  DEFAULT_DRAFT_OPTIONS,
+  type DraftStatus,
+  type DraftTask,
+  type DraftGenerationOptions,
+  type BatchDraftPipeline,
+  type DraftGenerationProgress,
+} from './batchDraftGenerator';
+
 // 质量预警系统
 export {
   QualityAlertSystem,
