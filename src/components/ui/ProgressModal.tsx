@@ -52,9 +52,9 @@ export function ProgressModal({
         {/* 图标 */}
         <div className="flex justify-center mb-4">
           {icon || (
-            <div className="w-16 h-16 rounded-full bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center">
+            <div className="w-16 h-16 rounded-full bg-[#E8F5E8] dark:bg-[#2C5F2D]/20 flex items-center justify-center">
               <svg
-                className="w-8 h-8 text-indigo-600 dark:text-indigo-400 animate-spin"
+                className="w-8 h-8 text-[#2C5F2D] dark:text-[#97BC62] animate-spin"
                 fill="none"
                 viewBox="0 0 24 24"
               >
@@ -92,10 +92,10 @@ export function ProgressModal({
         <div className="mb-4">
           <div className="h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
             {isIndeterminate ? (
-              <div className="h-full bg-indigo-500 rounded-full animate-indeterminate-progress" />
+              <div className="h-full bg-[#2C5F2D] rounded-full animate-indeterminate-progress" />
             ) : (
               <div
-                className="h-full bg-indigo-500 rounded-full transition-all duration-300 ease-out"
+                className="h-full bg-[#2C5F2D] rounded-full transition-all duration-300 ease-out"
                 style={{ width: `${Math.min(100, Math.max(0, progress))}%` }}
               />
             )}
@@ -179,7 +179,7 @@ export function ConfirmModal({
   if (!isOpen) return null;
 
   const confirmStyles = {
-    primary: 'bg-indigo-600 hover:bg-indigo-700 text-white',
+    primary: 'bg-[#2C5F2D] hover:bg-[#1E4620] text-white',
     danger: 'bg-rose-600 hover:bg-rose-700 text-white',
   };
 

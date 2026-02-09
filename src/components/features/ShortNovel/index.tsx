@@ -111,7 +111,7 @@ const ShortNovel: React.FC<ShortNovelProps> = ({ works, onSaveWork, onRecordActi
     <div className="flex flex-col h-[calc(100vh-140px)] max-w-[1600px] mx-auto bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden animate-in fade-in duration-300">
       <div className="h-16 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-6 bg-white dark:bg-slate-900 shrink-0">
         <div className="flex items-center gap-2">
-          <div className="p-2 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-lg">
+          <div className="p-2 bg-[#F0F7F0] dark:bg-[#2C5F2D]/30 text-[#2C5F2D] dark:text-[#97BC62] rounded-lg">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
           </div>
           <h2 className="text-lg font-bold text-slate-800 dark:text-slate-100">短文写作</h2>
@@ -129,7 +129,7 @@ const ShortNovel: React.FC<ShortNovelProps> = ({ works, onSaveWork, onRecordActi
             新建
           </button>
           <button
-            className="px-4 py-2 text-sm font-medium text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-100 dark:border-indigo-900/50 rounded-lg transition-colors flex items-center gap-1"
+            className="px-4 py-2 text-sm font-medium text-[#2C5F2D] dark:text-[#97BC62] bg-[#F0F7F0] dark:bg-[#2C5F2D]/20 border border-[#F0F7F0] dark:border-[#1E4620]/50 rounded-lg transition-colors flex items-center gap-1"
             onClick={() => {
               if (!content.trim()) return;
               const work: ShortWork = {
@@ -157,13 +157,13 @@ const ShortNovel: React.FC<ShortNovelProps> = ({ works, onSaveWork, onRecordActi
           <div className="flex border-b border-slate-200 dark:border-slate-800">
             <button
               onClick={() => handleTabChange('article')}
-              className={`flex-1 py-4 text-sm font-bold ${mode === 'article' ? 'text-indigo-600 border-b-2 border-indigo-600 bg-white dark:bg-slate-900' : 'text-slate-500 border-b-2 border-transparent hover:text-slate-700 dark:hover:text-slate-300'}`}
+              className={`flex-1 py-4 text-sm font-bold ${mode === 'article' ? 'text-[#2C5F2D] border-b-2 border-[#2C5F2D] bg-white dark:bg-slate-900' : 'text-slate-500 border-b-2 border-transparent hover:text-slate-700 dark:hover:text-slate-300'}`}
             >
               文章模式
             </button>
             <button
               onClick={() => handleTabChange('story')}
-              className={`flex-1 py-4 text-sm font-bold ${mode === 'story' ? 'text-indigo-600 border-b-2 border-indigo-600 bg-white dark:bg-slate-900' : 'text-slate-500 border-b-2 border-transparent hover:text-slate-700 dark:hover:text-slate-300'}`}
+              className={`flex-1 py-4 text-sm font-bold ${mode === 'story' ? 'text-[#2C5F2D] border-b-2 border-[#2C5F2D] bg-white dark:bg-slate-900' : 'text-slate-500 border-b-2 border-transparent hover:text-slate-700 dark:hover:text-slate-300'}`}
             >
               故事模式
             </button>
@@ -173,7 +173,7 @@ const ShortNovel: React.FC<ShortNovelProps> = ({ works, onSaveWork, onRecordActi
             <div>
               <label className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3 block">标题</label>
               <input
-                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
+                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-[#2C5F2D]/20"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="例如：三分钟看懂 AIGC"
@@ -187,7 +187,7 @@ const ShortNovel: React.FC<ShortNovelProps> = ({ works, onSaveWork, onRecordActi
                 min={200}
                 max={5000}
                 step={100}
-                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
+                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-[#2C5F2D]/20"
                 value={targetWordCount}
                 onChange={(e) => setTargetWordCount(Number(e.target.value))}
               />
@@ -196,7 +196,7 @@ const ShortNovel: React.FC<ShortNovelProps> = ({ works, onSaveWork, onRecordActi
             <div>
               <label className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3 block">参考设定</label>
               <textarea
-                className="w-full min-h-[140px] px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
+                className="w-full min-h-[140px] px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-[#2C5F2D]/20"
                 value={reference}
                 onChange={(e) => setReference(e.target.value)}
               ></textarea>
@@ -209,7 +209,7 @@ const ShortNovel: React.FC<ShortNovelProps> = ({ works, onSaveWork, onRecordActi
                   <button
                     key={model.id}
                     onClick={() => setSelectedModel(model.id)}
-                    className={`w-full text-left border rounded-xl p-3 transition-all ${selectedModel === model.id ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600' : 'border-slate-200 dark:border-slate-700 hover:border-indigo-200 dark:hover:border-indigo-700'}`}
+                    className={`w-full text-left border rounded-xl p-3 transition-all ${selectedModel === model.id ? 'border-[#2C5F2D] bg-[#F0F7F0] dark:bg-[#2C5F2D]/30 text-[#2C5F2D]' : 'border-slate-200 dark:border-slate-700 hover:border-[#E8F5E8] dark:hover:border-[#1E4620]'}`}
                   >
                     <p className="text-sm font-semibold">{model.name}</p>
                     <p className="text-xs text-slate-500 dark:text-slate-400">{model.description || ''}</p>
@@ -221,7 +221,7 @@ const ShortNovel: React.FC<ShortNovelProps> = ({ works, onSaveWork, onRecordActi
             <button
               onClick={handleGenerate}
               disabled={isGenerating}
-              className="w-full py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold shadow-lg shadow-indigo-200 dark:shadow-none transition-all disabled:opacity-50"
+              className="w-full py-3.5 bg-[#2C5F2D] hover:bg-[#1E4620] text-white rounded-xl font-bold shadow-lg shadow-indigo-200 dark:shadow-none transition-all disabled:opacity-50"
             >
               {isGenerating ? '生成中...' : '开始创作'}
             </button>
@@ -278,7 +278,7 @@ const ShortNovel: React.FC<ShortNovelProps> = ({ works, onSaveWork, onRecordActi
                   setContent(work.content);
                   setReference(work.mode === 'article' ? ARTICLE_TEMPLATE : STORY_TEMPLATE);
                 }}
-                className="min-w-[180px] text-left border border-slate-200 dark:border-slate-700 rounded-xl p-3 hover:border-indigo-300 dark:hover:border-indigo-600 transition-colors"
+                className="min-w-[180px] text-left border border-slate-200 dark:border-slate-700 rounded-xl p-3 hover:border-[#97BC62] dark:hover:border-[#2C5F2D] transition-colors"
               >
                 <p className="text-sm font-semibold text-slate-800 dark:text-slate-100 line-clamp-1">{work.title}</p>
                 <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-1">{new Date(work.updatedAt).toLocaleString()}</p>

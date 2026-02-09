@@ -37,7 +37,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user, novels, shortWorks, activit
         )}
       </div>
       <span className="text-sm font-medium text-slate-400 dark:text-slate-500">{label}</span>
-      <button className="mt-4 px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+      <button className="mt-4 px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-[#2C5F2D] dark:hover:text-[#97BC62] transition-colors">
         开始你的第一篇创作 →
       </button>
     </div>
@@ -117,7 +117,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user, novels, shortWorks, activit
                 )}
                 <div className="flex items-center gap-2 text-slate-600 dark:text-slate-300">
                   <span className="text-slate-500 dark:text-slate-400">AI 调用</span>
-                  <span className="text-indigo-600 dark:text-indigo-400 font-semibold text-base">{aiCalls}</span>
+                  <span className="text-[#2C5F2D] dark:text-[#97BC62] font-semibold text-base">{aiCalls}</span>
                 </div>
               </div>
             </div>

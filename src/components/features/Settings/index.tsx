@@ -214,7 +214,7 @@ function PasswordChangeSection({ onPasswordChange, toast }: {
               value={currentPassword}
               onChange={(e) => setCurrentPassword(e.target.value)}
               placeholder="请输入当前密码"
-              className="w-full px-4 py-2.5 pr-12 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 text-slate-800 dark:text-slate-100 transition-all"
+              className="w-full px-4 py-2.5 pr-12 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2C5F2D]/20 focus:border-[#2C5F2D] text-slate-800 dark:text-slate-100 transition-all"
             />
             <button
               type="button"
@@ -240,7 +240,7 @@ function PasswordChangeSection({ onPasswordChange, toast }: {
               placeholder="至少 8 个字符"
               minLength={8}
               maxLength={128}
-              className="w-full px-4 py-2.5 pr-12 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 text-slate-800 dark:text-slate-100 transition-all"
+              className="w-full px-4 py-2.5 pr-12 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2C5F2D]/20 focus:border-[#2C5F2D] text-slate-800 dark:text-slate-100 transition-all"
             />
             <button
               type="button"
@@ -288,7 +288,7 @@ function PasswordChangeSection({ onPasswordChange, toast }: {
               placeholder="再次输入新密码"
               minLength={8}
               maxLength={128}
-              className="w-full px-4 py-2.5 pr-12 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 text-slate-800 dark:text-slate-100 transition-all"
+              className="w-full px-4 py-2.5 pr-12 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2C5F2D]/20 focus:border-[#2C5F2D] text-slate-800 dark:text-slate-100 transition-all"
             />
             <button
               type="button"
@@ -312,7 +312,7 @@ function PasswordChangeSection({ onPasswordChange, toast }: {
         <button
           type="submit"
           disabled={!isValid || isSubmitting}
-          className="w-full py-3 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2"
+          className="w-full py-3 bg-[#2C5F2D] text-white font-bold rounded-xl hover:bg-[#1E4620] disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2"
         >
           {isSubmitting ? (
             <>
@@ -444,7 +444,7 @@ function LoginHistorySection({ loginHistory }: { loginHistory?: LoginHistoryEntr
       {sortedHistory.length > 5 && (
         <button
           onClick={() => setShowAll(!showAll)}
-          className="w-full py-2 text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors"
+          className="w-full py-2 text-sm font-medium text-[#2C5F2D] dark:text-[#97BC62] hover:text-[#1E4620] dark:hover:text-[#97BC62] transition-colors"
         >
           {showAll ? '收起' : `查看全部 ${sortedHistory.length} 条记录`}
         </button>
@@ -637,11 +637,11 @@ export default function Settings({ user, storedUser, theme, onThemeChange, onPas
       onClick={() => setActiveTab(id)}
       className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl transition-all ${
         activeTab === id
-          ? 'bg-indigo-50 dark:bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 shadow-sm ring-1 ring-indigo-100 dark:ring-indigo-500/20'
+          ? 'bg-[#F0F7F0] dark:bg-[#2C5F2D]/10 text-[#1E4620] dark:text-[#97BC62] shadow-sm ring-1 ring-indigo-100 dark:ring-indigo-500/20'
           : 'text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-700 dark:hover:text-slate-300'
       }`}
     >
-      <span className={activeTab === id ? 'text-indigo-500 dark:text-indigo-400' : 'text-slate-400 dark:text-slate-500'}>{icon}</span>
+      <span className={activeTab === id ? 'text-[#2C5F2D] dark:text-[#97BC62]' : 'text-slate-400 dark:text-slate-500'}>{icon}</span>
       {label}
     </button>
   );
@@ -726,7 +726,7 @@ export default function Settings({ user, storedUser, theme, onThemeChange, onPas
                       type="text"
                       value={profile.nickname}
                       onChange={(e) => setProfile({...profile, nickname: e.target.value})}
-                      className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 text-slate-800 dark:text-slate-100 transition-all"
+                      className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2C5F2D]/20 focus:border-[#2C5F2D] text-slate-800 dark:text-slate-100 transition-all"
                     />
                   </div>
                   <div>
@@ -736,7 +736,7 @@ export default function Settings({ user, storedUser, theme, onThemeChange, onPas
                       value={profile.website}
                       onChange={(e) => setProfile({...profile, website: e.target.value})}
                       placeholder="https://"
-                      className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 text-slate-800 dark:text-slate-100 transition-all"
+                      className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2C5F2D]/20 focus:border-[#2C5F2D] text-slate-800 dark:text-slate-100 transition-all"
                     />
                   </div>
                 </div>
@@ -747,7 +747,7 @@ export default function Settings({ user, storedUser, theme, onThemeChange, onPas
                     rows={4}
                     value={profile.bio}
                     onChange={(e) => setProfile({...profile, bio: e.target.value})}
-                    className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 text-slate-800 dark:text-slate-100 transition-all resize-none"
+                    className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2C5F2D]/20 focus:border-[#2C5F2D] text-slate-800 dark:text-slate-100 transition-all resize-none"
                   ></textarea>
                   <p className="text-right text-xs text-slate-400 dark:text-slate-500 mt-1">{profile.bio.length} / 200</p>
                 </div>
@@ -833,13 +833,13 @@ export default function Settings({ user, storedUser, theme, onThemeChange, onPas
                                     onClick={() => setPreferences({...preferences, defaultModel: model.id})}
                                     className={`cursor-pointer p-4 rounded-xl border transition-all ${
                                         preferences.defaultModel === model.id
-                                        ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-500/10 ring-1 ring-indigo-500'
-                                        : 'border-slate-200 dark:border-slate-700 hover:border-indigo-200 dark:hover:border-indigo-500/30 hover:bg-slate-50 dark:hover:bg-slate-800'
+                                        ? 'border-[#2C5F2D] bg-[#F0F7F0] dark:bg-[#2C5F2D]/10 ring-1 ring-indigo-500'
+                                        : 'border-slate-200 dark:border-slate-700 hover:border-[#E8F5E8] dark:hover:border-[#2C5F2D]/30 hover:bg-slate-50 dark:hover:bg-slate-800'
                                     }`}
                                  >
                                      <div className="flex items-center justify-between mb-1">
                                          <span className="font-bold text-sm text-slate-800 dark:text-slate-200">{model.name}</span>
-                                         {preferences.defaultModel === model.id && <div className="w-2.5 h-2.5 rounded-full bg-indigo-500"></div>}
+                                         {preferences.defaultModel === model.id && <div className="w-2.5 h-2.5 rounded-full bg-[#2C5F2D]"></div>}
                                      </div>
                                      <p className="text-xs text-slate-500 dark:text-slate-400">{model.desc}</p>
                                  </div>
@@ -852,7 +852,7 @@ export default function Settings({ user, storedUser, theme, onThemeChange, onPas
                          <select
                             value={preferences.defaultTone}
                             onChange={(e) => setPreferences({...preferences, defaultTone: e.target.value})}
-                            className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 text-slate-800 dark:text-slate-100 transition-all"
+                            className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2C5F2D]/20 focus:border-[#2C5F2D] text-slate-800 dark:text-slate-100 transition-all"
                          >
                              <option value="standard">标准 (Standard)</option>
                              <option value="vivid">生动 (Vivid)</option>
@@ -869,7 +869,7 @@ export default function Settings({ user, storedUser, theme, onThemeChange, onPas
                          </div>
                          <button
                             onClick={() => setPreferences({...preferences, autoSave: !preferences.autoSave})}
-                            className={`w-12 h-6 rounded-full transition-colors relative ${preferences.autoSave ? 'bg-indigo-500' : 'bg-slate-300 dark:bg-slate-600'}`}
+                            className={`w-12 h-6 rounded-full transition-colors relative ${preferences.autoSave ? 'bg-[#2C5F2D]' : 'bg-slate-300 dark:bg-slate-600'}`}
                          >
                              <div className={`w-4 h-4 rounded-full bg-white absolute top-1 transition-transform ${preferences.autoSave ? 'left-7' : 'left-1'}`}></div>
                          </button>
@@ -884,7 +884,7 @@ export default function Settings({ user, storedUser, theme, onThemeChange, onPas
                      <div>
                          <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">界面语言</label>
                          <select
-                            className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 text-slate-800 dark:text-slate-100 transition-all"
+                            className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2C5F2D]/20 focus:border-[#2C5F2D] text-slate-800 dark:text-slate-100 transition-all"
                          >
                              <option value="zh-CN">简体中文 (Chinese Simplified)</option>
                              <option value="en-US">English (US)</option>
@@ -896,19 +896,19 @@ export default function Settings({ user, storedUser, theme, onThemeChange, onPas
                          <div className="grid grid-cols-3 gap-4">
                              <button
                                 onClick={() => onThemeChange('light')}
-                                className={`p-4 rounded-xl border text-center transition-all ${theme === 'light' ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-500/10 text-indigo-700 dark:text-indigo-400' : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400'}`}
+                                className={`p-4 rounded-xl border text-center transition-all ${theme === 'light' ? 'border-[#2C5F2D] bg-[#F0F7F0] dark:bg-[#2C5F2D]/10 text-[#1E4620] dark:text-[#97BC62]' : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400'}`}
                              >
                                  浅色模式
                              </button>
                              <button
                                 onClick={() => onThemeChange('dark')}
-                                className={`p-4 rounded-xl border text-center transition-all ${theme === 'dark' ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-500/10 text-indigo-700 dark:text-indigo-400' : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400'}`}
+                                className={`p-4 rounded-xl border text-center transition-all ${theme === 'dark' ? 'border-[#2C5F2D] bg-[#F0F7F0] dark:bg-[#2C5F2D]/10 text-[#1E4620] dark:text-[#97BC62]' : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400'}`}
                              >
                                  深色模式
                              </button>
                              <button
                                 onClick={() => onThemeChange('system')}
-                                className={`p-4 rounded-xl border text-center transition-all ${theme === 'system' ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-500/10 text-indigo-700 dark:text-indigo-400' : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400'}`}
+                                className={`p-4 rounded-xl border text-center transition-all ${theme === 'system' ? 'border-[#2C5F2D] bg-[#F0F7F0] dark:bg-[#2C5F2D]/10 text-[#1E4620] dark:text-[#97BC62]' : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400'}`}
                              >
                                  跟随系统
                              </button>
@@ -951,22 +951,22 @@ export default function Settings({ user, storedUser, theme, onThemeChange, onPas
                               onClick={() => setApiSettings(prev => ({ ...prev, apiMode: 'custom' }))}
                               className={`relative p-4 rounded-xl border-2 transition-all text-left ${
                                   apiSettings.apiMode === 'custom'
-                                      ? 'border-indigo-500 bg-white dark:bg-slate-800 shadow-md'
-                                      : 'border-slate-200 dark:border-slate-600 bg-white/50 dark:bg-slate-800/50 hover:border-indigo-300'
+                                      ? 'border-[#2C5F2D] bg-white dark:bg-slate-800 shadow-md'
+                                      : 'border-slate-200 dark:border-slate-600 bg-white/50 dark:bg-slate-800/50 hover:border-[#97BC62]'
                               }`}
                           >
                               <div className="flex items-center gap-3 mb-2">
                                   <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
                                       apiSettings.apiMode === 'custom'
-                                          ? 'bg-indigo-100 dark:bg-indigo-900/50'
+                                          ? 'bg-[#E8F5E8] dark:bg-[#2C5F2D]/20'
                                           : 'bg-slate-100 dark:bg-slate-700'
                                   }`}>
-                                      <svg className={`w-5 h-5 ${apiSettings.apiMode === 'custom' ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                      <svg className={`w-5 h-5 ${apiSettings.apiMode === 'custom' ? 'text-[#2C5F2D] dark:text-[#97BC62]' : 'text-slate-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
                                       </svg>
                                   </div>
                                   <div>
-                                      <p className={`font-bold text-sm ${apiSettings.apiMode === 'custom' ? 'text-indigo-700 dark:text-indigo-400' : 'text-slate-700 dark:text-slate-300'}`}>
+                                      <p className={`font-bold text-sm ${apiSettings.apiMode === 'custom' ? 'text-[#1E4620] dark:text-[#97BC62]' : 'text-slate-700 dark:text-slate-300'}`}>
                                           自定义 API
                                       </p>
                                       <p className="text-xs text-slate-500 dark:text-slate-400">
@@ -981,7 +981,7 @@ export default function Settings({ user, storedUser, theme, onThemeChange, onPas
                                   推荐
                               </span>
                               {apiSettings.apiMode === 'custom' && (
-                                  <div className="absolute top-2 right-2 w-5 h-5 bg-indigo-500 rounded-full flex items-center justify-center">
+                                  <div className="absolute top-2 right-2 w-5 h-5 bg-[#2C5F2D] rounded-full flex items-center justify-center">
                                       <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />
                                       </svg>
@@ -1066,7 +1066,7 @@ export default function Settings({ user, storedUser, theme, onThemeChange, onPas
                                   <button
                                       type="button"
                                       onClick={() => setApiSettings(prev => ({ ...prev, apiMode: 'custom' }))}
-                                      className="mt-4 px-4 py-2 rounded-xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700 transition-colors"
+                                      className="mt-4 px-4 py-2 rounded-xl bg-[#2C5F2D] text-white text-sm font-medium hover:bg-[#1E4620] transition-colors"
                                   >
                                       切换到自定义 API 模式
                                   </button>
@@ -1093,7 +1093,7 @@ export default function Settings({ user, storedUser, theme, onThemeChange, onPas
                               type="button"
                               onClick={() => setShowSavePresetModal(true)}
                               disabled={!apiSettings.apiKey}
-                              className="px-3 py-1.5 rounded-xl bg-indigo-600 text-white text-xs font-medium hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                              className="px-3 py-1.5 rounded-xl bg-[#2C5F2D] text-white text-xs font-medium hover:bg-[#1E4620] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                           >
                               保存当前配置
                           </button>
@@ -1106,8 +1106,8 @@ export default function Settings({ user, storedUser, theme, onThemeChange, onPas
                                       key={preset.id}
                                       className={`group relative p-3 rounded-xl border cursor-pointer transition-all ${
                                           activePresetId === preset.id
-                                              ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-500/10 ring-1 ring-indigo-500'
-                                              : 'border-slate-200 dark:border-slate-600 hover:border-indigo-300 dark:hover:border-indigo-500/50 bg-white dark:bg-slate-800'
+                                              ? 'border-[#2C5F2D] bg-[#F0F7F0] dark:bg-[#2C5F2D]/10 ring-1 ring-indigo-500'
+                                              : 'border-slate-200 dark:border-slate-600 hover:border-[#97BC62] dark:hover:border-[#2C5F2D]/50 bg-white dark:bg-slate-800'
                                       }`}
                                       onClick={() => handleLoadPreset(preset)}
                                   >
@@ -1115,7 +1115,7 @@ export default function Settings({ user, storedUser, theme, onThemeChange, onPas
                                           <div className="flex-1 min-w-0">
                                               <p className={`text-sm font-semibold truncate ${
                                                   activePresetId === preset.id
-                                                      ? 'text-indigo-700 dark:text-indigo-400'
+                                                      ? 'text-[#1E4620] dark:text-[#97BC62]'
                                                       : 'text-slate-700 dark:text-slate-200'
                                               }`}>
                                                   {preset.name}
@@ -1141,7 +1141,7 @@ export default function Settings({ user, storedUser, theme, onThemeChange, onPas
                                           </button>
                                       </div>
                                       {activePresetId === preset.id && (
-                                          <div className="absolute -top-1.5 -right-1.5 w-4 h-4 bg-indigo-500 rounded-full flex items-center justify-center">
+                                          <div className="absolute -top-1.5 -right-1.5 w-4 h-4 bg-[#2C5F2D] rounded-full flex items-center justify-center">
                                               <svg className="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />
                                               </svg>
@@ -1170,7 +1170,7 @@ export default function Settings({ user, storedUser, theme, onThemeChange, onPas
                                           value={presetNameInput}
                                           onChange={(e) => setPresetNameInput(e.target.value)}
                                           placeholder="例如：我的 DeepSeek 配置"
-                                          className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 text-slate-800 dark:text-slate-100"
+                                          className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2C5F2D]/20 focus:border-[#2C5F2D] text-slate-800 dark:text-slate-100"
                                           autoFocus
                                       />
                                   </div>
@@ -1193,7 +1193,7 @@ export default function Settings({ user, storedUser, theme, onThemeChange, onPas
                                   <button
                                       onClick={handleSaveAsPreset}
                                       disabled={!presetNameInput.trim()}
-                                      className="flex-1 py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                      className="flex-1 py-2.5 rounded-xl bg-[#2C5F2D] text-white text-sm font-medium hover:bg-[#1E4620] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                                   >
                                       保存预设
                                   </button>
@@ -1210,7 +1210,7 @@ export default function Settings({ user, storedUser, theme, onThemeChange, onPas
                       <select
                           value={apiSettings.provider}
                           onChange={(e) => handleProviderChange(e.target.value)}
-                          className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 text-slate-800 dark:text-slate-100 transition-all"
+                          className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2C5F2D]/20 focus:border-[#2C5F2D] text-slate-800 dark:text-slate-100 transition-all"
                       >
                           {API_PROVIDERS.map(provider => (
                               <option key={provider.id} value={provider.id}>
@@ -1231,7 +1231,7 @@ export default function Settings({ user, storedUser, theme, onThemeChange, onPas
                               value={apiSettings.apiKey}
                               onChange={(e) => setApiSettings(prev => ({ ...prev, apiKey: e.target.value }))}
                               placeholder="输入你的 API Key..."
-                              className="w-full px-4 py-3 pr-12 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 text-slate-800 dark:text-slate-100 transition-all font-mono"
+                              className="w-full px-4 py-3 pr-12 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2C5F2D]/20 focus:border-[#2C5F2D] text-slate-800 dark:text-slate-100 transition-all font-mono"
                           />
                           <button
                               type="button"
@@ -1266,7 +1266,7 @@ export default function Settings({ user, storedUser, theme, onThemeChange, onPas
                               value={apiSettings.baseUrl || ''}
                               onChange={(e) => setApiSettings(prev => ({ ...prev, baseUrl: e.target.value }))}
                               placeholder="https://api.example.com/v1"
-                              className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 text-slate-800 dark:text-slate-100 transition-all"
+                              className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2C5F2D]/20 focus:border-[#2C5F2D] text-slate-800 dark:text-slate-100 transition-all"
                           />
                       </div>
                   )}
@@ -1279,7 +1279,7 @@ export default function Settings({ user, storedUser, theme, onThemeChange, onPas
                       <select
                           value={apiSettings.selectedModel}
                           onChange={(e) => setApiSettings(prev => ({ ...prev, selectedModel: e.target.value }))}
-                          className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 text-slate-800 dark:text-slate-100 transition-all"
+                          className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2C5F2D]/20 focus:border-[#2C5F2D] text-slate-800 dark:text-slate-100 transition-all"
                       >
                           <option value="">-- 推荐模型 (Recommended) --</option>
                           {(PROVIDER_MODELS[apiSettings.provider] || []).map(model => (
@@ -1311,7 +1311,7 @@ export default function Settings({ user, storedUser, theme, onThemeChange, onPas
                               onChange={(e) => setCustomModelInput(e.target.value)}
                               onKeyDown={(e) => e.key === 'Enter' && handleAddCustomModel()}
                               placeholder="deepseek-ai/DeepSeek-V3.1-Terminus"
-                              className="flex-1 px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 text-slate-800 dark:text-slate-100 transition-all font-mono text-sm"
+                              className="flex-1 px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2C5F2D]/20 focus:border-[#2C5F2D] text-slate-800 dark:text-slate-100 transition-all font-mono text-sm"
                           />
                           <button
                               type="button"
@@ -1373,7 +1373,7 @@ export default function Settings({ user, storedUser, theme, onThemeChange, onPas
                               type="button"
                               onClick={handleTestConnection}
                               disabled={testStatus === 'testing' || !apiSettings.apiKey}
-                              className="px-4 py-2 rounded-xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
+                              className="px-4 py-2 rounded-xl bg-[#2C5F2D] text-white text-sm font-medium hover:bg-[#1E4620] disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
                           >
                               {testStatus === 'testing' ? (
                                   <>
@@ -1436,7 +1436,7 @@ export default function Settings({ user, storedUser, theme, onThemeChange, onPas
                           type="button"
                           onClick={handleSaveApiSettings}
                           disabled={apiSaveStatus === 'saving'}
-                          className="flex-1 px-6 py-3 rounded-xl bg-slate-900 dark:bg-indigo-600 text-white font-bold hover:bg-slate-800 dark:hover:bg-indigo-700 disabled:opacity-50 transition-colors"
+                          className="flex-1 px-6 py-3 rounded-xl bg-slate-900 dark:bg-[#2C5F2D] text-white font-bold hover:bg-slate-800 dark:hover:bg-[#1E4620] disabled:opacity-50 transition-colors"
                       >
                           {apiSaveStatus === 'saving' ? '保存中...' : '保存'}
                       </button>

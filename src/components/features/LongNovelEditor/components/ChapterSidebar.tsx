@@ -64,8 +64,8 @@ const ChapterItem = memo<ChapterItemProps>(({
     <div
       className={`group relative rounded-xl px-3 py-2 border text-sm transition-colors cursor-pointer ${
         isSelected
-          ? 'border-indigo-500 bg-indigo-500/20 text-indigo-400'
-          : `${themeClasses.border} ${themeClasses.text} hover:border-indigo-400/50`
+          ? 'border-[#2C5F2D] bg-[#2C5F2D]/20 text-[#97BC62]'
+          : `${themeClasses.border} ${themeClasses.text} hover:border-[#97BC62]/50`
       }`}
       onClick={() => {
         if (!isEditing) {
@@ -99,7 +99,7 @@ const ChapterItem = memo<ChapterItemProps>(({
               {!isInVolume && volumes.length > 0 && (
                 <div className="relative">
                   <button
-                    className={`p-1 rounded ${effectiveTheme === 'dark' ? 'hover:bg-slate-700' : 'hover:bg-slate-200'} ${showVolumePickerFor === chapter.id ? 'bg-indigo-100 dark:bg-indigo-900/30' : ''}`}
+                    className={`p-1 rounded ${effectiveTheme === 'dark' ? 'hover:bg-slate-700' : 'hover:bg-slate-200'} ${showVolumePickerFor === chapter.id ? 'bg-[#E8F5E8] dark:bg-[#2C5F2D]/30' : ''}`}
                     onClick={(e) => {
                       e.stopPropagation();
                       onSetShowVolumePickerFor(showVolumePickerFor === chapter.id ? null : chapter.id);
@@ -122,7 +122,7 @@ const ChapterItem = memo<ChapterItemProps>(({
                       {volumes.map(vol => (
                         <button
                           key={vol.id}
-                          className={`w-full text-left px-3 py-1.5 text-xs ${themeClasses.text} hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition-colors`}
+                          className={`w-full text-left px-3 py-1.5 text-xs ${themeClasses.text} hover:bg-[#F0F7F0] dark:hover:bg-[#2C5F2D]/30 transition-colors`}
                           onClick={(e) => {
                             e.stopPropagation();
                             onMoveToVolume(vol.id);
@@ -309,8 +309,8 @@ const ChapterSidebar: React.FC<ChapterSidebarProps> = ({
         onClick={onToggleQuickSort}
         className={`w-full mb-3 px-3 py-2 rounded-xl text-xs font-medium transition-colors flex items-center justify-center gap-1.5 ${
           showQuickSort
-            ? 'bg-indigo-600 text-white'
-            : `border ${themeClasses.border} ${themeClasses.textMuted} hover:border-indigo-400`
+            ? 'bg-[#2C5F2D] text-white'
+            : `border ${themeClasses.border} ${themeClasses.textMuted} hover:border-[#97BC62]`
         }`}
       >
         <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -332,7 +332,7 @@ const ChapterSidebar: React.FC<ChapterSidebarProps> = ({
           </button>
           <button
             onClick={addVolume}
-            className="px-2 py-1 rounded-lg bg-indigo-500 text-white text-[10px] font-medium hover:bg-indigo-600 transition-colors"
+            className="px-2 py-1 rounded-lg bg-[#2C5F2D] text-white text-[10px] font-medium hover:bg-[#2C5F2D] transition-colors"
             title="添加卷"
           >
             + 卷
@@ -360,7 +360,7 @@ const ChapterSidebar: React.FC<ChapterSidebarProps> = ({
                 <div key={volume.id} className="space-y-1">
                   {/* 卷标题 */}
                   <div
-                    className={`group flex items-center gap-2 px-3 py-2 rounded-xl border ${themeClasses.border} ${themeClasses.card} cursor-pointer hover:border-indigo-400/50`}
+                    className={`group flex items-center gap-2 px-3 py-2 rounded-xl border ${themeClasses.border} ${themeClasses.card} cursor-pointer hover:border-[#97BC62]/50`}
                     onClick={() => toggleVolumeCollapse(volume.id)}
                   >
                     <button className={`${themeClasses.textMuted} transition-transform ${isCollapsed ? '' : 'rotate-90'}`}>

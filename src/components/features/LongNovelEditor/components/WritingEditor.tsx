@@ -238,7 +238,7 @@ ${currentChapter.content.slice(-1000)}
         <div className={`px-6 py-1 border-b ${themeClasses.border}`}>
           <button
             onClick={() => setShowRichTextToolbar(true)}
-            className={`text-xs ${themeClasses.textMuted} hover:text-indigo-500`}
+            className={`text-xs ${themeClasses.textMuted} hover:text-[#2C5F2D]`}
           >
             显示格式工具栏
           </button>

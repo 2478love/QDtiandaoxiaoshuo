@@ -69,7 +69,7 @@ const MemberCenter: React.FC<MemberCenterProps> = ({ user, activityLog, onPlanCh
             {user.avatar ? (
               <img src={user.avatar} alt="Avatar" className="w-full h-full object-cover" />
             ) : (
-              <div className="w-full h-full flex items-center justify-center bg-indigo-100 dark:bg-indigo-900/50 text-indigo-500 dark:text-indigo-300 text-2xl font-bold">
+              <div className="w-full h-full flex items-center justify-center bg-[#E8F5E8] dark:bg-[#2C5F2D]/20 text-[#2C5F2D] dark:text-[#97BC62] text-2xl font-bold">
                 {user.name?.[0] || 'U'}
               </div>
             )}
@@ -89,7 +89,7 @@ const MemberCenter: React.FC<MemberCenterProps> = ({ user, activityLog, onPlanCh
               </div>
               <div>
                 <p className="text-slate-400 dark:text-slate-500">AI 调用</p>
-                <p className="text-2xl font-bold text-indigo-500">{user.aiCalls ?? 0}</p>
+                <p className="text-2xl font-bold text-[#2C5F2D]">{user.aiCalls ?? 0}</p>
               </div>
             </div>
           </div>
@@ -106,7 +106,7 @@ const MemberCenter: React.FC<MemberCenterProps> = ({ user, activityLog, onPlanCh
           {onNavigateToSettings && (
             <button
               onClick={onNavigateToSettings}
-              className="px-4 py-2 rounded-xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700 transition-colors flex items-center gap-2"
+              className="px-4 py-2 rounded-xl bg-[#2C5F2D] text-white text-sm font-medium hover:bg-[#1E4620] transition-colors flex items-center gap-2"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
@@ -202,7 +202,7 @@ const MemberCenter: React.FC<MemberCenterProps> = ({ user, activityLog, onPlanCh
           {/* 快捷操作提示 */}
           <div className="mt-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
             <div className="flex items-start gap-3">
-              <svg className="w-5 h-5 text-indigo-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-5 h-5 text-[#2C5F2D] mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               <div>
@@ -232,7 +232,7 @@ const MemberCenter: React.FC<MemberCenterProps> = ({ user, activityLog, onPlanCh
             {PLANS.map(plan => (
               <div
                 key={plan.id}
-                className={`rounded-2xl border ${user.plan === plan.id ? 'border-indigo-500' : 'border-slate-200 dark:border-slate-700'} p-6 opacity-60`}
+                className={`rounded-2xl border ${user.plan === plan.id ? 'border-[#2C5F2D]' : 'border-slate-200 dark:border-slate-700'} p-6 opacity-60`}
               >
                 <div className="flex items-baseline justify-between mb-4">
                   <div>

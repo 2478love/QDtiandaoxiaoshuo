@@ -148,7 +148,7 @@ const GoalCard = memo<{
               className={`text-xs px-2 py-1 rounded ${
                 goal.isActive
                   ? 'bg-amber-100 dark:bg-amber-500/20 text-amber-600 dark:text-amber-400'
-                  : 'bg-indigo-100 dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400'
+                  : 'bg-[#E8F5E8] dark:bg-[#2C5F2D]/20 text-[#2C5F2D] dark:text-[#97BC62]'
               }`}
             >
               {goal.isActive ? '暂停' : '激活'}
@@ -213,7 +213,7 @@ const WritingGoalsPanel: React.FC<WritingGoalsPanelProps> = ({
         <h3 className={`font-semibold ${themeClasses.text} mb-3`}>写作统计</h3>
         <div className="grid grid-cols-3 gap-4">
           <div className="text-center">
-            <p className={`text-2xl font-bold text-indigo-600 dark:text-indigo-400`}>
+            <p className={`text-2xl font-bold text-[#2C5F2D] dark:text-[#97BC62]`}>
               {stats.todayWords.toLocaleString()}
             </p>
             <p className={`text-xs ${themeClasses.textMuted}`}>今日字数</p>
@@ -232,7 +232,7 @@ const WritingGoalsPanel: React.FC<WritingGoalsPanelProps> = ({
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 mt-4 pt-4 border-t border-indigo-100 dark:border-indigo-800">
+        <div className="grid grid-cols-2 gap-4 mt-4 pt-4 border-t border-[#F0F7F0] dark:border-[#1E4620]">
           <div>
             <p className={`text-sm font-medium ${themeClasses.text}`}>
               {stats.weekWords.toLocaleString()} <span className={`text-xs ${themeClasses.textMuted}`}>本周字数</span>
@@ -264,7 +264,7 @@ const WritingGoalsPanel: React.FC<WritingGoalsPanelProps> = ({
           </h3>
           <button
             onClick={() => setShowCreateModal(true)}
-            className="px-3 py-1.5 text-xs font-medium rounded-lg bg-indigo-500 text-white hover:bg-indigo-600 transition-colors"
+            className="px-3 py-1.5 text-xs font-medium rounded-lg bg-[#2C5F2D] text-white hover:bg-[#2C5F2D] transition-colors"
           >
             + 新建目标
           </button>
@@ -312,8 +312,8 @@ const WritingGoalsPanel: React.FC<WritingGoalsPanelProps> = ({
                       onClick={() => setNewGoal((prev) => ({ ...prev, type }))}
                       className={`px-3 py-2 text-sm rounded-lg border transition-all ${
                         newGoal.type === type
-                          ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400'
-                          : `${themeClasses.border} ${themeClasses.textMuted} hover:border-indigo-300`
+                          ? 'border-[#2C5F2D] bg-[#F0F7F0] dark:bg-[#2C5F2D]/10 text-[#2C5F2D] dark:text-[#97BC62]'
+                          : `${themeClasses.border} ${themeClasses.textMuted} hover:border-[#97BC62]`
                       }`}
                     >
                       {GOAL_TYPE_LABELS[type]}
@@ -335,7 +335,7 @@ const WritingGoalsPanel: React.FC<WritingGoalsPanelProps> = ({
                       targetWords: Math.max(0, parseInt(e.target.value) || 0),
                     }))
                   }
-                  className={`w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border ${themeClasses.border} rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 ${themeClasses.text}`}
+                  className={`w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border ${themeClasses.border} rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2C5F2D]/20 focus:border-[#2C5F2D] ${themeClasses.text}`}
                   placeholder="1000"
                 />
                 <div className="flex gap-2 mt-2">
@@ -343,7 +343,7 @@ const WritingGoalsPanel: React.FC<WritingGoalsPanelProps> = ({
                     <button
                       key={words}
                       onClick={() => setNewGoal((prev) => ({ ...prev, targetWords: words }))}
-                      className={`px-2 py-1 text-xs rounded ${themeClasses.border} border ${themeClasses.textMuted} hover:border-indigo-300`}
+                      className={`px-2 py-1 text-xs rounded ${themeClasses.border} border ${themeClasses.textMuted} hover:border-[#97BC62]`}
                     >
                       {words}字
                     </button>
@@ -362,7 +362,7 @@ const WritingGoalsPanel: React.FC<WritingGoalsPanelProps> = ({
               <button
                 onClick={handleCreateGoal}
                 disabled={newGoal.targetWords <= 0}
-                className="flex-1 py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="flex-1 py-2.5 rounded-xl bg-[#2C5F2D] text-white text-sm font-medium hover:bg-[#1E4620] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 创建
               </button>

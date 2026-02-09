@@ -82,8 +82,8 @@ const AnalysisPanel: React.FC<AnalysisPanelProps> = ({ chapter, themeClasses }) 
   // 获取等级颜色
   const getGradeColor = (grade: string) => {
     switch (grade) {
-      case 'S': return 'text-purple-600 bg-purple-100';
-      case 'A': return 'text-blue-600 bg-blue-100';
+      case 'S': return 'text-[#2C5F2D] bg-[#E8F5E8]';
+      case 'A': return 'text-[#2C5F2D] bg-[#E8F5E8]';
       case 'B': return 'text-green-600 bg-green-100';
       case 'C': return 'text-yellow-600 bg-yellow-100';
       case 'D': return 'text-red-600 bg-red-100';
@@ -127,8 +127,8 @@ const AnalysisPanel: React.FC<AnalysisPanelProps> = ({ chapter, themeClasses }) 
             onClick={() => setActiveTab(tab.id as AnalysisTab)}
             className={`px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
               activeTab === tab.id
-                ? 'border-indigo-500 text-indigo-600'
-                : `border-transparent ${themeClasses.textMuted} hover:text-indigo-500`
+                ? 'border-[#2C5F2D] text-[#2C5F2D]'
+                : `border-transparent ${themeClasses.textMuted} hover:text-[#2C5F2D]`
             }`}
           >
             <span className="mr-1">{tab.icon}</span>
@@ -145,7 +145,7 @@ const AnalysisPanel: React.FC<AnalysisPanelProps> = ({ chapter, themeClasses }) 
           className={`flex-1 py-2 px-4 rounded-xl text-sm font-medium transition-colors ${
             isAnalyzing
               ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-              : 'bg-indigo-600 text-white hover:bg-indigo-700'
+              : 'bg-[#2C5F2D] text-white hover:bg-[#1E4620]'
           }`}
         >
           {isAnalyzing ? '分析中...' : '开始分析'}
@@ -167,7 +167,7 @@ const AnalysisPanel: React.FC<AnalysisPanelProps> = ({ chapter, themeClasses }) 
             <div className={`rounded-xl border ${themeClasses.border} p-4`}>
               <h3 className={`text-sm font-semibold mb-3 ${themeClasses.text}`}>综合评分</h3>
               <div className="text-center">
-                <div className="text-6xl font-bold text-indigo-600 mb-2">
+                <div className="text-6xl font-bold text-[#2C5F2D] mb-2">
                   {comprehensiveResult.overallScore}
                 </div>
                 <div className="flex items-center justify-center gap-2">
@@ -250,15 +250,15 @@ const AnalysisPanel: React.FC<AnalysisPanelProps> = ({ chapter, themeClasses }) 
                 <h3 className={`text-sm font-semibold mb-3 ${themeClasses.text}`}>改进建议</h3>
                 <div className="space-y-2">
                   {comprehensiveResult.recommendations.map((rec, idx) => (
-                    <div key={idx} className={`p-3 rounded-lg bg-blue-50 border border-blue-200 text-xs`}>
+                    <div key={idx} className={`p-3 rounded-lg bg-[#F0F7F0] border border-[#E8F5E8] text-xs`}>
                       <div className="flex items-start gap-2">
-                        <span className="text-blue-600">💡</span>
+                        <span className="text-[#2C5F2D]">💡</span>
                         <div className="flex-1">
-                          <div className="font-medium text-blue-900 mb-1">{rec.title}</div>
-                          <div className="text-blue-700 mb-2">{rec.description}</div>
+                          <div className="font-medium text-[#1E4620] mb-1">{rec.title}</div>
+                          <div className="text-[#1E4620] mb-2">{rec.description}</div>
                           <div className="space-y-1">
                             {rec.actions.map((action, aidx) => (
-                              <div key={aidx} className="text-blue-600">• {action}</div>
+                              <div key={aidx} className="text-[#2C5F2D]">• {action}</div>
                             ))}
                           </div>
                         </div>
@@ -292,7 +292,7 @@ const AnalysisPanel: React.FC<AnalysisPanelProps> = ({ chapter, themeClasses }) 
             <div className={`rounded-xl border ${themeClasses.border} p-4`}>
               <h3 className={`text-sm font-semibold mb-3 ${themeClasses.text}`}>写作风格评分</h3>
               <div className="text-center">
-                <div className="text-5xl font-bold text-indigo-600 mb-2">
+                <div className="text-5xl font-bold text-[#2C5F2D] mb-2">
                   {styleResult.score}
                 </div>
                 <div className={`text-sm ${themeClasses.textMuted}`}>总体评分</div>
@@ -318,7 +318,7 @@ const AnalysisPanel: React.FC<AnalysisPanelProps> = ({ chapter, themeClasses }) 
                   </div>
                   <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
                     <div
-                      className="h-full bg-blue-500 transition-all"
+                      className="h-full bg-[#F0F7F0]0 transition-all"
                       style={{ width: `${styleResult.dialogueQuality}%` }}
                     />
                   </div>
@@ -401,9 +401,9 @@ const AnalysisPanel: React.FC<AnalysisPanelProps> = ({ chapter, themeClasses }) 
                     <div className="text-xs text-orange-600">环境冲突</div>
                     <div className="text-lg font-bold text-orange-700">{tensionResult.conflict.types.environmental}</div>
                   </div>
-                  <div className="text-center p-2 rounded bg-purple-50 border border-purple-200">
-                    <div className="text-xs text-purple-600">内心冲突</div>
-                    <div className="text-lg font-bold text-purple-700">{tensionResult.conflict.types.internal}</div>
+                  <div className="text-center p-2 rounded bg-[#F0F7F0] border border-[#E8F5E8]">
+                    <div className="text-xs text-[#2C5F2D]">内心冲突</div>
+                    <div className="text-lg font-bold text-[#1E4620]">{tensionResult.conflict.types.internal}</div>
                   </div>
                 </div>
               </div>
@@ -470,9 +470,9 @@ const AnalysisPanel: React.FC<AnalysisPanelProps> = ({ chapter, themeClasses }) 
             <div className={`rounded-xl border ${themeClasses.border} p-4`}>
               <h3 className={`text-sm font-semibold mb-3 ${themeClasses.text}`}>情绪指标</h3>
               <div className="grid grid-cols-2 gap-3">
-                <div className="text-center p-3 rounded bg-blue-50 border border-blue-200">
-                  <div className="text-xs text-blue-600">共鸣度</div>
-                  <div className="text-2xl font-bold text-blue-700">{emotionResult.resonance}</div>
+                <div className="text-center p-3 rounded bg-[#F0F7F0] border border-[#E8F5E8]">
+                  <div className="text-xs text-[#2C5F2D]">共鸣度</div>
+                  <div className="text-2xl font-bold text-[#1E4620]">{emotionResult.resonance}</div>
                 </div>
                 <div className="text-center p-3 rounded bg-green-50 border border-green-200">
                   <div className="text-xs text-green-600">平衡度</div>

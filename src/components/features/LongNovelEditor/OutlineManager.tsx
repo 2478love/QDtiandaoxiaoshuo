@@ -16,8 +16,8 @@ interface OutlineManagerProps {
 
 // 节点类型配置
 const NODE_TYPES = [
-  { id: 'volume', label: '卷', color: 'bg-purple-500', icon: '📚' },
-  { id: 'chapter', label: '章节', color: 'bg-blue-500', icon: '📖' },
+  { id: 'volume', label: '卷', color: 'bg-[#F0F7F0]0', icon: '📚' },
+  { id: 'chapter', label: '章节', color: 'bg-[#F0F7F0]0', icon: '📖' },
   { id: 'scene', label: '场景', color: 'bg-green-500', icon: '🎬' },
   { id: 'note', label: '备注', color: 'bg-yellow-500', icon: '📝' },
 ];
@@ -25,7 +25,7 @@ const NODE_TYPES = [
 // 状态配置
 const STATUS_OPTIONS = [
   { id: 'planned', label: '计划中', color: 'text-slate-500', bg: 'bg-slate-100' },
-  { id: 'writing', label: '写作中', color: 'text-blue-500', bg: 'bg-blue-100' },
+  { id: 'writing', label: '写作中', color: 'text-[#2C5F2D]', bg: 'bg-[#E8F5E8]' },
   { id: 'completed', label: '已完成', color: 'text-green-500', bg: 'bg-green-100' },
 ];
 
@@ -342,7 +342,7 @@ ${existingOutline ? `已有大纲：\n${existingOutline}\n` : ''}
         <div
           className={`group flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer transition-colors ${
             isSelected
-              ? 'bg-blue-50 border border-blue-200'
+              ? 'bg-[#F0F7F0] border border-[#E8F5E8]'
               : 'hover:bg-slate-50 border border-transparent'
           }`}
           style={{ marginLeft: `${level * 20}px` }}
@@ -376,7 +376,7 @@ ${existingOutline ? `已有大纲：\n${existingOutline}\n` : ''}
           {/* 操作按钮 */}
           <div className="hidden group-hover:flex items-center gap-1">
             <button
-              className="p-1 text-slate-400 hover:text-blue-500 rounded"
+              className="p-1 text-slate-400 hover:text-[#2C5F2D] rounded"
               onClick={(e) => { e.stopPropagation(); handleStartAdd(node.id); }}
               title="添加子节点"
             >
@@ -442,7 +442,7 @@ ${existingOutline ? `已有大纲：\n${existingOutline}\n` : ''}
             <button
               onClick={aiGenerateOutline}
               disabled={isAiGenerating}
-              className="px-4 py-2 bg-indigo-600 text-white text-sm rounded-lg hover:bg-indigo-700 disabled:opacity-50 flex items-center gap-2"
+              className="px-4 py-2 bg-[#2C5F2D] text-white text-sm rounded-lg hover:bg-[#1E4620] disabled:opacity-50 flex items-center gap-2"
             >
               {isAiGenerating ? (
                 <>
@@ -515,7 +515,7 @@ ${existingOutline ? `已有大纲：\n${existingOutline}\n` : ''}
                   <input
                     value={form.title}
                     onChange={e => setForm(prev => ({ ...prev, title: e.target.value }))}
-                    className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm focus:border-blue-400 focus:outline-none"
+                    className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm focus:border-[#97BC62] focus:outline-none"
                     placeholder="请输入节点标题"
                   />
                 </div>
@@ -526,7 +526,7 @@ ${existingOutline ? `已有大纲：\n${existingOutline}\n` : ''}
                     <select
                       value={form.type}
                       onChange={e => setForm(prev => ({ ...prev, type: e.target.value as OutlineNode['type'] }))}
-                      className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm focus:border-blue-400 focus:outline-none"
+                      className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm focus:border-[#97BC62] focus:outline-none"
                     >
                       {NODE_TYPES.map(t => (
                         <option key={t.id} value={t.id}>{t.icon} {t.label}</option>
@@ -538,7 +538,7 @@ ${existingOutline ? `已有大纲：\n${existingOutline}\n` : ''}
                     <select
                       value={form.status}
                       onChange={e => setForm(prev => ({ ...prev, status: e.target.value as OutlineNode['status'] }))}
-                      className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm focus:border-blue-400 focus:outline-none"
+                      className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm focus:border-[#97BC62] focus:outline-none"
                     >
                       {STATUS_OPTIONS.map(s => (
                         <option key={s.id} value={s.id}>{s.label}</option>
@@ -552,7 +552,7 @@ ${existingOutline ? `已有大纲：\n${existingOutline}\n` : ''}
                   <select
                     value={form.parentId}
                     onChange={e => setForm(prev => ({ ...prev, parentId: e.target.value }))}
-                    className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm focus:border-blue-400 focus:outline-none"
+                    className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm focus:border-[#97BC62] focus:outline-none"
                   >
                     <option value="">无（根节点）</option>
                     {outlineNodes
@@ -572,7 +572,7 @@ ${existingOutline ? `已有大纲：\n${existingOutline}\n` : ''}
                     <select
                       value={form.chapterId}
                       onChange={e => setForm(prev => ({ ...prev, chapterId: e.target.value }))}
-                      className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm focus:border-blue-400 focus:outline-none"
+                      className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm focus:border-[#97BC62] focus:outline-none"
                     >
                       <option value="">不关联</option>
                       {chapters.map(ch => (
@@ -587,7 +587,7 @@ ${existingOutline ? `已有大纲：\n${existingOutline}\n` : ''}
                   <textarea
                     value={form.content}
                     onChange={e => setForm(prev => ({ ...prev, content: e.target.value }))}
-                    className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm min-h-[150px] focus:border-blue-400 focus:outline-none"
+                    className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm min-h-[150px] focus:border-[#97BC62] focus:outline-none"
                     placeholder="请输入节点的详细内容描述..."
                   />
                 </div>
@@ -599,7 +599,7 @@ ${existingOutline ? `已有大纲：\n${existingOutline}\n` : ''}
               <div className="px-6 py-4 border-t border-slate-100 flex justify-center gap-3">
                 <button
                   onClick={handleSave}
-                  className="px-8 py-2.5 bg-blue-500 text-white text-sm font-medium rounded-lg hover:bg-blue-600 transition-colors"
+                  className="px-8 py-2.5 bg-[#F0F7F0]0 text-white text-sm font-medium rounded-lg hover:bg-[#1E4620] transition-colors"
                 >
                   保存
                 </button>

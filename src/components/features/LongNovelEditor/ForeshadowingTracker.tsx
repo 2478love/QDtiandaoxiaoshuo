@@ -344,14 +344,14 @@ ${characters.slice(0, 5).map(c => `- ${c.name}（${c.role}）`).join('\n') || '�
             <button
               onClick={aiSuggestForeshadowing}
               disabled={isAiGenerating}
-              className="px-3 py-1.5 text-sm text-indigo-600 border border-indigo-200 rounded-lg hover:bg-indigo-50 disabled:opacity-50"
+              className="px-3 py-1.5 text-sm text-[#2C5F2D] border border-[#E8F5E8] rounded-lg hover:bg-[#F0F7F0] disabled:opacity-50"
             >
               AI 建议伏笔
             </button>
             <button
               onClick={aiAnalyzeForeshadowing}
               disabled={isAiGenerating || foreshadowings.length === 0}
-              className="px-3 py-1.5 text-sm text-indigo-600 border border-indigo-200 rounded-lg hover:bg-indigo-50 disabled:opacity-50"
+              className="px-3 py-1.5 text-sm text-[#2C5F2D] border border-[#E8F5E8] rounded-lg hover:bg-[#F0F7F0] disabled:opacity-50"
             >
               AI 分析
             </button>
@@ -406,8 +406,8 @@ ${characters.slice(0, 5).map(c => `- ${c.name}（${c.role}）`).join('\n') || '�
                       key={item.id}
                       className={`group relative p-3 rounded-xl cursor-pointer transition-all ${
                         isSelected
-                          ? 'bg-blue-50 border border-blue-200'
-                          : 'bg-white border border-slate-100 hover:border-blue-200'
+                          ? 'bg-[#F0F7F0] border border-[#E8F5E8]'
+                          : 'bg-white border border-slate-100 hover:border-[#E8F5E8]'
                       }`}
                       onClick={() => handleSelect(item)}
                     >
@@ -477,7 +477,7 @@ ${characters.slice(0, 5).map(c => `- ${c.name}（${c.role}）`).join('\n') || '�
                   <input
                     value={form.title}
                     onChange={e => setForm(prev => ({ ...prev, title: e.target.value }))}
-                    className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm focus:border-blue-400 focus:outline-none"
+                    className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm focus:border-[#97BC62] focus:outline-none"
                     placeholder="例如：神秘玉佩的来历"
                   />
                 </div>
@@ -487,7 +487,7 @@ ${characters.slice(0, 5).map(c => `- ${c.name}（${c.role}）`).join('\n') || '�
                   <textarea
                     value={form.description}
                     onChange={e => setForm(prev => ({ ...prev, description: e.target.value }))}
-                    className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm min-h-[80px] focus:border-blue-400 focus:outline-none"
+                    className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm min-h-[80px] focus:border-[#97BC62] focus:outline-none"
                     placeholder="描述这个伏笔的内容和用意..."
                   />
                 </div>
@@ -498,7 +498,7 @@ ${characters.slice(0, 5).map(c => `- ${c.name}（${c.role}）`).join('\n') || '�
                     <select
                       value={form.status}
                       onChange={e => setForm(prev => ({ ...prev, status: e.target.value as Foreshadowing['status'] }))}
-                      className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm focus:border-blue-400 focus:outline-none"
+                      className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm focus:border-[#97BC62] focus:outline-none"
                     >
                       {STATUS_OPTIONS.map(s => (
                         <option key={s.id} value={s.id}>{s.icon} {s.label}</option>
@@ -510,7 +510,7 @@ ${characters.slice(0, 5).map(c => `- ${c.name}（${c.role}）`).join('\n') || '�
                     <select
                       value={form.importance}
                       onChange={e => setForm(prev => ({ ...prev, importance: e.target.value as Foreshadowing['importance'] }))}
-                      className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm focus:border-blue-400 focus:outline-none"
+                      className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm focus:border-[#97BC62] focus:outline-none"
                     >
                       {IMPORTANCE_OPTIONS.map(i => (
                         <option key={i.id} value={i.id}>{i.label}</option>
@@ -592,7 +592,7 @@ ${characters.slice(0, 5).map(c => `- ${c.name}（${c.role}）`).join('\n') || '�
                           onClick={() => toggleCharacter(char.id)}
                           className={`px-3 py-1 text-xs rounded-full transition-colors ${
                             form.relatedCharacters.includes(char.id)
-                              ? 'bg-indigo-500 text-white'
+                              ? 'bg-[#2C5F2D] text-white'
                               : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                           }`}
                         >
@@ -608,7 +608,7 @@ ${characters.slice(0, 5).map(c => `- ${c.name}（${c.role}）`).join('\n') || '�
                   <textarea
                     value={form.notes}
                     onChange={e => setForm(prev => ({ ...prev, notes: e.target.value }))}
-                    className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm min-h-[60px] focus:border-blue-400 focus:outline-none"
+                    className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm min-h-[60px] focus:border-[#97BC62] focus:outline-none"
                     placeholder="其他备注信息..."
                   />
                 </div>
@@ -620,7 +620,7 @@ ${characters.slice(0, 5).map(c => `- ${c.name}（${c.role}）`).join('\n') || '�
               <div className="px-6 py-4 border-t border-slate-100 flex justify-center gap-3">
                 <button
                   onClick={handleSave}
-                  className="px-8 py-2.5 bg-blue-500 text-white text-sm font-medium rounded-lg hover:bg-blue-600"
+                  className="px-8 py-2.5 bg-[#F0F7F0]0 text-white text-sm font-medium rounded-lg hover:bg-[#1E4620]"
                 >
                   保存
                 </button>

@@ -20,16 +20,16 @@ const AI_ROLES = {
   chat: {
     name: '助手',
     icon: '💬',
-    color: 'text-blue-500',
-    bgColor: 'bg-blue-50 dark:bg-blue-900/20',
+    color: 'text-[#2C5F2D]',
+    bgColor: 'bg-[#F0F7F0] dark:bg-[#2C5F2D]/20',
     description: '回答问题，提供创作建议',
     systemPrompt: '你是一个专业的网文创作助手，名为"笔灵"。你精通各种网文流派，能够帮助作者进行情节构思、人物塑造、文笔润色等工作。',
   },
   writer: {
     name: '作家',
     icon: '✍️',
-    color: 'text-purple-500',
-    bgColor: 'bg-purple-50 dark:bg-purple-900/20',
+    color: 'text-[#2C5F2D]',
+    bgColor: 'bg-[#F0F7F0] dark:bg-[#2C5F2D]/20',
     description: '改写、润色、扩写内容',
     systemPrompt: '你是一个专业的小说写手。你的任务是根据用户的指令改写、润色或扩写内容。你需要保持设定的一致性，保持人物性格，同时提升文笔质量。输出时直接给出改写后的内容，无需解释。',
   },
@@ -514,7 +514,7 @@ const AIAssistantChat: React.FC = () => {
         <div className="flex items-center gap-1.5 ml-2">
           <button
             onClick={createNewSession}
-            className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-100 dark:border-indigo-900/50 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-900/30 transition-colors"
+            className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-[#2C5F2D] dark:text-[#97BC62] bg-[#F0F7F0] dark:bg-[#2C5F2D]/20 border border-[#F0F7F0] dark:border-[#1E4620]/50 rounded-lg hover:bg-[#E8F5E8] dark:hover:bg-[#2C5F2D]/30 transition-colors"
           >
             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
@@ -525,8 +525,8 @@ const AIAssistantChat: React.FC = () => {
             onClick={() => setShowSessionList(!showSessionList)}
             className={`flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium border rounded-lg transition-colors ${
               showSessionList
-                ? 'text-indigo-600 dark:text-indigo-400 border-indigo-300 dark:border-indigo-600 bg-indigo-50 dark:bg-indigo-900/20'
-                : `${themeClasses.textMuted} ${themeClasses.border} hover:border-indigo-300`
+                ? 'text-[#2C5F2D] dark:text-[#97BC62] border-[#97BC62] dark:border-[#2C5F2D] bg-[#F0F7F0] dark:bg-[#2C5F2D]/20'
+                : `${themeClasses.textMuted} ${themeClasses.border} hover:border-[#97BC62]`
             }`}
           >
             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -553,7 +553,7 @@ const AIAssistantChat: React.FC = () => {
                   onClick={() => selectSession(session.id)}
                   className={`w-full text-left p-2.5 rounded-xl mb-1 transition-colors group ${
                     currentSessionId === session.id
-                      ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400'
+                      ? 'bg-[#F0F7F0] dark:bg-[#2C5F2D]/30 text-[#1E4620] dark:text-[#97BC62]'
                       : `hover:bg-slate-50 dark:hover:bg-slate-800 ${themeClasses.text}`
                   }`}
                 >
@@ -596,16 +596,16 @@ const AIAssistantChat: React.FC = () => {
           messages.map((msg) => (
             <div
               key={msg.id}
-              className={`rounded-2xl p-3 text-sm ${msg.role === 'ai' ? `${themeClasses.card} border ${themeClasses.border} ${themeClasses.text}` : 'bg-indigo-600 text-white ml-8'}`}
+              className={`rounded-2xl p-3 text-sm ${msg.role === 'ai' ? `${themeClasses.card} border ${themeClasses.border} ${themeClasses.text}` : 'bg-[#2C5F2D] text-white ml-8'}`}
             >
-              <div className={`text-[10px] ${msg.role === 'ai' ? themeClasses.textMuted : 'text-indigo-200'} mb-1`}>{msg.createdAt}</div>
+              <div className={`text-[10px] ${msg.role === 'ai' ? themeClasses.textMuted : 'text-[#97BC62]'} mb-1`}>{msg.createdAt}</div>
               <div className="whitespace-pre-wrap">{msg.content}</div>
               {/* AI 消息显示操作按钮 */}
               {msg.role === 'ai' && msg.content && msg.id !== 'init' && (
                 <div className={`flex items-center gap-2 mt-3 pt-2 border-t ${themeClasses.border}`}>
                   <button
                     onClick={() => insertToContent(msg.content)}
-                    className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-indigo-600 text-white text-xs font-medium hover:bg-indigo-700 transition-colors"
+                    className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#2C5F2D] text-white text-xs font-medium hover:bg-[#1E4620] transition-colors"
                   >
                     <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
@@ -638,7 +638,7 @@ const AIAssistantChat: React.FC = () => {
         {isStreaming && (
           <div className={`rounded-2xl p-3 ${themeClasses.card} border ${themeClasses.border}`}>
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-indigo-500 rounded-full animate-pulse" />
+              <div className="w-2 h-2 bg-[#2C5F2D] rounded-full animate-pulse" />
               <span className={`text-xs ${themeClasses.textMuted}`}>正在思考...</span>
             </div>
           </div>
@@ -688,7 +688,7 @@ const AIAssistantChat: React.FC = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1">
             <button
-              className={`p-1.5 rounded-lg ${themeClasses.textMuted} hover:text-indigo-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors`}
+              className={`p-1.5 rounded-lg ${themeClasses.textMuted} hover:text-[#2C5F2D] hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors`}
               title="分享会话"
               onClick={() => {
                 if (currentSession && currentSession.messages.length > 0) {
@@ -703,7 +703,7 @@ const AIAssistantChat: React.FC = () => {
               </svg>
             </button>
             <button
-              className={`p-1.5 rounded-lg ${themeClasses.textMuted} hover:text-indigo-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors`}
+              className={`p-1.5 rounded-lg ${themeClasses.textMuted} hover:text-[#2C5F2D] hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors`}
               title="引用文本 (选中文本后点击，或引用章节内容)"
               onClick={quoteSelectedText}
             >
@@ -714,8 +714,8 @@ const AIAssistantChat: React.FC = () => {
             <button
               className={`p-1.5 rounded-lg transition-colors ${
                 showAiSettings
-                  ? 'text-indigo-500 bg-indigo-50 dark:bg-indigo-900/20'
-                  : `${themeClasses.textMuted} hover:text-indigo-500 hover:bg-slate-50 dark:hover:bg-slate-800`
+                  ? 'text-[#2C5F2D] bg-[#F0F7F0] dark:bg-[#2C5F2D]/20'
+                  : `${themeClasses.textMuted} hover:text-[#2C5F2D] hover:bg-slate-50 dark:hover:bg-slate-800`
               }`}
               title="AI 设置"
               onClick={() => setShowAiSettings(!showAiSettings)}
@@ -755,8 +755,8 @@ const AIAssistantChat: React.FC = () => {
               onClick={() => setShowPromptPicker(!showPromptPicker)}
               className={`flex items-center gap-1 px-2 py-1 text-xs font-medium border rounded-lg transition-colors ${
                 showPromptPicker
-                  ? 'text-indigo-600 dark:text-indigo-400 border-indigo-300 dark:border-indigo-600 bg-indigo-50 dark:bg-indigo-900/20'
-                  : `${themeClasses.textMuted} ${themeClasses.border} hover:border-indigo-300`
+                  ? 'text-[#2C5F2D] dark:text-[#97BC62] border-[#97BC62] dark:border-[#2C5F2D] bg-[#F0F7F0] dark:bg-[#2C5F2D]/20'
+                  : `${themeClasses.textMuted} ${themeClasses.border} hover:border-[#97BC62]`
               }`}
             >
               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -900,7 +900,7 @@ const AIAssistantChat: React.FC = () => {
                 <button
                   key={prompt.id}
                   onClick={() => selectPrompt(prompt)}
-                  className={`text-left p-2 rounded-lg ${themeClasses.sidebar} border ${themeClasses.border} hover:border-indigo-300 dark:hover:border-indigo-500 transition-colors`}
+                  className={`text-left p-2 rounded-lg ${themeClasses.sidebar} border ${themeClasses.border} hover:border-[#97BC62] dark:hover:border-[#2C5F2D] transition-colors`}
                 >
                   <p className={`text-xs font-medium ${themeClasses.text} truncate`}>{prompt.title}</p>
                   <p className={`text-[10px] ${themeClasses.textMuted} truncate mt-0.5`}>{prompt.content.slice(0, 25)}...</p>
@@ -915,7 +915,7 @@ const AIAssistantChat: React.FC = () => {
           value={chatInput}
           onChange={(e) => setChatInput(e.target.value)}
           rows={2}
-          className={`w-full rounded-xl border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 ${themeClasses.input}`}
+          className={`w-full rounded-xl border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#2C5F2D]/20 focus:border-[#2C5F2D] ${themeClasses.input}`}
           placeholder="输入消息，按 Enter 发送..."
           onKeyDown={(e) => {
             if (e.key === 'Enter' && !e.shiftKey) {
@@ -927,7 +927,7 @@ const AIAssistantChat: React.FC = () => {
         <div className={`flex items-center justify-between text-xs ${themeClasses.textMuted}`}>
           <span>{chatInput.length} / 8000 字</span>
           <button
-            className="px-4 py-1.5 rounded-xl bg-indigo-600 text-white text-xs font-medium hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1.5"
+            className="px-4 py-1.5 rounded-xl bg-[#2C5F2D] text-white text-xs font-medium hover:bg-[#1E4620] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1.5"
             onClick={sendMessage}
             disabled={isStreaming || !chatInput.trim()}
           >

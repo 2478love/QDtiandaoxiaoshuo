@@ -8,7 +8,7 @@ import { createMindMapId } from '../../../../utils/id';
 // 节点颜色选项
 const NODE_COLORS = [
   { id: 'rose', bg: 'bg-rose-500', label: '玫红' },
-  { id: 'indigo', bg: 'bg-indigo-500', label: '靛蓝' },
+  { id: 'indigo', bg: 'bg-[#2C5F2D]', label: '靛蓝' },
   { id: 'emerald', bg: 'bg-emerald-500', label: '翠绿' },
   { id: 'amber', bg: 'bg-amber-500', label: '琥珀' },
   { id: 'violet', bg: 'bg-violet-500', label: '紫罗兰' },
@@ -400,7 +400,7 @@ ${userDirection ? `4. 重点围绕用户指定的方向进行扩展` : ''}
           <span className="font-medium">{currentMap?.name || '未选择'}</span>
           {selectedNode && (
             <span className="ml-3 text-slate-400">
-              已选节点：<span className="text-indigo-600">{selectedNode.title}</span>
+              已选节点：<span className="text-[#2C5F2D]">{selectedNode.title}</span>
             </span>
           )}
         </div>
@@ -511,7 +511,7 @@ ${userDirection ? `4. 重点围绕用户指定的方向进行扩展` : ''}
           {/* 节点操作按钮 */}
           <div className="flex gap-2 ml-auto">
             <button
-              className="px-4 py-2 rounded-xl bg-indigo-600 text-white text-xs hover:bg-indigo-700 transition-colors disabled:opacity-40 flex items-center gap-1.5"
+              className="px-4 py-2 rounded-xl bg-[#2C5F2D] text-white text-xs hover:bg-[#1E4620] transition-colors disabled:opacity-40 flex items-center gap-1.5"
               onClick={openAiGenerateDialog}
               disabled={!selectedNode || isAiGenerating}
             >
@@ -564,7 +564,7 @@ ${userDirection ? `4. 重点围绕用户指定的方向进行扩展` : ''}
             <div className="px-6 py-4 border-b border-slate-200">
               <h3 className="text-lg font-semibold text-slate-800">AI 生成子节点</h3>
               <p className="text-sm text-slate-500 mt-1">
-                当前节点：<span className="text-indigo-600 font-medium">{selectedNode?.title}</span>
+                当前节点：<span className="text-[#2C5F2D] font-medium">{selectedNode?.title}</span>
               </p>
             </div>
             <div className="px-6 py-4">
@@ -575,7 +575,7 @@ ${userDirection ? `4. 重点围绕用户指定的方向进行扩展` : ''}
                 value={aiMindMapPrompt}
                 onChange={(e) => setAiMindMapPrompt(e.target.value)}
                 placeholder="例如：围绕主角的成长经历展开、添加反派势力的分支、细化这个情节的发展..."
-                className="w-full h-32 px-4 py-3 border border-slate-200 rounded-xl text-sm resize-none focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                className="w-full h-32 px-4 py-3 border border-slate-200 rounded-xl text-sm resize-none focus:outline-none focus:ring-2 focus:ring-[#2C5F2D]/20 focus:border-[#2C5F2D]"
               />
               <p className="text-xs text-slate-400 mt-2">
                 留空则由 AI 自动分析节点内容并生成相关子节点
@@ -591,7 +591,7 @@ ${userDirection ? `4. 重点围绕用户指定的方向进行扩展` : ''}
               <button
                 onClick={aiGenerateMindMapNodes}
                 disabled={isAiGenerating}
-                className="px-4 py-2 text-sm bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition-colors disabled:opacity-50 flex items-center gap-2"
+                className="px-4 py-2 text-sm bg-[#2C5F2D] text-white rounded-xl hover:bg-[#1E4620] transition-colors disabled:opacity-50 flex items-center gap-2"
               >
                 {isAiGenerating ? (
                   <>

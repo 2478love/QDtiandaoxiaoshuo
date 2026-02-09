@@ -212,7 +212,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
               <div className="flex gap-2">
                 <button
                   onClick={this.handleReset}
-                  className="flex-1 px-4 py-2 bg-indigo-500 text-white text-sm font-medium rounded-lg hover:bg-indigo-600 transition-colors"
+                  className="flex-1 px-4 py-2 bg-[#2C5F2D] text-white text-sm font-medium rounded-lg hover:bg-[#2C5F2D] transition-colors"
                 >
                   重试
                 </button>
@@ -295,7 +295,7 @@ export const FeatureErrorBoundary: React.FC<FeatureErrorBoundaryProps> = ({
                 onRetry?.();
                 reset();
               }}
-              className="px-4 py-2 bg-indigo-500 text-white text-sm font-medium rounded-lg hover:bg-indigo-600 transition-colors"
+              className="px-4 py-2 bg-[#2C5F2D] text-white text-sm font-medium rounded-lg hover:bg-[#2C5F2D] transition-colors"
             >
               重试
             </button>

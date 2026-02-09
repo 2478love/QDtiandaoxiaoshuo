@@ -369,7 +369,7 @@ const WritingTool: React.FC<WritingToolProps> = ({ onRecordActivity }) => {
             onClick={() => setSelectedTool(tool)}
             className={`text-left rounded-2xl border px-4 py-3 transition ${
               selectedTool.id === tool.id
-                ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300'
+                ? 'border-[#2C5F2D] bg-[#F0F7F0] dark:bg-[#2C5F2D]/30 text-[#1E4620] dark:text-[#97BC62]'
                 : 'border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400'
             }`}
           >
@@ -433,7 +433,7 @@ const WritingTool: React.FC<WritingToolProps> = ({ onRecordActivity }) => {
           {generatedText ? (
             <article className="prose dark:prose-invert max-w-none text-sm leading-relaxed">
               {generatedText}
-              {isGenerating && <span className="inline-block w-2 h-5 bg-indigo-500 ml-1 animate-pulse" />}
+              {isGenerating && <span className="inline-block w-2 h-5 bg-[#2C5F2D] ml-1 animate-pulse" />}
             </article>
           ) : (
             <div className="h-full flex flex-col items-center justify-center text-slate-300 dark:text-slate-600">

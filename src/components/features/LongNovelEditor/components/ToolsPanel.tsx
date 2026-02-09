@@ -646,7 +646,7 @@ ${currentChapter.content}`;
                 disabled={!currentChapter}
                 className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors ${
                   currentChapter
-                    ? 'bg-indigo-600 text-white hover:bg-indigo-700'
+                    ? 'bg-[#2C5F2D] text-white hover:bg-[#1E4620]'
                     : 'bg-gray-300 text-gray-500 cursor-not-allowed'
                 }`}
               >
@@ -655,11 +655,11 @@ ${currentChapter.content}`;
             </div>
             <div className="grid grid-cols-4 gap-2 text-xs">
               <div className="text-center p-2 rounded bg-white/50 dark:bg-black/20">
-                <div className="text-indigo-600 dark:text-indigo-400">✍️</div>
+                <div className="text-[#2C5F2D] dark:text-[#97BC62]">✍️</div>
                 <div className={themeClasses.textMuted}>写作风格</div>
               </div>
               <div className="text-center p-2 rounded bg-white/50 dark:bg-black/20">
-                <div className="text-purple-600 dark:text-purple-400">⚡</div>
+                <div className="text-[#2C5F2D] dark:text-[#97BC62]">⚡</div>
                 <div className={themeClasses.textMuted}>情节张力</div>
               </div>
               <div className="text-center p-2 rounded bg-white/50 dark:bg-black/20">
@@ -667,7 +667,7 @@ ${currentChapter.content}`;
                 <div className={themeClasses.textMuted}>情绪曲线</div>
               </div>
               <div className="text-center p-2 rounded bg-white/50 dark:bg-black/20">
-                <div className="text-blue-600 dark:text-blue-400">🎯</div>
+                <div className="text-[#2C5F2D] dark:text-[#97BC62]">🎯</div>
                 <div className={themeClasses.textMuted}>综合评分</div>
               </div>
             </div>
@@ -688,7 +688,7 @@ ${currentChapter.content}`;
             <button
               key={item.key}
               onClick={() => setCreativeModalType(item.key as CreativeManagementTab)}
-              className={`rounded-2xl border px-4 py-3 text-left transition-colors ${themeClasses.border} ${themeClasses.card} hover:border-indigo-400/50`}
+              className={`rounded-2xl border px-4 py-3 text-left transition-colors ${themeClasses.border} ${themeClasses.card} hover:border-[#97BC62]/50`}
             >
               <p className={`text-xs ${themeClasses.textMuted}`}>{item.label}</p>
               <p className="text-xl font-semibold mt-1">{item.count}</p>
@@ -705,7 +705,7 @@ ${currentChapter.content}`;
         <div className="grid grid-cols-2 gap-3">
           <button
             onClick={() => setShowOutlineManager(true)}
-            className={`rounded-2xl border px-4 py-3 text-left transition-colors ${themeClasses.border} ${themeClasses.card} hover:border-indigo-400/50`}
+            className={`rounded-2xl border px-4 py-3 text-left transition-colors ${themeClasses.border} ${themeClasses.card} hover:border-[#97BC62]/50`}
           >
             <div className="flex items-center gap-2 mb-1">
               <span>📋</span>
@@ -715,7 +715,7 @@ ${currentChapter.content}`;
           </button>
           <button
             onClick={() => setShowForeshadowingTracker(true)}
-            className={`rounded-2xl border px-4 py-3 text-left transition-colors ${themeClasses.border} ${themeClasses.card} hover:border-indigo-400/50`}
+            className={`rounded-2xl border px-4 py-3 text-left transition-colors ${themeClasses.border} ${themeClasses.card} hover:border-[#97BC62]/50`}
           >
             <div className="flex items-center gap-2 mb-1">
               <span>🌱</span>
@@ -734,7 +734,7 @@ ${currentChapter.content}`;
             <p className={`text-xs ${themeClasses.textMuted}`}>连续 {getStreakDays()} 天</p>
           </div>
           <button
-            className={`px-3 py-1.5 rounded-xl text-xs border transition-colors ${themeClasses.border} hover:border-indigo-400`}
+            className={`px-3 py-1.5 rounded-xl text-xs border transition-colors ${themeClasses.border} hover:border-[#97BC62]`}
             onClick={() => setShowWritingGoal(true)}
           >
             设置目标
@@ -749,7 +749,7 @@ ${currentChapter.content}`;
             <div className={`h-2 rounded-full overflow-hidden ${effectiveTheme === 'dark' ? 'bg-slate-700' : 'bg-slate-200'}`}>
               <div
                 className={`h-full transition-all duration-500 ${
-                  getTodayWrittenWords() >= activeGoal.targetWords ? 'bg-green-500' : 'bg-indigo-500'
+                  getTodayWrittenWords() >= activeGoal.targetWords ? 'bg-green-500' : 'bg-[#2C5F2D]'
                 }`}
                 style={{ width: `${Math.min(100, (getTodayWrittenWords() / activeGoal.targetWords) * 100)}%` }}
               />
@@ -768,7 +768,7 @@ ${currentChapter.content}`;
         <div className="flex items-center justify-between">
           <p className={`text-sm font-semibold ${themeClasses.text}`}>查找替换</p>
           <button
-            className={`px-3 py-1.5 rounded-xl text-xs border transition-colors ${themeClasses.border} hover:border-indigo-400`}
+            className={`px-3 py-1.5 rounded-xl text-xs border transition-colors ${themeClasses.border} hover:border-[#97BC62]`}
             onClick={() => setShowSearchReplace(!showSearchReplace)}
           >
             {showSearchReplace ? '收起' : '展开'}
@@ -780,7 +780,7 @@ ${currentChapter.content}`;
               <button
                 className={`flex-1 py-1.5 text-xs rounded-lg transition-colors ${
                   searchScope === 'current'
-                    ? 'bg-indigo-500 text-white'
+                    ? 'bg-[#2C5F2D] text-white'
                     : `border ${themeClasses.border}`
                 }`}
                 onClick={() => setSearchScope('current')}
@@ -790,7 +790,7 @@ ${currentChapter.content}`;
               <button
                 className={`flex-1 py-1.5 text-xs rounded-lg transition-colors ${
                   searchScope === 'all'
-                    ? 'bg-indigo-500 text-white'
+                    ? 'bg-[#2C5F2D] text-white'
                     : `border ${themeClasses.border}`
                 }`}
                 onClick={() => setSearchScope('all')}
@@ -816,7 +816,7 @@ ${currentChapter.content}`;
             <div className="flex gap-2">
               <button
                 onClick={performSearch}
-                className="flex-1 py-2 text-xs bg-indigo-500 text-white rounded-lg hover:bg-indigo-600"
+                className="flex-1 py-2 text-xs bg-[#2C5F2D] text-white rounded-lg hover:bg-[#2C5F2D]"
               >
                 查找
               </button>
@@ -865,7 +865,7 @@ ${currentChapter.content}`;
                       onClick={() => goToSearchResult(idx)}
                       className={`p-2 rounded cursor-pointer transition-colors ${
                         idx === currentSearchIndex
-                          ? 'bg-indigo-500/20 border border-indigo-500/30'
+                          ? 'bg-[#2C5F2D]/20 border border-[#2C5F2D]/30'
                           : `hover:${effectiveTheme === 'dark' ? 'bg-slate-700' : 'bg-slate-100'}`
                       }`}
                     >
@@ -893,7 +893,7 @@ ${currentChapter.content}`;
             className={`px-3 py-1.5 rounded-xl text-xs transition-colors ${
               isSpeaking
                 ? 'bg-rose-500 text-white'
-                : `border ${themeClasses.border} hover:border-indigo-400`
+                : `border ${themeClasses.border} hover:border-[#97BC62]`
             }`}
             onClick={toggleSpeaking}
           >
@@ -944,28 +944,28 @@ ${currentChapter.content}`;
         </div>
         <button
           onClick={exportToTXT}
-          className={`w-full text-left px-3 py-2 rounded-xl border ${themeClasses.border} text-sm flex items-center gap-2 hover:border-indigo-400 transition-colors`}
+          className={`w-full text-left px-3 py-2 rounded-xl border ${themeClasses.border} text-sm flex items-center gap-2 hover:border-[#97BC62] transition-colors`}
         >
           <span className={themeClasses.textMuted}>📄</span>
           导出为 TXT
         </button>
         <button
           onClick={exportToMarkdown}
-          className={`w-full text-left px-3 py-2 rounded-xl border ${themeClasses.border} text-sm flex items-center gap-2 hover:border-indigo-400 transition-colors`}
+          className={`w-full text-left px-3 py-2 rounded-xl border ${themeClasses.border} text-sm flex items-center gap-2 hover:border-[#97BC62] transition-colors`}
         >
           <span className={themeClasses.textMuted}>📝</span>
           导出为 Markdown
         </button>
         <button
           onClick={exportToWord}
-          className={`w-full text-left px-3 py-2 rounded-xl border ${themeClasses.border} text-sm flex items-center gap-2 hover:border-indigo-400 transition-colors`}
+          className={`w-full text-left px-3 py-2 rounded-xl border ${themeClasses.border} text-sm flex items-center gap-2 hover:border-[#97BC62] transition-colors`}
         >
           <span className={themeClasses.textMuted}>📘</span>
           导出为 Word
         </button>
         <button
           onClick={exportToPDF}
-          className={`w-full text-left px-3 py-2 rounded-xl border ${themeClasses.border} text-sm flex items-center gap-2 hover:border-indigo-400 transition-colors`}
+          className={`w-full text-left px-3 py-2 rounded-xl border ${themeClasses.border} text-sm flex items-center gap-2 hover:border-[#97BC62] transition-colors`}
         >
           <span className={themeClasses.textMuted}>📕</span>
           导出为 PDF
@@ -975,13 +975,13 @@ ${currentChapter.content}`;
           <div className="flex gap-2">
             <button
               onClick={() => exportAllChapters('txt')}
-              className={`flex-1 px-3 py-1.5 rounded-xl border ${themeClasses.border} text-xs hover:border-indigo-400`}
+              className={`flex-1 px-3 py-1.5 rounded-xl border ${themeClasses.border} text-xs hover:border-[#97BC62]`}
             >
               全部 TXT
             </button>
             <button
               onClick={() => exportAllChapters('md')}
-              className={`flex-1 px-3 py-1.5 rounded-xl border ${themeClasses.border} text-xs hover:border-indigo-400`}
+              className={`flex-1 px-3 py-1.5 rounded-xl border ${themeClasses.border} text-xs hover:border-[#97BC62]`}
             >
               全部 Markdown
             </button>
@@ -997,7 +997,7 @@ ${currentChapter.content}`;
         <div className="grid grid-cols-2 gap-3">
           <button
             onClick={() => setShowLocationManager(true)}
-            className={`rounded-2xl border px-4 py-3 text-left transition-colors ${themeClasses.border} ${themeClasses.card} hover:border-indigo-400/50`}
+            className={`rounded-2xl border px-4 py-3 text-left transition-colors ${themeClasses.border} ${themeClasses.card} hover:border-[#97BC62]/50`}
           >
             <div className="flex items-center gap-2 mb-1">
               <span>🏔️</span>
@@ -1007,7 +1007,7 @@ ${currentChapter.content}`;
           </button>
           <button
             onClick={() => setShowItemManager(true)}
-            className={`rounded-2xl border px-4 py-3 text-left transition-colors ${themeClasses.border} ${themeClasses.card} hover:border-indigo-400/50`}
+            className={`rounded-2xl border px-4 py-3 text-left transition-colors ${themeClasses.border} ${themeClasses.card} hover:border-[#97BC62]/50`}
           >
             <div className="flex items-center gap-2 mb-1">
               <span>⚔️</span>
@@ -1026,7 +1026,7 @@ ${currentChapter.content}`;
             <p className={`text-xs ${themeClasses.textMuted}`}>{chapterTemplates.length} 个模板</p>
           </div>
           <button
-            className={`px-3 py-1.5 rounded-xl text-xs border transition-colors ${themeClasses.border} hover:border-indigo-400`}
+            className={`px-3 py-1.5 rounded-xl text-xs border transition-colors ${themeClasses.border} hover:border-[#97BC62]`}
             onClick={() => setShowTemplateManager(!showTemplateManager)}
           >
             {showTemplateManager ? '收起' : '展开'}
@@ -1037,7 +1037,7 @@ ${currentChapter.content}`;
             {chapterTemplates.map(template => (
               <div
                 key={template.id}
-                className={`p-2 rounded-xl border ${themeClasses.border} hover:border-indigo-400/50 transition-colors`}
+                className={`p-2 rounded-xl border ${themeClasses.border} hover:border-[#97BC62]/50 transition-colors`}
               >
                 <div className="flex items-center justify-between mb-1">
                   <span className="text-sm font-medium">{template.name}</span>
@@ -1060,7 +1060,7 @@ ${currentChapter.content}`;
                 <p className={`text-xs ${themeClasses.textMuted} line-clamp-2`}>{template.description || template.content.slice(0, 50)}...</p>
                 <button
                   onClick={() => applyTemplate(template.id)}
-                  className="mt-2 w-full py-1.5 text-xs bg-indigo-500 text-white rounded-lg hover:bg-indigo-600 transition-colors"
+                  className="mt-2 w-full py-1.5 text-xs bg-[#2C5F2D] text-white rounded-lg hover:bg-[#2C5F2D] transition-colors"
                 >
                   应用到当前章节
                 </button>
@@ -1075,7 +1075,7 @@ ${currentChapter.content}`;
         <div className="flex items-center justify-between">
           <p className={`text-sm font-semibold ${themeClasses.text}`}>写作统计</p>
           <button
-            className={`px-3 py-1.5 rounded-xl text-xs border transition-colors ${themeClasses.border} hover:border-indigo-400`}
+            className={`px-3 py-1.5 rounded-xl text-xs border transition-colors ${themeClasses.border} hover:border-[#97BC62]`}
             onClick={() => setShowStatsPanel(!showStatsPanel)}
           >
             {showStatsPanel ? '收起' : '查看详情'}
@@ -1109,7 +1109,7 @@ ${currentChapter.content}`;
                 return (
                   <div key={idx} className="flex-1 flex flex-col items-center gap-1">
                     <div
-                      className={`w-full rounded-t transition-all ${stat.words > 0 ? 'bg-indigo-500' : 'bg-slate-200 dark:bg-slate-700'}`}
+                      className={`w-full rounded-t transition-all ${stat.words > 0 ? 'bg-[#2C5F2D]' : 'bg-slate-200 dark:bg-slate-700'}`}
                       style={{ height: `${Math.max(height, 4)}%` }}
                       title={`${stat.date}: ${stat.words}字`}
                     />
@@ -1130,7 +1130,7 @@ ${currentChapter.content}`;
             <p className={`text-xs ${themeClasses.textMuted}`}>基于人物设定生成对话</p>
           </div>
           <button
-            className={`px-3 py-1.5 rounded-xl text-xs border transition-colors ${themeClasses.border} hover:border-indigo-400`}
+            className={`px-3 py-1.5 rounded-xl text-xs border transition-colors ${themeClasses.border} hover:border-[#97BC62]`}
             onClick={() => setShowDialogGenerator(true)}
             disabled={characters.length < 2}
           >
@@ -1147,7 +1147,7 @@ ${currentChapter.content}`;
             <p className={`text-xs ${themeClasses.textMuted}`}>一键润色多个章节</p>
           </div>
           <button
-            className={`px-3 py-1.5 rounded-xl text-xs border transition-colors ${themeClasses.border} hover:border-indigo-400`}
+            className={`px-3 py-1.5 rounded-xl text-xs border transition-colors ${themeClasses.border} hover:border-[#97BC62]`}
             onClick={() => setShowBatchPolish(!showBatchPolish)}
           >
             {showBatchPolish ? '收起' : '展开'}
@@ -1167,7 +1167,7 @@ ${currentChapter.content}`;
                 </div>
                 <div className={`h-2 rounded-full overflow-hidden ${effectiveTheme === 'dark' ? 'bg-slate-700' : 'bg-slate-200'}`}>
                   <div
-                    className="h-full bg-purple-500 transition-all duration-500"
+                    className="h-full bg-[#F0F7F0]0 transition-all duration-500"
                     style={{ width: `${batchPolishProgress ? (batchPolishProgress.current / batchPolishProgress.total) * 100 : 0}%` }}
                   />
                 </div>
@@ -1195,13 +1195,13 @@ ${currentChapter.content}`;
                 <div className="flex gap-2 text-xs">
                   <button
                     onClick={selectAllChaptersForPolish}
-                    className={`px-2 py-1 rounded border ${themeClasses.border} hover:border-indigo-400`}
+                    className={`px-2 py-1 rounded border ${themeClasses.border} hover:border-[#97BC62]`}
                   >
                     全选
                   </button>
                   <button
                     onClick={clearPolishSelection}
-                    className={`px-2 py-1 rounded border ${themeClasses.border} hover:border-indigo-400`}
+                    className={`px-2 py-1 rounded border ${themeClasses.border} hover:border-[#97BC62]`}
                   >
                     清空
                   </button>
@@ -1229,7 +1229,7 @@ ${currentChapter.content}`;
                 <button
                   onClick={startBatchPolish}
                   disabled={batchPolishChapters.length === 0}
-                  className="w-full py-2 text-sm bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full py-2 text-sm bg-[#F0F7F0]0 text-white rounded-lg hover:bg-[#1E4620] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   开始批量精修 ({batchPolishChapters.length} 章)
                 </button>
@@ -1247,7 +1247,7 @@ ${currentChapter.content}`;
             <p className={`text-xs ${themeClasses.textMuted}`}>AI 改写并对比原文</p>
           </div>
           <button
-            className={`px-3 py-1.5 rounded-xl text-xs border transition-colors ${themeClasses.border} hover:border-indigo-400`}
+            className={`px-3 py-1.5 rounded-xl text-xs border transition-colors ${themeClasses.border} hover:border-[#97BC62]`}
             onClick={startDiffRewrite}
             disabled={!currentChapter || isDiffProcessing}
           >
@@ -1329,7 +1329,7 @@ ${currentChapter.content}`;
         />
         <button
           onClick={() => fileInputRef.current?.click()}
-          className={`w-full text-left px-3 py-2 rounded-xl border ${themeClasses.border} text-sm flex items-center gap-2 hover:border-indigo-400 transition-colors`}
+          className={`w-full text-left px-3 py-2 rounded-xl border ${themeClasses.border} text-sm flex items-center gap-2 hover:border-[#97BC62] transition-colors`}
         >
           <span className={themeClasses.textMuted}>📥</span>
           导入 TXT/Markdown 文件
@@ -1405,7 +1405,7 @@ ${currentChapter.content}`;
         />
         <button
           onClick={() => backupInputRef.current?.click()}
-          className={`w-full text-left px-3 py-2 rounded-xl border ${themeClasses.border} text-sm flex items-center gap-2 hover:border-blue-400 transition-colors`}
+          className={`w-full text-left px-3 py-2 rounded-xl border ${themeClasses.border} text-sm flex items-center gap-2 hover:border-[#97BC62] transition-colors`}
         >
           <span className={themeClasses.textMuted}>📂</span>
           从备份恢复
@@ -1422,7 +1422,7 @@ ${currentChapter.content}`;
         <div className="fixed bottom-6 right-6 z-50">
           <button
             onClick={() => setShowAnalysisPanel(false)}
-            className="px-6 py-3 rounded-full bg-indigo-600 text-white shadow-lg hover:bg-indigo-700 transition-all hover:scale-105 flex items-center gap-2"
+            className="px-6 py-3 rounded-full bg-[#2C5F2D] text-white shadow-lg hover:bg-[#1E4620] transition-all hover:scale-105 flex items-center gap-2"
           >
             <span>←</span>
             <span>返回工具面板</span>

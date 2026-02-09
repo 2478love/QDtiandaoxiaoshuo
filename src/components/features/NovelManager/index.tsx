@@ -437,8 +437,8 @@ const NovelManager: React.FC<NovelManagerProps> = ({
                 文件：<span className="font-medium text-slate-900 dark:text-slate-100">{importPreview.filename}.txt</span>
               </p>
               <p className="text-sm text-slate-600 dark:text-slate-400">
-                检测到 <span className="font-semibold text-indigo-600 dark:text-indigo-400">{importPreview.chapters.length}</span> 个章节，
-                共 <span className="font-semibold text-indigo-600 dark:text-indigo-400">{importPreview.totalWords.toLocaleString()}</span> 字
+                检测到 <span className="font-semibold text-[#2C5F2D] dark:text-[#97BC62]">{importPreview.chapters.length}</span> 个章节，
+                共 <span className="font-semibold text-[#2C5F2D] dark:text-[#97BC62]">{importPreview.totalWords.toLocaleString()}</span> 字
               </p>
             </div>
             <div className="max-h-64 overflow-y-auto space-y-2 p-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-200 dark:border-slate-700">

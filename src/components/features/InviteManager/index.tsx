@@ -49,11 +49,11 @@ const InviteManager: React.FC<InviteManagerProps> = ({ user, invites, onInvitesC
         <div className="flex flex-wrap items-center gap-4">
           <div className="flex items-center gap-2 px-4 py-2 border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-800">
             <span className="text-sm text-slate-500 dark:text-slate-400">邀请码</span>
-            <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">{user.inviteCode || '未分配'}</span>
+            <span className="font-mono font-bold text-[#2C5F2D] dark:text-[#97BC62]">{user.inviteCode || '未分配'}</span>
           </div>
           <button
             onClick={() => navigator.clipboard.writeText(user.inviteCode || '')}
-            className="px-4 py-2 text-sm bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition-colors"
+            className="px-4 py-2 text-sm bg-[#2C5F2D] text-white rounded-xl hover:bg-[#1E4620] transition-colors"
           >
             复制链接
           </button>

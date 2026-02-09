@@ -74,8 +74,8 @@ const VersionItem = memo<{
   <div
     className={`p-3 rounded-lg border cursor-pointer transition-all ${
       isSelected
-        ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-500/10'
-        : `${borderClass} hover:border-indigo-300 dark:hover:border-indigo-500/30`
+        ? 'border-[#2C5F2D] bg-[#F0F7F0] dark:bg-[#2C5F2D]/10'
+        : `${borderClass} hover:border-[#97BC62] dark:hover:border-[#2C5F2D]/30`
     }`}
     onClick={onSelect}
   >
@@ -101,7 +101,7 @@ const VersionItem = memo<{
             e.stopPropagation();
             onRestore();
           }}
-          className="p-1.5 rounded hover:bg-indigo-100 dark:hover:bg-indigo-500/20 text-indigo-500 transition-colors"
+          className="p-1.5 rounded hover:bg-[#E8F5E8] dark:hover:bg-[#2C5F2D]/20 text-[#2C5F2D] transition-colors"
           title="恢复此版本"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -201,7 +201,7 @@ const VersionHistoryPanel: React.FC<VersionHistoryPanelProps> = ({
           {onSaveVersion && (
             <button
               onClick={() => setShowSaveModal(true)}
-              className="px-3 py-1.5 text-xs font-medium rounded-lg bg-indigo-500 text-white hover:bg-indigo-600 transition-colors"
+              className="px-3 py-1.5 text-xs font-medium rounded-lg bg-[#2C5F2D] text-white hover:bg-[#2C5F2D] transition-colors"
             >
               保存版本
             </button>
@@ -253,7 +253,7 @@ const VersionHistoryPanel: React.FC<VersionHistoryPanelProps> = ({
             <span className={`text-sm font-medium ${themeClasses.text}`}>版本预览</span>
             <button
               onClick={() => onSelectVersion(null)}
-              className={`text-xs ${themeClasses.textMuted} hover:text-indigo-500`}
+              className={`text-xs ${themeClasses.textMuted} hover:text-[#2C5F2D]`}
             >
               关闭预览
             </button>
@@ -304,7 +304,7 @@ const VersionHistoryPanel: React.FC<VersionHistoryPanelProps> = ({
                   value={saveNote}
                   onChange={(e) => setSaveNote(e.target.value)}
                   placeholder="如：完成第一节修改"
-                  className={`w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border ${themeClasses.border} rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 ${themeClasses.text}`}
+                  className={`w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border ${themeClasses.border} rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2C5F2D]/20 focus:border-[#2C5F2D] ${themeClasses.text}`}
                   autoFocus
                 />
               </div>
@@ -318,7 +318,7 @@ const VersionHistoryPanel: React.FC<VersionHistoryPanelProps> = ({
               </button>
               <button
                 onClick={handleSaveVersion}
-                className="flex-1 py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700 transition-colors"
+                className="flex-1 py-2.5 rounded-xl bg-[#2C5F2D] text-white text-sm font-medium hover:bg-[#1E4620] transition-colors"
               >
                 保存
               </button>

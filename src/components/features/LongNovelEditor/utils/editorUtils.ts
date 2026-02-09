@@ -5,7 +5,7 @@ import { escapeHtml } from '../../../../utils';
 // 节点颜色配置
 export const NODE_COLORS = [
   { id: 'rose', bg: 'bg-rose-500', label: '玫红' },
-  { id: 'indigo', bg: 'bg-indigo-500', label: '靛蓝' },
+  { id: 'indigo', bg: 'bg-[#2C5F2D]', label: '靛蓝' },
   { id: 'emerald', bg: 'bg-emerald-500', label: '翠绿' },
   { id: 'amber', bg: 'bg-amber-500', label: '琥珀' },
   { id: 'violet', bg: 'bg-violet-500', label: '紫罗兰' },

@@ -53,7 +53,7 @@ type CreativeManagementTab = 'characters' | 'worldview' | 'events' | 'references
 
 const NODE_COLORS = [
   { id: 'rose', bg: 'bg-rose-500', label: '玫红' },
-  { id: 'indigo', bg: 'bg-indigo-500', label: '靛蓝' },
+  { id: 'indigo', bg: 'bg-[#2C5F2D]', label: '靛蓝' },
   { id: 'emerald', bg: 'bg-emerald-500', label: '翠绿' },
   { id: 'amber', bg: 'bg-amber-500', label: '琥珀' },
   { id: 'violet', bg: 'bg-violet-500', label: '紫罗兰' },
@@ -468,7 +468,7 @@ const LongNovelEditor: React.FC<LongNovelEditorProps> = ({ novel, onUpdateNovel,
       // 创建默认思维导图
       const defaultMap = createMindMapData('思维导图 1', novel.title || '中心主题');
       defaultMap.root.children = [
-        createNode('分支主题 1', 'bg-indigo-500'),
+        createNode('分支主题 1', 'bg-[#2C5F2D]'),
         createNode('分支主题 2', 'bg-violet-500')
       ];
       setMindMaps([defaultMap]);
@@ -2893,7 +2893,7 @@ ${charDescriptions}
           <div className={`px-6 py-1 border-b ${themeClasses.border}`}>
             <button
               onClick={() => setShowRichTextToolbar(true)}
-              className={`text-xs ${themeClasses.textMuted} hover:text-indigo-500`}
+              className={`text-xs ${themeClasses.textMuted} hover:text-[#2C5F2D]`}
             >
               显示格式工具栏
             </button>
@@ -2925,7 +2925,7 @@ ${charDescriptions}
           <span className="font-medium">{currentMap?.name || '未选择'}</span>
           {selectedNode && (
             <span className="ml-3 text-slate-400">
-              已选节点：<span className="text-indigo-600">{selectedNode.title}</span>
+              已选节点：<span className="text-[#2C5F2D]">{selectedNode.title}</span>
             </span>
           )}
         </div>
@@ -3036,7 +3036,7 @@ ${charDescriptions}
           {/* 节点操作按钮 */}
           <div className="flex gap-2 ml-auto">
             <button
-              className="px-4 py-2 rounded-xl bg-indigo-600 text-white text-xs hover:bg-indigo-700 transition-colors disabled:opacity-40 flex items-center gap-1.5"
+              className="px-4 py-2 rounded-xl bg-[#2C5F2D] text-white text-xs hover:bg-[#1E4620] transition-colors disabled:opacity-40 flex items-center gap-1.5"
               onClick={aiGenerateMindMapNodes}
               disabled={!selectedNode || isAiGenerating}
             >
@@ -3089,7 +3089,7 @@ ${charDescriptions}
       <div className="flex h-[calc(100vh-140px)] items-center justify-center rounded-3xl border border-dashed border-slate-200 bg-white">
         <div className="text-center space-y-3">
           <p className="text-sm text-slate-500">请选择要编辑的小说。</p>
-          <button className="text-indigo-600 text-sm underline" onClick={onBack}>
+          <button className="text-[#2C5F2D] text-sm underline" onClick={onBack}>
             返回小说管理
           </button>
         </div>
@@ -3102,14 +3102,14 @@ ${charDescriptions}
       {/* 左侧边栏 */}
       <aside className={`w-72 border-r flex flex-col ${themeClasses.sidebar} ${themeClasses.border}`}>
         <div className={`p-4 border-b ${themeClasses.border}`}>
-          <button className={`text-xs ${themeClasses.textMuted} flex items-center gap-1 hover:text-indigo-500`} onClick={onBack}>
+          <button className={`text-xs ${themeClasses.textMuted} flex items-center gap-1 hover:text-[#2C5F2D]`} onClick={onBack}>
             <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
             </svg>
             返回
           </button>
           <div className={`mt-2 text-xs ${themeClasses.textMuted}`}>{novel.title}</div>
-          <button className={`mt-3 w-full text-xs py-2 rounded-xl border ${themeClasses.border} hover:border-indigo-500`} onClick={() => addChapter()}>
+          <button className={`mt-3 w-full text-xs py-2 rounded-xl border ${themeClasses.border} hover:border-[#2C5F2D]`} onClick={() => addChapter()}>
             + 新建章节
           </button>
         </div>
@@ -3119,7 +3119,7 @@ ${charDescriptions}
           <div className={`flex items-center justify-between text-xs ${themeClasses.textMuted} mb-2`}>
             <span>思维导图</span>
             <button
-              className="text-indigo-500 hover:text-indigo-600 font-medium"
+              className="text-[#2C5F2D] hover:text-[#2C5F2D] font-medium"
               onClick={addMindMap}
             >
               + 新建
@@ -3131,8 +3131,8 @@ ${charDescriptions}
                 key={map.id}
                 className={`group relative rounded-xl border px-3 py-2 text-sm transition-colors cursor-pointer ${
                   selectedMapId === map.id
-                    ? 'border-indigo-500 bg-indigo-500/20 text-indigo-400'
-                    : `${themeClasses.border} ${themeClasses.textMuted} hover:border-indigo-400/50`
+                    ? 'border-[#2C5F2D] bg-[#2C5F2D]/20 text-[#97BC62]'
+                    : `${themeClasses.border} ${themeClasses.textMuted} hover:border-[#97BC62]/50`
                 }`}
                 onClick={() => {
                   setSelectedMapId(map.id);
@@ -3206,8 +3206,8 @@ ${charDescriptions}
             onClick={() => setShowQuickSort(!showQuickSort)}
             className={`w-full mb-3 px-3 py-2 rounded-xl text-xs font-medium transition-colors flex items-center justify-center gap-1.5 ${
               showQuickSort
-                ? 'bg-indigo-600 text-white'
-                : `border ${themeClasses.border} ${themeClasses.textMuted} hover:border-indigo-400`
+                ? 'bg-[#2C5F2D] text-white'
+                : `border ${themeClasses.border} ${themeClasses.textMuted} hover:border-[#97BC62]`
             }`}
           >
             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -3229,7 +3229,7 @@ ${charDescriptions}
               </button>
               <button
                 onClick={addVolume}
-                className="px-2 py-1 rounded-lg bg-indigo-500 text-white text-[10px] font-medium hover:bg-indigo-600 transition-colors"
+                className="px-2 py-1 rounded-lg bg-[#2C5F2D] text-white text-[10px] font-medium hover:bg-[#2C5F2D] transition-colors"
                 title="添加卷"
               >
                 + 卷
@@ -3257,7 +3257,7 @@ ${charDescriptions}
                     <div key={volume.id} className="space-y-1">
                       {/* 卷标题 */}
                       <div
-                        className={`group flex items-center gap-2 px-3 py-2 rounded-xl border ${themeClasses.border} ${themeClasses.card} cursor-pointer hover:border-indigo-400/50`}
+                        className={`group flex items-center gap-2 px-3 py-2 rounded-xl border ${themeClasses.border} ${themeClasses.card} cursor-pointer hover:border-[#97BC62]/50`}
                         onClick={() => toggleVolumeCollapse(volume.id)}
                       >
                         <button className={`${themeClasses.textMuted} transition-transform ${isCollapsed ? '' : 'rotate-90'}`}>
@@ -3342,8 +3342,8 @@ ${charDescriptions}
                               key={chapter.id}
                               className={`group relative rounded-xl px-3 py-2 border text-sm transition-colors cursor-pointer ${
                                 chapter.id === selectedChapterId
-                                  ? 'border-indigo-500 bg-indigo-500/20 text-indigo-400'
-                                  : `${themeClasses.border} ${themeClasses.text} hover:border-indigo-400/50`
+                                  ? 'border-[#2C5F2D] bg-[#2C5F2D]/20 text-[#97BC62]'
+                                  : `${themeClasses.border} ${themeClasses.text} hover:border-[#97BC62]/50`
                               }`}
                               onClick={() => {
                                 if (editingChapterId !== chapter.id) {
@@ -3450,8 +3450,8 @@ ${charDescriptions}
                           key={chapter.id}
                           className={`group relative rounded-2xl px-3 py-2 border text-sm transition-colors cursor-pointer ${
                             chapter.id === selectedChapterId
-                              ? 'border-indigo-500 bg-indigo-500/20 text-indigo-400'
-                              : `${themeClasses.border} ${themeClasses.text} hover:border-indigo-400/50`
+                              ? 'border-[#2C5F2D] bg-[#2C5F2D]/20 text-[#97BC62]'
+                              : `${themeClasses.border} ${themeClasses.text} hover:border-[#97BC62]/50`
                           }`}
                           onClick={() => {
                             if (editingChapterId !== chapter.id) {
@@ -3491,7 +3491,7 @@ ${charDescriptions}
                                   {volumes.length > 0 && (
                                     <div className="relative">
                                       <button
-                                        className={`p-1 rounded ${effectiveTheme === 'dark' ? 'hover:bg-slate-700' : 'hover:bg-slate-200'} ${showVolumePickerFor === chapter.id ? 'bg-indigo-100 dark:bg-indigo-900/30' : ''}`}
+                                        className={`p-1 rounded ${effectiveTheme === 'dark' ? 'hover:bg-slate-700' : 'hover:bg-slate-200'} ${showVolumePickerFor === chapter.id ? 'bg-[#E8F5E8] dark:bg-[#2C5F2D]/30' : ''}`}
                                         onClick={(e) => {
                                           e.stopPropagation();
                                           setShowVolumePickerFor(showVolumePickerFor === chapter.id ? null : chapter.id);
@@ -3514,7 +3514,7 @@ ${charDescriptions}
                                           {volumes.map(vol => (
                                             <button
                                               key={vol.id}
-                                              className={`w-full text-left px-3 py-1.5 text-xs ${themeClasses.text} hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition-colors`}
+                                              className={`w-full text-left px-3 py-1.5 text-xs ${themeClasses.text} hover:bg-[#F0F7F0] dark:hover:bg-[#2C5F2D]/30 transition-colors`}
                                               onClick={(e) => {
                                                 e.stopPropagation();
                                                 moveChapterToVolume(chapter.id, vol.id);
@@ -3599,8 +3599,8 @@ ${charDescriptions}
               key={view}
               className={`px-4 py-2 rounded-2xl text-sm border transition-colors ${
                 mode === view
-                  ? 'bg-indigo-600 text-white border-indigo-600'
-                  : `${themeClasses.border} ${themeClasses.textMuted} hover:border-indigo-400`
+                  ? 'bg-[#2C5F2D] text-white border-[#2C5F2D]'
+                  : `${themeClasses.border} ${themeClasses.textMuted} hover:border-[#97BC62]`
               }`}
               onClick={() => setMode(view)}
             >
@@ -3609,9 +3609,9 @@ ${charDescriptions}
           ))}
           <div className={`ml-auto flex items-center gap-2 text-xs ${themeClasses.textMuted}`}>
             <span>文字变化后 30 秒内自动保存</span>
-            <button className={`px-3 py-1.5 rounded-xl border ${themeClasses.border} hover:border-indigo-400`}>导入</button>
-            <button className={`px-3 py-1.5 rounded-xl border ${themeClasses.border} hover:border-indigo-400`}>小说信息</button>
-            <button className="px-4 py-1.5 rounded-xl bg-indigo-600 text-white hover:bg-indigo-700">保存</button>
+            <button className={`px-3 py-1.5 rounded-xl border ${themeClasses.border} hover:border-[#97BC62]`}>导入</button>
+            <button className={`px-3 py-1.5 rounded-xl border ${themeClasses.border} hover:border-[#97BC62]`}>小说信息</button>
+            <button className="px-4 py-1.5 rounded-xl bg-[#2C5F2D] text-white hover:bg-[#1E4620]">保存</button>
           </div>
         </div>
         {mode === 'writing' ? renderWritingView() : renderMindMapView()}
@@ -3684,7 +3684,7 @@ ${charDescriptions}
             <div className="p-6 space-y-4">
               <div className="text-center space-y-2">
                 <p className="text-sm text-slate-500">连续写作天数</p>
-                <p className="text-4xl font-bold text-indigo-600">{getStreakDays()}</p>
+                <p className="text-4xl font-bold text-[#2C5F2D]">{getStreakDays()}</p>
               </div>
               <div className="grid grid-cols-3 gap-2">
                 {[1000, 2000, 3000, 5000, 8000, 10000].map(words => (
@@ -3693,8 +3693,8 @@ ${charDescriptions}
                     onClick={() => { addWritingGoal(words); setShowWritingGoal(false); }}
                     className={`py-3 rounded-xl text-sm font-medium transition-colors ${
                       activeGoal?.targetWords === words
-                        ? 'bg-indigo-500 text-white'
-                        : 'border border-slate-200 hover:border-indigo-400 text-slate-700'
+                        ? 'bg-[#2C5F2D] text-white'
+                        : 'border border-slate-200 hover:border-[#97BC62] text-slate-700'
                     }`}
                   >
                     {words >= 1000 ? `${words / 1000}k` : words} 字/天
@@ -3707,7 +3707,7 @@ ${charDescriptions}
                     当前目标: <span className="font-semibold">{activeGoal.targetWords}</span> 字/天
                   </p>
                   <p className="text-sm text-slate-600 mt-1">
-                    今日已写: <span className="font-semibold text-indigo-600">{getTodayWrittenWords()}</span> 字
+                    今日已写: <span className="font-semibold text-[#2C5F2D]">{getTodayWrittenWords()}</span> 字
                   </p>
                 </div>
               )}
@@ -3766,7 +3766,7 @@ ${charDescriptions}
               onClick={() => processTextWithAI('expand')}
               disabled={isAiTextProcessing}
               className={`flex-1 py-2 text-sm rounded-lg transition-colors ${
-                aiTextToolType === 'expand' ? 'bg-indigo-500 text-white' : 'border border-slate-200 hover:border-indigo-400'
+                aiTextToolType === 'expand' ? 'bg-[#2C5F2D] text-white' : 'border border-slate-200 hover:border-[#97BC62]'
               } disabled:opacity-50`}
             >
               扩写
@@ -3775,7 +3775,7 @@ ${charDescriptions}
               onClick={() => processTextWithAI('polish')}
               disabled={isAiTextProcessing}
               className={`flex-1 py-2 text-sm rounded-lg transition-colors ${
-                aiTextToolType === 'polish' ? 'bg-indigo-500 text-white' : 'border border-slate-200 hover:border-indigo-400'
+                aiTextToolType === 'polish' ? 'bg-[#2C5F2D] text-white' : 'border border-slate-200 hover:border-[#97BC62]'
               } disabled:opacity-50`}
             >
               润色
@@ -3784,7 +3784,7 @@ ${charDescriptions}
               onClick={() => processTextWithAI('rewrite')}
               disabled={isAiTextProcessing}
               className={`flex-1 py-2 text-sm rounded-lg transition-colors ${
-                aiTextToolType === 'rewrite' ? 'bg-indigo-500 text-white' : 'border border-slate-200 hover:border-indigo-400'
+                aiTextToolType === 'rewrite' ? 'bg-[#2C5F2D] text-white' : 'border border-slate-200 hover:border-[#97BC62]'
               } disabled:opacity-50`}
             >
               改写
@@ -3792,7 +3792,7 @@ ${charDescriptions}
           </div>
 
           {isAiTextProcessing && (
-            <div className="flex items-center gap-2 text-sm text-indigo-600 mb-3">
+            <div className="flex items-center gap-2 text-sm text-[#2C5F2D] mb-3">
               <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
@@ -3875,7 +3875,7 @@ ${charDescriptions}
                   <textarea name="description" placeholder="场景描述 *" required rows={3} className="w-full px-3 py-2 text-sm border border-slate-200 rounded-lg" />
                   <input name="features" placeholder="特色描述" className="w-full px-3 py-2 text-sm border border-slate-200 rounded-lg" />
                   <input name="significance" placeholder="剧情重要性" className="w-full px-3 py-2 text-sm border border-slate-200 rounded-lg" />
-                  <button type="submit" className="w-full py-2 bg-indigo-500 text-white text-sm rounded-lg hover:bg-indigo-600">添加场景</button>
+                  <button type="submit" className="w-full py-2 bg-[#2C5F2D] text-white text-sm rounded-lg hover:bg-[#2C5F2D]">添加场景</button>
                 </form>
 
                 {/* 场景列表 */}
@@ -3960,7 +3960,7 @@ ${charDescriptions}
                   <textarea name="description" placeholder="描述 *" required rows={3} className="w-full px-3 py-2 text-sm border border-slate-200 rounded-lg" />
                   <input name="effects" placeholder="效果说明" className="w-full px-3 py-2 text-sm border border-slate-200 rounded-lg" />
                   <input name="origin" placeholder="来源" className="w-full px-3 py-2 text-sm border border-slate-200 rounded-lg" />
-                  <button type="submit" className="w-full py-2 bg-indigo-500 text-white text-sm rounded-lg hover:bg-indigo-600">添加</button>
+                  <button type="submit" className="w-full py-2 bg-[#2C5F2D] text-white text-sm rounded-lg hover:bg-[#2C5F2D]">添加</button>
                 </form>
 
                 {/* 道具列表 */}
@@ -3987,7 +3987,7 @@ ${charDescriptions}
                           </button>
                         </div>
                         <p className="text-sm text-slate-600">{item.description}</p>
-                        {item.effects && <p className="text-xs text-indigo-600 mt-1">效果：{item.effects}</p>}
+                        {item.effects && <p className="text-xs text-[#2C5F2D] mt-1">效果：{item.effects}</p>}
                         {item.origin && <p className="text-xs text-slate-500 mt-1">来源：{item.origin}</p>}
                       </div>
                     ))
@@ -4031,8 +4031,8 @@ ${charDescriptions}
                       }}
                       className={`px-3 py-1.5 text-sm rounded-lg transition-colors ${
                         dialogCharacters.includes(char.id)
-                          ? 'bg-indigo-500 text-white'
-                          : 'border border-slate-200 hover:border-indigo-400'
+                          ? 'bg-[#2C5F2D] text-white'
+                          : 'border border-slate-200 hover:border-[#97BC62]'
                       }`}
                     >
                       {char.name}
@@ -4060,7 +4060,7 @@ ${charDescriptions}
               <button
                 onClick={generateCharacterDialog}
                 disabled={dialogCharacters.length < 2 || isGeneratingDialog}
-                className="w-full py-2.5 bg-indigo-500 text-white text-sm font-medium rounded-lg hover:bg-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="w-full py-2.5 bg-[#2C5F2D] text-white text-sm font-medium rounded-lg hover:bg-[#2C5F2D] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 {isGeneratingDialog ? (
                   <>
@@ -4223,7 +4223,7 @@ ${charDescriptions}
                         updated[idx].title = e.target.value;
                         setImportPreview(updated);
                       }}
-                      className="font-semibold text-slate-800 bg-transparent border-b border-transparent hover:border-slate-200 focus:border-indigo-400 focus:outline-none px-1"
+                      className="font-semibold text-slate-800 bg-transparent border-b border-transparent hover:border-slate-200 focus:border-[#97BC62] focus:outline-none px-1"
                     />
                     <button
                       onClick={() => setImportPreview(prev => prev.filter((_, i) => i !== idx))}
@@ -4253,7 +4253,7 @@ ${charDescriptions}
               <button
                 onClick={confirmImport}
                 disabled={importPreview.length === 0}
-                className="px-4 py-2 text-sm bg-indigo-500 text-white rounded-lg hover:bg-indigo-600 disabled:opacity-50"
+                className="px-4 py-2 text-sm bg-[#2C5F2D] text-white rounded-lg hover:bg-[#2C5F2D] disabled:opacity-50"
               >
                 确认导入 ({importPreview.length} 章)
               </button>
@@ -4287,7 +4287,7 @@ ${charDescriptions}
               <div className="flex items-center gap-1.5 ml-2">
                 <button
                   onClick={createNewSession}
-                  className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-100 dark:border-indigo-900/50 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-900/30 transition-colors"
+                  className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-[#2C5F2D] dark:text-[#97BC62] bg-[#F0F7F0] dark:bg-[#2C5F2D]/20 border border-[#F0F7F0] dark:border-[#1E4620]/50 rounded-lg hover:bg-[#E8F5E8] dark:hover:bg-[#2C5F2D]/30 transition-colors"
                 >
                   <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
@@ -4298,8 +4298,8 @@ ${charDescriptions}
                   onClick={() => setShowSessionList(!showSessionList)}
                   className={`flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium border rounded-lg transition-colors ${
                     showSessionList
-                      ? 'text-indigo-600 dark:text-indigo-400 border-indigo-300 dark:border-indigo-600 bg-indigo-50 dark:bg-indigo-900/20'
-                      : `${themeClasses.textMuted} ${themeClasses.border} hover:border-indigo-300`
+                      ? 'text-[#2C5F2D] dark:text-[#97BC62] border-[#97BC62] dark:border-[#2C5F2D] bg-[#F0F7F0] dark:bg-[#2C5F2D]/20'
+                      : `${themeClasses.textMuted} ${themeClasses.border} hover:border-[#97BC62]`
                   }`}
                 >
                   <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -4326,7 +4326,7 @@ ${charDescriptions}
                         onClick={() => selectSession(session.id)}
                         className={`w-full text-left p-2.5 rounded-xl mb-1 transition-colors group ${
                           currentSessionId === session.id
-                            ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400'
+                            ? 'bg-[#F0F7F0] dark:bg-[#2C5F2D]/30 text-[#1E4620] dark:text-[#97BC62]'
                             : `hover:bg-slate-50 dark:hover:bg-slate-800 ${themeClasses.text}`
                         }`}
                       >
@@ -4369,16 +4369,16 @@ ${charDescriptions}
                 messages.map((msg) => (
                   <div
                     key={msg.id}
-                    className={`rounded-2xl p-3 text-sm ${msg.role === 'ai' ? `${themeClasses.card} border ${themeClasses.border} ${themeClasses.text}` : 'bg-indigo-600 text-white ml-8'}`}
+                    className={`rounded-2xl p-3 text-sm ${msg.role === 'ai' ? `${themeClasses.card} border ${themeClasses.border} ${themeClasses.text}` : 'bg-[#2C5F2D] text-white ml-8'}`}
                   >
-                    <div className={`text-[10px] ${msg.role === 'ai' ? themeClasses.textMuted : 'text-indigo-200'} mb-1`}>{msg.createdAt}</div>
+                    <div className={`text-[10px] ${msg.role === 'ai' ? themeClasses.textMuted : 'text-[#97BC62]'} mb-1`}>{msg.createdAt}</div>
                     <div className="whitespace-pre-wrap">{msg.content}</div>
                     {/* AI 消息显示操作按钮 */}
                     {msg.role === 'ai' && msg.content && msg.id !== 'init' && (
                       <div className={`flex items-center gap-2 mt-3 pt-2 border-t ${themeClasses.border}`}>
                         <button
                           onClick={() => insertToContent(msg.content)}
-                          className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-indigo-600 text-white text-xs font-medium hover:bg-indigo-700 transition-colors"
+                          className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#2C5F2D] text-white text-xs font-medium hover:bg-[#1E4620] transition-colors"
                         >
                           <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
@@ -4411,7 +4411,7 @@ ${charDescriptions}
               {isStreaming && (
                 <div className={`rounded-2xl p-3 ${themeClasses.card} border ${themeClasses.border}`}>
                   <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 bg-indigo-500 rounded-full animate-pulse" />
+                    <div className="w-2 h-2 bg-[#2C5F2D] rounded-full animate-pulse" />
                     <span className={`text-xs ${themeClasses.textMuted}`}>正在思考...</span>
                   </div>
                 </div>
@@ -4425,7 +4425,7 @@ ${charDescriptions}
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-1">
                   <button
-                    className={`p-1.5 rounded-lg ${themeClasses.textMuted} hover:text-indigo-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors`}
+                    className={`p-1.5 rounded-lg ${themeClasses.textMuted} hover:text-[#2C5F2D] hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors`}
                     title="分享会话"
                     onClick={() => {
                       if (currentSession && currentSession.messages.length > 0) {
@@ -4440,7 +4440,7 @@ ${charDescriptions}
                     </svg>
                   </button>
                   <button
-                    className={`p-1.5 rounded-lg ${themeClasses.textMuted} hover:text-indigo-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors`}
+                    className={`p-1.5 rounded-lg ${themeClasses.textMuted} hover:text-[#2C5F2D] hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors`}
                     title="引用文本 (选中文本后点击，或引用章节内容)"
                     onClick={quoteSelectedText}
                   >
@@ -4451,8 +4451,8 @@ ${charDescriptions}
                   <button
                     className={`p-1.5 rounded-lg transition-colors ${
                       showAiSettings
-                        ? 'text-indigo-500 bg-indigo-50 dark:bg-indigo-900/20'
-                        : `${themeClasses.textMuted} hover:text-indigo-500 hover:bg-slate-50 dark:hover:bg-slate-800`
+                        ? 'text-[#2C5F2D] bg-[#F0F7F0] dark:bg-[#2C5F2D]/20'
+                        : `${themeClasses.textMuted} hover:text-[#2C5F2D] hover:bg-slate-50 dark:hover:bg-slate-800`
                     }`}
                     title="AI 设置"
                     onClick={() => setShowAiSettings(!showAiSettings)}
@@ -4468,8 +4468,8 @@ ${charDescriptions}
                     onClick={() => setShowPromptPicker(!showPromptPicker)}
                     className={`flex items-center gap-1 px-2 py-1 text-xs font-medium border rounded-lg transition-colors ${
                       showPromptPicker
-                        ? 'text-indigo-600 dark:text-indigo-400 border-indigo-300 dark:border-indigo-600 bg-indigo-50 dark:bg-indigo-900/20'
-                        : `${themeClasses.textMuted} ${themeClasses.border} hover:border-indigo-300`
+                        ? 'text-[#2C5F2D] dark:text-[#97BC62] border-[#97BC62] dark:border-[#2C5F2D] bg-[#F0F7F0] dark:bg-[#2C5F2D]/20'
+                        : `${themeClasses.textMuted} ${themeClasses.border} hover:border-[#97BC62]`
                     }`}
                   >
                     <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -4554,7 +4554,7 @@ ${charDescriptions}
                       <button
                         key={prompt.id}
                         onClick={() => selectPrompt(prompt)}
-                        className={`text-left p-2 rounded-lg ${themeClasses.sidebar} border ${themeClasses.border} hover:border-indigo-300 dark:hover:border-indigo-500 transition-colors`}
+                        className={`text-left p-2 rounded-lg ${themeClasses.sidebar} border ${themeClasses.border} hover:border-[#97BC62] dark:hover:border-[#2C5F2D] transition-colors`}
                       >
                         <p className={`text-xs font-medium ${themeClasses.text} truncate`}>{prompt.title}</p>
                         <p className={`text-[10px] ${themeClasses.textMuted} truncate mt-0.5`}>{prompt.content.slice(0, 25)}...</p>
@@ -4569,7 +4569,7 @@ ${charDescriptions}
                 value={chatInput}
                 onChange={(e) => setChatInput(e.target.value)}
                 rows={2}
-                className={`w-full rounded-xl border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 ${themeClasses.input}`}
+                className={`w-full rounded-xl border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#2C5F2D]/20 focus:border-[#2C5F2D] ${themeClasses.input}`}
                 placeholder="输入消息，按 Enter 发送..."
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' && !e.shiftKey) {
@@ -4581,7 +4581,7 @@ ${charDescriptions}
               <div className={`flex items-center justify-between text-xs ${themeClasses.textMuted}`}>
                 <span>{chatInput.length} / 8000 字</span>
                 <button
-                  className="px-4 py-1.5 rounded-xl bg-indigo-600 text-white text-xs font-medium hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1.5"
+                  className="px-4 py-1.5 rounded-xl bg-[#2C5F2D] text-white text-xs font-medium hover:bg-[#1E4620] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1.5"
                   onClick={sendMessage}
                   disabled={isStreaming || !chatInput.trim()}
                 >
@@ -4624,7 +4624,7 @@ ${charDescriptions}
                   <button
                     key={item.key}
                     onClick={() => setCreativeModalType(item.key as CreativeManagementTab)}
-                    className={`rounded-2xl border px-4 py-3 text-left transition-colors ${themeClasses.border} ${themeClasses.card} hover:border-indigo-400/50`}
+                    className={`rounded-2xl border px-4 py-3 text-left transition-colors ${themeClasses.border} ${themeClasses.card} hover:border-[#97BC62]/50`}
                   >
                     <p className={`text-xs ${themeClasses.textMuted}`}>{item.label}</p>
                     <p className="text-xl font-semibold mt-1">{item.count}</p>
@@ -4641,7 +4641,7 @@ ${charDescriptions}
               <div className="grid grid-cols-2 gap-3">
                 <button
                   onClick={() => setShowOutlineManager(true)}
-                  className={`rounded-2xl border px-4 py-3 text-left transition-colors ${themeClasses.border} ${themeClasses.card} hover:border-indigo-400/50`}
+                  className={`rounded-2xl border px-4 py-3 text-left transition-colors ${themeClasses.border} ${themeClasses.card} hover:border-[#97BC62]/50`}
                 >
                   <div className="flex items-center gap-2 mb-1">
                     <span>📋</span>
@@ -4651,7 +4651,7 @@ ${charDescriptions}
                 </button>
                 <button
                   onClick={() => setShowForeshadowingTracker(true)}
-                  className={`rounded-2xl border px-4 py-3 text-left transition-colors ${themeClasses.border} ${themeClasses.card} hover:border-indigo-400/50`}
+                  className={`rounded-2xl border px-4 py-3 text-left transition-colors ${themeClasses.border} ${themeClasses.card} hover:border-[#97BC62]/50`}
                 >
                   <div className="flex items-center gap-2 mb-1">
                     <span>🌱</span>
@@ -4670,7 +4670,7 @@ ${charDescriptions}
                   <p className={`text-xs ${themeClasses.textMuted}`}>连续 {getStreakDays()} 天</p>
                 </div>
                 <button
-                  className={`px-3 py-1.5 rounded-xl text-xs border transition-colors ${themeClasses.border} hover:border-indigo-400`}
+                  className={`px-3 py-1.5 rounded-xl text-xs border transition-colors ${themeClasses.border} hover:border-[#97BC62]`}
                   onClick={() => setShowWritingGoal(true)}
                 >
                   设置目标
@@ -4685,7 +4685,7 @@ ${charDescriptions}
                   <div className={`h-2 rounded-full overflow-hidden ${effectiveTheme === 'dark' ? 'bg-slate-700' : 'bg-slate-200'}`}>
                     <div
                       className={`h-full transition-all duration-500 ${
-                        getTodayWrittenWords() >= activeGoal.targetWords ? 'bg-green-500' : 'bg-indigo-500'
+                        getTodayWrittenWords() >= activeGoal.targetWords ? 'bg-green-500' : 'bg-[#2C5F2D]'
                       }`}
                       style={{ width: `${Math.min(100, (getTodayWrittenWords() / activeGoal.targetWords) * 100)}%` }}
                     />
@@ -4704,7 +4704,7 @@ ${charDescriptions}
               <div className="flex items-center justify-between">
                 <p className={`text-sm font-semibold ${themeClasses.text}`}>查找替换</p>
                 <button
-                  className={`px-3 py-1.5 rounded-xl text-xs border transition-colors ${themeClasses.border} hover:border-indigo-400`}
+                  className={`px-3 py-1.5 rounded-xl text-xs border transition-colors ${themeClasses.border} hover:border-[#97BC62]`}
                   onClick={() => setShowSearchReplace(!showSearchReplace)}
                 >
                   {showSearchReplace ? '收起' : '展开'}
@@ -4716,7 +4716,7 @@ ${charDescriptions}
                     <button
                       className={`flex-1 py-1.5 text-xs rounded-lg transition-colors ${
                         searchScope === 'current'
-                          ? 'bg-indigo-500 text-white'
+                          ? 'bg-[#2C5F2D] text-white'
                           : `border ${themeClasses.border}`
                       }`}
                       onClick={() => setSearchScope('current')}
@@ -4726,7 +4726,7 @@ ${charDescriptions}
                     <button
                       className={`flex-1 py-1.5 text-xs rounded-lg transition-colors ${
                         searchScope === 'all'
-                          ? 'bg-indigo-500 text-white'
+                          ? 'bg-[#2C5F2D] text-white'
                           : `border ${themeClasses.border}`
                       }`}
                       onClick={() => setSearchScope('all')}
@@ -4752,7 +4752,7 @@ ${charDescriptions}
                   <div className="flex gap-2">
                     <button
                       onClick={performSearch}
-                      className="flex-1 py-2 text-xs bg-indigo-500 text-white rounded-lg hover:bg-indigo-600"
+                      className="flex-1 py-2 text-xs bg-[#2C5F2D] text-white rounded-lg hover:bg-[#2C5F2D]"
                     >
                       查找
                     </button>
@@ -4801,7 +4801,7 @@ ${charDescriptions}
                             onClick={() => goToSearchResult(idx)}
                             className={`p-2 rounded cursor-pointer transition-colors ${
                               idx === currentSearchIndex
-                                ? 'bg-indigo-500/20 border border-indigo-500/30'
+                                ? 'bg-[#2C5F2D]/20 border border-[#2C5F2D]/30'
                                 : `hover:${effectiveTheme === 'dark' ? 'bg-slate-700' : 'bg-slate-100'}`
                             }`}
                           >
@@ -4829,7 +4829,7 @@ ${charDescriptions}
                   className={`px-3 py-1.5 rounded-xl text-xs transition-colors ${
                     isSpeaking
                       ? 'bg-rose-500 text-white'
-                      : `border ${themeClasses.border} hover:border-indigo-400`
+                      : `border ${themeClasses.border} hover:border-[#97BC62]`
                   }`}
                   onClick={toggleSpeaking}
                 >
@@ -4880,28 +4880,28 @@ ${charDescriptions}
               </div>
               <button
                 onClick={exportToTXT}
-                className={`w-full text-left px-3 py-2 rounded-xl border ${themeClasses.border} text-sm flex items-center gap-2 hover:border-indigo-400 transition-colors`}
+                className={`w-full text-left px-3 py-2 rounded-xl border ${themeClasses.border} text-sm flex items-center gap-2 hover:border-[#97BC62] transition-colors`}
               >
                 <span className={themeClasses.textMuted}>📄</span>
                 导出为 TXT
               </button>
               <button
                 onClick={exportToMarkdown}
-                className={`w-full text-left px-3 py-2 rounded-xl border ${themeClasses.border} text-sm flex items-center gap-2 hover:border-indigo-400 transition-colors`}
+                className={`w-full text-left px-3 py-2 rounded-xl border ${themeClasses.border} text-sm flex items-center gap-2 hover:border-[#97BC62] transition-colors`}
               >
                 <span className={themeClasses.textMuted}>📝</span>
                 导出为 Markdown
               </button>
               <button
                 onClick={exportToWord}
-                className={`w-full text-left px-3 py-2 rounded-xl border ${themeClasses.border} text-sm flex items-center gap-2 hover:border-indigo-400 transition-colors`}
+                className={`w-full text-left px-3 py-2 rounded-xl border ${themeClasses.border} text-sm flex items-center gap-2 hover:border-[#97BC62] transition-colors`}
               >
                 <span className={themeClasses.textMuted}>📘</span>
                 导出为 Word
               </button>
               <button
                 onClick={exportToPDF}
-                className={`w-full text-left px-3 py-2 rounded-xl border ${themeClasses.border} text-sm flex items-center gap-2 hover:border-indigo-400 transition-colors`}
+                className={`w-full text-left px-3 py-2 rounded-xl border ${themeClasses.border} text-sm flex items-center gap-2 hover:border-[#97BC62] transition-colors`}
               >
                 <span className={themeClasses.textMuted}>📕</span>
                 导出为 PDF
@@ -4911,13 +4911,13 @@ ${charDescriptions}
                 <div className="flex gap-2">
                   <button
                     onClick={() => exportAllChapters('txt')}
-                    className={`flex-1 px-3 py-1.5 rounded-xl border ${themeClasses.border} text-xs hover:border-indigo-400`}
+                    className={`flex-1 px-3 py-1.5 rounded-xl border ${themeClasses.border} text-xs hover:border-[#97BC62]`}
                   >
                     全部 TXT
                   </button>
                   <button
                     onClick={() => exportAllChapters('md')}
-                    className={`flex-1 px-3 py-1.5 rounded-xl border ${themeClasses.border} text-xs hover:border-indigo-400`}
+                    className={`flex-1 px-3 py-1.5 rounded-xl border ${themeClasses.border} text-xs hover:border-[#97BC62]`}
                   >
                     全部 Markdown
                   </button>
@@ -4933,7 +4933,7 @@ ${charDescriptions}
               <div className="grid grid-cols-2 gap-3">
                 <button
                   onClick={() => setShowLocationManager(true)}
-                  className={`rounded-2xl border px-4 py-3 text-left transition-colors ${themeClasses.border} ${themeClasses.card} hover:border-indigo-400/50`}
+                  className={`rounded-2xl border px-4 py-3 text-left transition-colors ${themeClasses.border} ${themeClasses.card} hover:border-[#97BC62]/50`}
                 >
                   <div className="flex items-center gap-2 mb-1">
                     <span>🏔️</span>
@@ -4943,7 +4943,7 @@ ${charDescriptions}
                 </button>
                 <button
                   onClick={() => setShowItemManager(true)}
-                  className={`rounded-2xl border px-4 py-3 text-left transition-colors ${themeClasses.border} ${themeClasses.card} hover:border-indigo-400/50`}
+                  className={`rounded-2xl border px-4 py-3 text-left transition-colors ${themeClasses.border} ${themeClasses.card} hover:border-[#97BC62]/50`}
                 >
                   <div className="flex items-center gap-2 mb-1">
                     <span>⚔️</span>
@@ -4962,7 +4962,7 @@ ${charDescriptions}
                   <p className={`text-xs ${themeClasses.textMuted}`}>{chapterTemplates.length} 个模板</p>
                 </div>
                 <button
-                  className={`px-3 py-1.5 rounded-xl text-xs border transition-colors ${themeClasses.border} hover:border-indigo-400`}
+                  className={`px-3 py-1.5 rounded-xl text-xs border transition-colors ${themeClasses.border} hover:border-[#97BC62]`}
                   onClick={() => setShowTemplateManager(!showTemplateManager)}
                 >
                   {showTemplateManager ? '收起' : '展开'}
@@ -4973,7 +4973,7 @@ ${charDescriptions}
                   {chapterTemplates.map(template => (
                     <div
                       key={template.id}
-                      className={`p-2 rounded-xl border ${themeClasses.border} hover:border-indigo-400/50 transition-colors`}
+                      className={`p-2 rounded-xl border ${themeClasses.border} hover:border-[#97BC62]/50 transition-colors`}
                     >
                       <div className="flex items-center justify-between mb-1">
                         <span className="text-sm font-medium">{template.name}</span>
@@ -4996,7 +4996,7 @@ ${charDescriptions}
                       <p className={`text-xs ${themeClasses.textMuted} line-clamp-2`}>{template.description || template.content.slice(0, 50)}...</p>
                       <button
                         onClick={() => applyTemplate(template.id)}
-                        className="mt-2 w-full py-1.5 text-xs bg-indigo-500 text-white rounded-lg hover:bg-indigo-600 transition-colors"
+                        className="mt-2 w-full py-1.5 text-xs bg-[#2C5F2D] text-white rounded-lg hover:bg-[#2C5F2D] transition-colors"
                       >
                         应用到当前章节
                       </button>
@@ -5011,7 +5011,7 @@ ${charDescriptions}
               <div className="flex items-center justify-between">
                 <p className={`text-sm font-semibold ${themeClasses.text}`}>写作统计</p>
                 <button
-                  className={`px-3 py-1.5 rounded-xl text-xs border transition-colors ${themeClasses.border} hover:border-indigo-400`}
+                  className={`px-3 py-1.5 rounded-xl text-xs border transition-colors ${themeClasses.border} hover:border-[#97BC62]`}
                   onClick={() => setShowStatsPanel(!showStatsPanel)}
                 >
                   {showStatsPanel ? '收起' : '查看详情'}
@@ -5045,7 +5045,7 @@ ${charDescriptions}
                       return (
                         <div key={idx} className="flex-1 flex flex-col items-center gap-1">
                           <div
-                            className={`w-full rounded-t transition-all ${stat.words > 0 ? 'bg-indigo-500' : 'bg-slate-200 dark:bg-slate-700'}`}
+                            className={`w-full rounded-t transition-all ${stat.words > 0 ? 'bg-[#2C5F2D]' : 'bg-slate-200 dark:bg-slate-700'}`}
                             style={{ height: `${Math.max(height, 4)}%` }}
                             title={`${stat.date}: ${stat.words}字`}
                           />
@@ -5066,7 +5066,7 @@ ${charDescriptions}
                   <p className={`text-xs ${themeClasses.textMuted}`}>基于人物设定生成对话</p>
                 </div>
                 <button
-                  className={`px-3 py-1.5 rounded-xl text-xs border transition-colors ${themeClasses.border} hover:border-indigo-400`}
+                  className={`px-3 py-1.5 rounded-xl text-xs border transition-colors ${themeClasses.border} hover:border-[#97BC62]`}
                   onClick={() => setShowDialogGenerator(true)}
                   disabled={characters.length < 2}
                 >
@@ -5112,7 +5112,7 @@ ${charDescriptions}
               />
               <button
                 onClick={() => fileInputRef.current?.click()}
-                className={`w-full text-left px-3 py-2 rounded-xl border ${themeClasses.border} text-sm flex items-center gap-2 hover:border-indigo-400 transition-colors`}
+                className={`w-full text-left px-3 py-2 rounded-xl border ${themeClasses.border} text-sm flex items-center gap-2 hover:border-[#97BC62] transition-colors`}
               >
                 <span className={themeClasses.textMuted}>📥</span>
                 导入 TXT/Markdown 文件
@@ -5188,7 +5188,7 @@ ${charDescriptions}
               />
               <button
                 onClick={() => backupInputRef.current?.click()}
-                className={`w-full text-left px-3 py-2 rounded-xl border ${themeClasses.border} text-sm flex items-center gap-2 hover:border-blue-400 transition-colors`}
+                className={`w-full text-left px-3 py-2 rounded-xl border ${themeClasses.border} text-sm flex items-center gap-2 hover:border-[#97BC62] transition-colors`}
               >
                 <span className={themeClasses.textMuted}>📂</span>
                 从备份恢复
@@ -5213,7 +5213,7 @@ ${charDescriptions}
                 <button
                   key={option.id}
                   className={`w-full flex items-center gap-2 px-3 py-2 rounded-xl border ${
-                    themeOption === option.id ? 'bg-indigo-600 text-white border-indigo-600' : `${themeClasses.border}`
+                    themeOption === option.id ? 'bg-[#2C5F2D] text-white border-[#2C5F2D]' : `${themeClasses.border}`
                   }`}
                   onClick={() => setThemeOption(option.id as typeof themeOption)}
                 >
@@ -5263,7 +5263,7 @@ ${charDescriptions}
                   {(['unlimited', 100, 1024, 2048, 4096] as const).map((option) => (
                     <button
                       key={option}
-                      className={`py-1 rounded-lg border ${maxTokens === option ? 'bg-indigo-600 text-white border-indigo-600' : themeClasses.border}`}
+                      className={`py-1 rounded-lg border ${maxTokens === option ? 'bg-[#2C5F2D] text-white border-[#2C5F2D]' : themeClasses.border}`}
                       onClick={() => setMaxTokens(option)}
                     >
                       {option === 'unlimited' ? '不限' : option}

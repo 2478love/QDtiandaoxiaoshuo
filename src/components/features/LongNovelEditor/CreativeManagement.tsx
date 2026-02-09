@@ -761,7 +761,7 @@ ${relatedChars ? `相关人物：${relatedChars}` : ''}
       type="button"
       onClick={onClick}
       disabled={isAiGenerating}
-      className="text-xs text-blue-500 hover:text-blue-600 flex items-center gap-1 disabled:opacity-50 disabled:cursor-not-allowed"
+      className="text-xs text-[#2C5F2D] hover:text-[#1E4620] flex items-center gap-1 disabled:opacity-50 disabled:cursor-not-allowed"
     >
       {isAiGenerating && aiGeneratingField === fieldKey ? (
         <>
@@ -875,8 +875,8 @@ ${relatedChars ? `相关人物：${relatedChars}` : ''}
                     key={item.id}
                     className={`group relative p-3 rounded-xl cursor-pointer transition-all ${
                       selectedId === item.id
-                        ? 'bg-blue-50 border border-blue-200'
-                        : 'bg-white border border-slate-100 hover:border-blue-200 hover:shadow-sm'
+                        ? 'bg-[#F0F7F0] border border-[#E8F5E8]'
+                        : 'bg-white border border-slate-100 hover:border-[#E8F5E8] hover:shadow-sm'
                     }`}
                     onClick={() => setSelectedId(item.id)}
                   >
@@ -930,7 +930,7 @@ ${relatedChars ? `相关人物：${relatedChars}` : ''}
                       <input
                         value={charForm.name}
                         onChange={e => setCharForm(prev => ({ ...prev, name: e.target.value }))}
-                        className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm focus:border-blue-400 focus:outline-none"
+                        className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm focus:border-[#97BC62] focus:outline-none"
                         placeholder="请输入人物姓名"
                       />
                     </div>
@@ -940,7 +940,7 @@ ${relatedChars ? `相关人物：${relatedChars}` : ''}
                         <input
                           value={charForm.age}
                           onChange={e => setCharForm(prev => ({ ...prev, age: e.target.value }))}
-                          className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm focus:border-blue-400 focus:outline-none"
+                          className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm focus:border-[#97BC62] focus:outline-none"
                           placeholder="请输入年龄"
                         />
                       </div>
@@ -949,7 +949,7 @@ ${relatedChars ? `相关人物：${relatedChars}` : ''}
                         <select
                           value={charForm.gender}
                           onChange={e => setCharForm(prev => ({ ...prev, gender: e.target.value }))}
-                          className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm focus:border-blue-400 focus:outline-none"
+                          className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm focus:border-[#97BC62] focus:outline-none"
                         >
                           <option value="">请选择性别</option>
                           {GENDERS.map(g => <option key={g} value={g}>{g}</option>)}
@@ -960,7 +960,7 @@ ${relatedChars ? `相关人物：${relatedChars}` : ''}
                         <select
                           value={charForm.role}
                           onChange={e => setCharForm(prev => ({ ...prev, role: e.target.value }))}
-                          className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm focus:border-blue-400 focus:outline-none"
+                          className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm focus:border-[#97BC62] focus:outline-none"
                         >
                           {ROLE_TYPES.map(r => <option key={r} value={r}>{r}</option>)}
                         </select>
@@ -974,7 +974,7 @@ ${relatedChars ? `相关人物：${relatedChars}` : ''}
                       <textarea
                         value={charForm.appearance}
                         onChange={e => setCharForm(prev => ({ ...prev, appearance: e.target.value }))}
-                        className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm min-h-[80px] focus:border-blue-400 focus:outline-none"
+                        className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm min-h-[80px] focus:border-[#97BC62] focus:outline-none"
                         placeholder="请描述人物的外貌特征，如身高、体型、发色、眼色、特殊标记等"
                       />
                     </div>
@@ -986,7 +986,7 @@ ${relatedChars ? `相关人物：${relatedChars}` : ''}
                       <textarea
                         value={charForm.personality}
                         onChange={e => setCharForm(prev => ({ ...prev, personality: e.target.value }))}
-                        className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm min-h-[80px] focus:border-blue-400 focus:outline-none"
+                        className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm min-h-[80px] focus:border-[#97BC62] focus:outline-none"
                         placeholder="请描述人物的性格特点，如性格倾向、行为习惯、说话方式等"
                       />
                     </div>
@@ -998,7 +998,7 @@ ${relatedChars ? `相关人物：${relatedChars}` : ''}
                       <textarea
                         value={charForm.description}
                         onChange={e => setCharForm(prev => ({ ...prev, description: e.target.value }))}
-                        className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm min-h-[80px] focus:border-blue-400 focus:outline-none"
+                        className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm min-h-[80px] focus:border-[#97BC62] focus:outline-none"
                         placeholder="请输入人物描述"
                       />
                     </div>
@@ -1010,7 +1010,7 @@ ${relatedChars ? `相关人物：${relatedChars}` : ''}
                       <textarea
                         value={charForm.background}
                         onChange={e => setCharForm(prev => ({ ...prev, background: e.target.value }))}
-                        className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm min-h-[80px] focus:border-blue-400 focus:outline-none"
+                        className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm min-h-[80px] focus:border-[#97BC62] focus:outline-none"
                         placeholder="请输入人物背景"
                       />
                     </div>
@@ -1027,7 +1027,7 @@ ${relatedChars ? `相关人物：${relatedChars}` : ''}
                       <input
                         value={worldForm.title}
                         onChange={e => setWorldForm(prev => ({ ...prev, title: e.target.value }))}
-                        className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm focus:border-blue-400 focus:outline-none"
+                        className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm focus:border-[#97BC62] focus:outline-none"
                         placeholder="请输入世界观名称"
                       />
                     </div>
@@ -1039,7 +1039,7 @@ ${relatedChars ? `相关人物：${relatedChars}` : ''}
                       <textarea
                         value={worldForm.geography}
                         onChange={e => setWorldForm(prev => ({ ...prev, geography: e.target.value }))}
-                        className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm min-h-[80px] focus:border-blue-400 focus:outline-none"
+                        className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm min-h-[80px] focus:border-[#97BC62] focus:outline-none"
                         placeholder="请描述世界的地理环境，如地形、气候、地标等"
                       />
                     </div>
@@ -1051,7 +1051,7 @@ ${relatedChars ? `相关人物：${relatedChars}` : ''}
                       <textarea
                         value={worldForm.history}
                         onChange={e => setWorldForm(prev => ({ ...prev, history: e.target.value }))}
-                        className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm min-h-[80px] focus:border-blue-400 focus:outline-none"
+                        className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm min-h-[80px] focus:border-[#97BC62] focus:outline-none"
                         placeholder="请描述世界的历史背景，如重要事件、朝代更替等"
                       />
                     </div>
@@ -1063,7 +1063,7 @@ ${relatedChars ? `相关人物：${relatedChars}` : ''}
                       <textarea
                         value={worldForm.culture}
                         onChange={e => setWorldForm(prev => ({ ...prev, culture: e.target.value }))}
-                        className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm min-h-[80px] focus:border-blue-400 focus:outline-none"
+                        className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm min-h-[80px] focus:border-[#97BC62] focus:outline-none"
                         placeholder="请描述世界的文化特色，如风俗习惯、宗教信仰、社会制度等"
                       />
                     </div>
@@ -1075,7 +1075,7 @@ ${relatedChars ? `相关人物：${relatedChars}` : ''}
                       <textarea
                         value={worldForm.magicSystem}
                         onChange={e => setWorldForm(prev => ({ ...prev, magicSystem: e.target.value }))}
-                        className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm min-h-[80px] focus:border-blue-400 focus:outline-none"
+                        className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm min-h-[80px] focus:border-[#97BC62] focus:outline-none"
                         placeholder="请描述世界的魔法体系，如魔法原理、等级划分、使用方式等"
                       />
                     </div>
@@ -1087,7 +1087,7 @@ ${relatedChars ? `相关人物：${relatedChars}` : ''}
                       <textarea
                         value={worldForm.content}
                         onChange={e => setWorldForm(prev => ({ ...prev, content: e.target.value }))}
-                        className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm min-h-[80px] focus:border-blue-400 focus:outline-none"
+                        className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm min-h-[80px] focus:border-[#97BC62] focus:outline-none"
                         placeholder="请输入世界观描述"
                       />
                     </div>
@@ -1104,7 +1104,7 @@ ${relatedChars ? `相关人物：${relatedChars}` : ''}
                       <input
                         value={eventForm.title}
                         onChange={e => setEventForm(prev => ({ ...prev, title: e.target.value }))}
-                        className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm focus:border-blue-400 focus:outline-none"
+                        className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm focus:border-[#97BC62] focus:outline-none"
                         placeholder="请输入事件名称"
                       />
                     </div>
@@ -1116,7 +1116,7 @@ ${relatedChars ? `相关人物：${relatedChars}` : ''}
                       <textarea
                         value={eventForm.description}
                         onChange={e => setEventForm(prev => ({ ...prev, description: e.target.value }))}
-                        className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm min-h-[100px] focus:border-blue-400 focus:outline-none"
+                        className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm min-h-[100px] focus:border-[#97BC62] focus:outline-none"
                         placeholder="请详细描述事件的内容和过程"
                       />
                     </div>
@@ -1125,7 +1125,7 @@ ${relatedChars ? `相关人物：${relatedChars}` : ''}
                       <select
                         value={eventForm.eventType}
                         onChange={e => setEventForm(prev => ({ ...prev, eventType: e.target.value }))}
-                        className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm focus:border-blue-400 focus:outline-none"
+                        className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm focus:border-[#97BC62] focus:outline-none"
                       >
                         {EVENT_TYPES.map(t => <option key={t} value={t}>{t}</option>)}
                       </select>
@@ -1135,7 +1135,7 @@ ${relatedChars ? `相关人物：${relatedChars}` : ''}
                       <input
                         value={eventForm.location}
                         onChange={e => setEventForm(prev => ({ ...prev, location: e.target.value }))}
-                        className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm focus:border-blue-400 focus:outline-none"
+                        className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm focus:border-[#97BC62] focus:outline-none"
                         placeholder="请输入事件发生的关键地点"
                       />
                     </div>
@@ -1147,7 +1147,7 @@ ${relatedChars ? `相关人物：${relatedChars}` : ''}
                       <textarea
                         value={eventForm.keyEvent}
                         onChange={e => setEventForm(prev => ({ ...prev, keyEvent: e.target.value }))}
-                        className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm min-h-[80px] focus:border-blue-400 focus:outline-none"
+                        className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm min-h-[80px] focus:border-[#97BC62] focus:outline-none"
                         placeholder="请描述事件中的关键转折点或重要情节"
                       />
                     </div>
@@ -1164,7 +1164,7 @@ ${relatedChars ? `相关人物：${relatedChars}` : ''}
                       <input
                         value={refForm.title}
                         onChange={e => setRefForm(prev => ({ ...prev, title: e.target.value }))}
-                        className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm focus:border-blue-400 focus:outline-none"
+                        className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm focus:border-[#97BC62] focus:outline-none"
                         placeholder="请输入素材标题"
                       />
                     </div>
@@ -1178,7 +1178,7 @@ ${relatedChars ? `相关人物：${relatedChars}` : ''}
                       <textarea
                         value={refForm.content}
                         onChange={e => setRefForm(prev => ({ ...prev, content: e.target.value }))}
-                        className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm min-h-[200px] focus:border-blue-400 focus:outline-none"
+                        className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm min-h-[200px] focus:border-[#97BC62] focus:outline-none"
                         placeholder="请输入素材内容"
                       />
                     </div>
@@ -1187,7 +1187,7 @@ ${relatedChars ? `相关人物：${relatedChars}` : ''}
                       <select
                         value={refForm.category}
                         onChange={e => setRefForm(prev => ({ ...prev, category: e.target.value }))}
-                        className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm focus:border-blue-400 focus:outline-none"
+                        className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm focus:border-[#97BC62] focus:outline-none"
                       >
                         {REFERENCE_TYPES.map(t => <option key={t} value={t}>{t}</option>)}
                       </select>
@@ -1203,7 +1203,7 @@ ${relatedChars ? `相关人物：${relatedChars}` : ''}
                 <button
                   onClick={handleSave}
                   disabled={isAiGenerating}
-                  className="px-8 py-2.5 bg-blue-500 text-white text-sm font-medium rounded-lg hover:bg-blue-600 transition-colors disabled:opacity-50"
+                  className="px-8 py-2.5 bg-[#2C5F2D] text-white text-sm font-medium rounded-lg hover:bg-[#1E4620] transition-colors disabled:opacity-50"
                 >
                   保存
                 </button>

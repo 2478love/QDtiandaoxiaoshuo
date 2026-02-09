@@ -37,7 +37,7 @@ const SettingsPanel: React.FC = () => {
           <button
             key={option.id}
             className={`w-full flex items-center gap-2 px-3 py-2 rounded-xl border ${
-              themeOption === option.id ? 'bg-indigo-600 text-white border-indigo-600' : `${themeClasses.border}`
+              themeOption === option.id ? 'bg-[#2C5F2D] text-white border-[#2C5F2D]' : `${themeClasses.border}`
             }`}
             onClick={() => setThemeOption(option.id)}
           >
@@ -119,7 +119,7 @@ const SettingsPanel: React.FC = () => {
             {tokenOptions.map((option) => (
               <button
                 key={option}
-                className={`py-1 rounded-lg border ${maxTokens === option ? 'bg-indigo-600 text-white border-indigo-600' : themeClasses.border}`}
+                className={`py-1 rounded-lg border ${maxTokens === option ? 'bg-[#2C5F2D] text-white border-[#2C5F2D]' : themeClasses.border}`}
                 onClick={() => setMaxTokens(option)}
               >
                 {option === 'unlimited' ? '不限' : option}

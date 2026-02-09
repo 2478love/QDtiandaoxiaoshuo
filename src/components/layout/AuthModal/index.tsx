@@ -313,7 +313,7 @@ const AuthModal: React.FC<AuthModalProps> = ({
               className={`w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 transition-all placeholder-slate-400 dark:placeholder-slate-500 ${
                 emailError
                   ? 'border-rose-300 dark:border-rose-700 focus:ring-rose-500/50'
-                  : 'border-slate-200 dark:border-slate-700 focus:ring-indigo-500/50'
+                  : 'border-slate-200 dark:border-slate-700 focus:ring-[#2C5F2D]/50'
               }`}
               placeholder="name@example.com"
               required
@@ -343,7 +343,7 @@ const AuthModal: React.FC<AuthModalProps> = ({
       <div className="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800 text-center">
         <button
           onClick={() => handleModeSwitch('login')}
-          className="text-sm font-semibold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors"
+          className="text-sm font-semibold text-[#2C5F2D] dark:text-[#97BC62] hover:text-[#1E4620] dark:hover:text-[#97BC62] transition-colors"
         >
           返回登录
         </button>
@@ -354,7 +354,7 @@ const AuthModal: React.FC<AuthModalProps> = ({
   const renderLoginRegister = () => (
     <>
       <div className="text-center mb-8">
-        <div className="w-12 h-12 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-indigo-100 dark:shadow-none shadow-lg">
+        <div className="w-12 h-12 bg-[#F0F7F0] dark:bg-[#2C5F2D]/20 text-[#2C5F2D] dark:text-[#97BC62] rounded-xl flex items-center justify-center mx-auto mb-4 shadow-[#E8F5E8] dark:shadow-none shadow-lg">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="m12 19-7-7 14-14 7 7-14 14-4-4z" />
           </svg>
@@ -397,7 +397,7 @@ const AuthModal: React.FC<AuthModalProps> = ({
               className={`w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 transition-all placeholder-slate-400 dark:placeholder-slate-500 ${
                 nameError
                   ? 'border-rose-300 dark:border-rose-700 focus:ring-rose-500/50'
-                  : 'border-slate-200 dark:border-slate-700 focus:ring-indigo-500/50'
+                  : 'border-slate-200 dark:border-slate-700 focus:ring-[#2C5F2D]/50'
               }`}
               placeholder="请输入您的昵称"
               required
@@ -421,7 +421,7 @@ const AuthModal: React.FC<AuthModalProps> = ({
             className={`w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 transition-all placeholder-slate-400 dark:placeholder-slate-500 ${
               emailError
                 ? 'border-rose-300 dark:border-rose-700 focus:ring-rose-500/50'
-                : 'border-slate-200 dark:border-slate-700 focus:ring-indigo-500/50'
+                : 'border-slate-200 dark:border-slate-700 focus:ring-[#2C5F2D]/50'
             }`}
             placeholder="name@example.com"
             required
@@ -444,7 +444,7 @@ const AuthModal: React.FC<AuthModalProps> = ({
               className={`w-full px-4 py-3 pr-12 rounded-xl bg-slate-50 dark:bg-slate-800 border text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 transition-all placeholder-slate-400 dark:placeholder-slate-500 ${
                 passwordError
                   ? 'border-rose-300 dark:border-rose-700 focus:ring-rose-500/50'
-                  : 'border-slate-200 dark:border-slate-700 focus:ring-indigo-500/50'
+                  : 'border-slate-200 dark:border-slate-700 focus:ring-[#2C5F2D]/50'
               }`}
               placeholder={mode === 'register' ? '至少 8 个字符' : '请输入密码'}
               required
@@ -515,7 +515,7 @@ const AuthModal: React.FC<AuthModalProps> = ({
                 className={`w-full px-4 py-3 pr-12 rounded-xl bg-slate-50 dark:bg-slate-800 border text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 transition-all placeholder-slate-400 dark:placeholder-slate-500 ${
                   confirmPasswordError
                     ? 'border-rose-300 dark:border-rose-700 focus:ring-rose-500/50'
-                    : 'border-slate-200 dark:border-slate-700 focus:ring-indigo-500/50'
+                    : 'border-slate-200 dark:border-slate-700 focus:ring-[#2C5F2D]/50'
                 }`}
                 placeholder="再次输入密码"
                 required
@@ -557,7 +557,7 @@ const AuthModal: React.FC<AuthModalProps> = ({
                   onChange={(e) => setRememberMe(e.target.checked)}
                   className="sr-only peer"
                 />
-                <div className="w-5 h-5 border-2 border-slate-300 dark:border-slate-600 rounded-md peer-checked:bg-indigo-600 peer-checked:border-indigo-600 transition-all group-hover:border-indigo-400">
+                <div className="w-5 h-5 border-2 border-slate-300 dark:border-slate-600 rounded-md peer-checked:bg-[#2C5F2D] peer-checked:border-[#2C5F2D] transition-all group-hover:border-[#97BC62]">
                   {rememberMe && (
                     <CheckIcon className="w-full h-full text-white p-0.5" />
                   )}
@@ -570,7 +570,7 @@ const AuthModal: React.FC<AuthModalProps> = ({
             <button
               type="button"
               onClick={() => handleModeSwitch('forgot-password')}
-              className="text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors"
+              className="text-sm font-medium text-[#2C5F2D] dark:text-[#97BC62] hover:text-[#1E4620] dark:hover:text-[#97BC62] transition-colors"
             >
               忘记密码？
             </button>
@@ -600,7 +600,7 @@ const AuthModal: React.FC<AuthModalProps> = ({
           {mode === 'login' ? '还没有账号？' : '已有账号？'}
           <button
             onClick={() => handleModeSwitch(mode === 'login' ? 'register' : 'login')}
-            className="ml-2 font-semibold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors"
+            className="ml-2 font-semibold text-[#2C5F2D] dark:text-[#97BC62] hover:text-[#1E4620] dark:hover:text-[#97BC62] transition-colors"
           >
             {mode === 'login' ? '免费注册' : '直接登录'}
           </button>
