@@ -1,0 +1,40 @@
+/* 文学雅致风配色方案 - 书香墨韵主题 */
+
+:root {
+  /* 主色调 */
+  --primary: #2C5F2D;        /* 深绿色 - 代表生机与创作 */
+  --primary-light: #97BC62;  /* 嫩绿色 - 灵感与活力 */
+  --primary-dark: #1E4620;   /* 深绿色暗调 */
+  --accent: #F4A460;         /* 沙棕色 - 温暖与文学 */
+
+  /* 背景色 */
+  --bg-primary: #FAF9F6;     /* 米白色 - 纸张质感 */
+  --bg-secondary: #F5F3EE;   /* 浅米色 */
+  --bg-card: #FFFFFF;        /* 卡片背景 */
+
+  /* 文字色 */
+  --text-primary: #2C3E50;   /* 深灰蓝 */
+  --text-secondary: #7F8C8D; /* 辅助文字 */
+  --text-link: #2C5F2D;      /* 链接/按钮 */
+
+  /* 状态色 */
+  --success: #27AE60;        /* 成功 */
+  --warning: #F39C12;        /* 警告 */
+  --error: #E74C3C;          /* 错误 */
+  --info: #3498DB;           /* 信息 */
+}
+
+/* 暗色模式保持原有配色 */
+.dark {
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-card: #1e293b;
+  --text-primary: #e2e8f0;
+  --text-secondary: #94a3b8;
+}
+
+/* 全局背景应用 */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}

@@ -438,7 +438,7 @@ function App() {
 
   return (
     <ToastProvider>
-      <div className="min-h-screen bg-[#F9FAFB] dark:bg-slate-950 text-slate-800 dark:text-slate-200 transition-colors duration-300">
+      <div className="min-h-screen bg-[#FAF9F6] dark:bg-slate-950 text-[#2C3E50] dark:text-slate-200 transition-colors duration-300">
         {/* 离线提醒 */}
         <OfflineIndicator isOnline={isOnline} />
 

@@ -2,6 +2,9 @@
 
 /* Tailwind 基础 - CDN 版本无需 @tailwind directives */
 
+/* 导入配色方案 */
+@import './src/styles/colors.css';
+
 /* 自定义滚动条 */
 .custom-scrollbar::-webkit-scrollbar {
   width: 4px;

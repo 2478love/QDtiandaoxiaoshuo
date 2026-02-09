@@ -70,7 +70,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user, novels, shortWorks, activit
               退出登录
             </button>
           )}
-          <button className="px-6 py-3 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-all flex items-center gap-2 shadow-sm">
+          <button className="px-6 py-3 bg-[#2C5F2D] text-white text-sm font-medium rounded-lg hover:bg-[#1E4620] transition-all flex items-center gap-2 shadow-sm">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <line x1="12" y1="5" x2="12" y2="19" />
               <line x1="5" y1="12" x2="19" y2="12" />
@@ -164,32 +164,32 @@ const Dashboard: React.FC<DashboardProps> = ({ user, novels, shortWorks, activit
             value: totalNovels, 
             sub: `累计 ${(novels.reduce((acc, n) => acc + (n.wordCount || 0), 0)).toLocaleString()} 字`, 
             icon: <BookOpen className="w-5 h-5" />,
-            color: 'text-indigo-600 dark:text-indigo-400',
-            bgColor: 'bg-indigo-50 dark:bg-indigo-900/20'
+            color: 'text-[#2C5F2D]',
+            bgColor: 'bg-[#97BC62]/10'
           },
           { 
             label: '短篇作品', 
             value: totalShorts, 
             sub: shortWorks[0]?.title ? `最新《${shortWorks[0].title}》` : '暂无作品', 
             icon: <FileText className="w-5 h-5" />,
-            color: 'text-pink-600 dark:text-pink-400',
-            bgColor: 'bg-pink-50 dark:bg-pink-900/20'
+            color: 'text-[#F4A460]',
+            bgColor: 'bg-[#F4A460]/10'
           },
           { 
             label: '总作品数', 
             value: totalWorks, 
             sub: `总字数 ${totalWords.toLocaleString()}`, 
             icon: <TrendingUp className="w-5 h-5" />,
-            color: 'text-blue-600 dark:text-blue-400',
-            bgColor: 'bg-blue-50 dark:bg-blue-900/20'
+            color: 'text-[#2C5F2D]',
+            bgColor: 'bg-[#97BC62]/10'
           },
           {
             label: 'AI 调用次数',
             value: aiCalls,
             sub: isCustomMode ? '使用自定义 API' : `本周新增 ${activityLog.filter(item => item.type === 'ai_call').length}`,
             icon: <Sparkles className="w-5 h-5" />,
-            color: 'text-emerald-600 dark:text-emerald-400',
-            bgColor: 'bg-emerald-50 dark:bg-emerald-900/20',
+            color: 'text-[#97BC62]',
+            bgColor: 'bg-[#2C5F2D]/10',
             badge: isCustomMode ? '自定义' : undefined
           }
         ]).map((stat, idx) => (

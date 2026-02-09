@@ -265,7 +265,7 @@ const NovelManager: React.FC<NovelManagerProps> = ({
       <div className="max-w-4xl mx-auto space-y-8 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm p-8">
         <button
           onClick={() => setViewMode('list')}
-          className="text-sm text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-2 transition-colors"
+          className="text-sm text-slate-500 hover:text-[#2C5F2D] dark:hover:text-[#97BC62] flex items-center gap-2 transition-colors"
         >
           <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"/></svg>
           返回列表
@@ -283,7 +283,7 @@ const NovelManager: React.FC<NovelManagerProps> = ({
               value={form.title}
               onChange={(e) => setForm(prev => ({ ...prev, title: e.target.value }))}
               placeholder="请输入小说标题"
-              className="w-full h-12 rounded-lg border border-slate-200 dark:border-slate-700 px-4 text-sm bg-white dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+              className="w-full h-12 rounded-lg border border-slate-200 dark:border-slate-700 px-4 text-sm bg-white dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-[#2C5F2D] focus:border-transparent transition-all"
             />
           </div>
 
@@ -292,7 +292,7 @@ const NovelManager: React.FC<NovelManagerProps> = ({
             <select
               value={form.type}
               onChange={(e) => setForm(prev => ({ ...prev, type: e.target.value }))}
-              className="w-full h-12 rounded-lg border border-slate-200 dark:border-slate-700 px-4 text-sm bg-white dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+              className="w-full h-12 rounded-lg border border-slate-200 dark:border-slate-700 px-4 text-sm bg-white dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-[#2C5F2D] focus:border-transparent transition-all"
             >
               <option value="">请选择</option>
               {CATEGORIES.map(cat => (
@@ -311,7 +311,7 @@ const NovelManager: React.FC<NovelManagerProps> = ({
               value={form.description}
               onChange={(e) => setForm(prev => ({ ...prev, description: e.target.value }))}
               placeholder="请输入小说简介"
-              className="w-full min-h-[120px] rounded-lg border border-slate-200 dark:border-slate-700 px-4 py-3 text-sm bg-white dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all resize-none"
+              className="w-full min-h-[120px] rounded-lg border border-slate-200 dark:border-slate-700 px-4 py-3 text-sm bg-white dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-[#2C5F2D] focus:border-transparent transition-all resize-none"
             />
           </div>
 
@@ -325,9 +325,9 @@ const NovelManager: React.FC<NovelManagerProps> = ({
                 step={50000}
                 value={form.targetWordCount}
                 onChange={(e) => setForm(prev => ({ ...prev, targetWordCount: Number(e.target.value) }))}
-                className="flex-1 accent-indigo-600"
+                className="flex-1 accent-[#2C5F2D]"
               />
-              <span className="w-28 text-right text-sm font-medium text-indigo-600 dark:text-indigo-400">{form.targetWordCount.toLocaleString()} 字</span>
+              <span className="w-28 text-right text-sm font-medium text-[#2C5F2D]">{form.targetWordCount.toLocaleString()} 字</span>
             </div>
           </div>
 
@@ -374,7 +374,7 @@ const NovelManager: React.FC<NovelManagerProps> = ({
                 onChange={(e) => setTagInput(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), handleTagAdd())}
                 placeholder="添加标签后按回车"
-                className="flex-1 h-11 rounded-lg border border-slate-200 dark:border-slate-700 px-4 text-sm bg-white dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+                className="flex-1 h-11 rounded-lg border border-slate-200 dark:border-slate-700 px-4 text-sm bg-white dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-[#2C5F2D] focus:border-transparent transition-all"
               />
               <button 
                 type="button" 
@@ -415,7 +415,7 @@ const NovelManager: React.FC<NovelManagerProps> = ({
             </button>
             <button 
               type="submit" 
-              className="flex-1 h-12 rounded-lg bg-indigo-600 text-white font-medium hover:bg-indigo-700 transition-colors shadow-sm"
+              className="flex-1 h-12 rounded-lg bg-[#2C5F2D] text-white font-medium hover:bg-[#1E4620] transition-colors shadow-sm"
             >
               创建小说
             </button>
@@ -463,7 +463,7 @@ const NovelManager: React.FC<NovelManagerProps> = ({
               </button>
               <button
                 onClick={confirmTxtImport}
-                className="flex-1 py-3 rounded-lg bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700 transition-colors shadow-sm"
+                className="flex-1 py-3 rounded-lg bg-[#2C5F2D] text-white text-sm font-medium hover:bg-[#1E4620] transition-colors shadow-sm"
               >
                 确认导入
               </button>
@@ -484,7 +484,7 @@ const NovelManager: React.FC<NovelManagerProps> = ({
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="搜索作品"
-              className="pl-10 pr-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 text-sm bg-white dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all w-48"
+              className="pl-10 pr-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 text-sm bg-white dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-[#2C5F2D] focus:border-transparent transition-all w-48"
             />
           </div>
           <input
@@ -502,7 +502,7 @@ const NovelManager: React.FC<NovelManagerProps> = ({
             导入TXT
           </button>
           <button 
-            className="px-6 py-3 rounded-lg bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700 transition-colors shadow-sm" 
+            className="px-6 py-3 rounded-lg bg-[#2C5F2D] text-white text-sm font-medium hover:bg-[#1E4620] transition-colors shadow-sm" 
             onClick={() => setViewMode('create')}
           >
             新建小说
@@ -517,7 +517,7 @@ const NovelManager: React.FC<NovelManagerProps> = ({
             onClick={() => setStatusFilter(key)}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
               statusFilter === key 
-                ? 'bg-indigo-600 text-white shadow-sm' 
+                ? 'bg-[#2C5F2D] text-white shadow-sm' 
                 : 'bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'
             }`}
           >
@@ -533,7 +533,7 @@ const NovelManager: React.FC<NovelManagerProps> = ({
             <p className="text-sm font-medium mb-2">暂无作品</p>
             <p className="text-xs text-slate-400 dark:text-slate-500 mb-6">点击"新建小说"开始你的创作之旅</p>
             <button 
-              className="px-6 py-3 rounded-lg bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700 transition-colors shadow-sm" 
+              className="px-6 py-3 rounded-lg bg-[#2C5F2D] text-white text-sm font-medium hover:bg-[#1E4620] transition-colors shadow-sm" 
               onClick={() => setViewMode('create')}
             >
               开始创作
@@ -552,14 +552,14 @@ const NovelManager: React.FC<NovelManagerProps> = ({
                 </div>
                 <div className="flex items-center gap-2">
                   <button 
-                    className="p-2 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 rounded-lg transition-colors" 
+                    className="p-2 text-[#2C5F2D] hover:bg-[#97BC62]/10 rounded-lg transition-colors" 
                     onClick={() => onNovelClick(novel)}
                     title="进入编辑"
                   >
                     <Edit3 className="w-4 h-4" />
                   </button>
                   <button
-                    className="p-2 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 rounded-lg transition-colors"
+                    className="p-2 text-[#97BC62] hover:bg-[#97BC62]/10 rounded-lg transition-colors"
                     onClick={() => duplicateNovel(novel)}
                     title="复制"
                   >

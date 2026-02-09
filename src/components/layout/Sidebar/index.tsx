@@ -16,14 +16,14 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, onNavigate, user, onLogi
       <div className="h-24 flex items-center px-8 mb-4">
         <div className="flex items-center gap-4 group cursor-pointer" onClick={() => onNavigate(ViewState.DASHBOARD)}>
             <div className="relative">
-                <div className="absolute inset-0 bg-indigo-500 blur-lg opacity-20 group-hover:opacity-40 transition-opacity"></div>
-                <div className="relative w-11 h-11 rounded-2xl bg-gradient-to-tr from-indigo-600 to-violet-700 flex items-center justify-center text-white shadow-xl rotate-3 group-hover:rotate-0 transition-transform">
+                <div className="absolute inset-0 bg-[#2C5F2D] blur-lg opacity-20 group-hover:opacity-40 transition-opacity"></div>
+                <div className="relative w-11 h-11 rounded-2xl bg-gradient-to-tr from-[#2C5F2D] to-[#97BC62] flex items-center justify-center text-white shadow-xl rotate-3 group-hover:rotate-0 transition-transform">
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path d="m12 19-7-7 14-14 7 7-14 14-4-4z"/></svg>
                 </div>
             </div>
             <div className="flex flex-col">
                 <span className="text-2xl font-black text-slate-800 dark:text-slate-100 tracking-tighter leading-none">天道</span>
-                <span className="text-[10px] uppercase tracking-[0.2em] text-indigo-500 font-bold mt-1">Writer Pro</span>
+                <span className="text-[10px] uppercase tracking-[0.2em] text-[#2C5F2D] dark:text-[#97BC62] font-bold mt-1">Writer Pro</span>
             </div>
         </div>
       </div>
@@ -38,8 +38,8 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, onNavigate, user, onLogi
               onClick={() => onNavigate(item.id)}
               className={`group w-full flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-2xl transition-all duration-300 ${
                 isActive
-                  ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-200 dark:shadow-none translate-x-1'
-                  : 'text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:text-indigo-600 dark:hover:text-indigo-400'
+                  ? 'bg-[#2C5F2D] text-white shadow-lg shadow-[#2C5F2D]/20 dark:shadow-none translate-x-1'
+                  : 'text-slate-500 dark:text-slate-400 hover:bg-[#97BC62]/10 dark:hover:bg-slate-800/50 hover:text-[#2C5F2D] dark:hover:text-[#97BC62]'
               }`}
             >
               <span className={`transition-transform duration-300 ${isActive ? 'scale-110' : 'group-hover:scale-110 opacity-70 group-hover:opacity-100'}`}>
@@ -64,7 +64,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, onNavigate, user, onLogi
                  </div>
                  <div className="mt-3 pt-3 border-t border-slate-200 dark:border-slate-700 flex items-center justify-between">
                     <span className="text-[10px] text-slate-400 dark:text-slate-500 font-mono">v3.2.0-Alpha</span>
-                    <button className="text-[10px] text-indigo-500 font-bold hover:underline">文档</button>
+                    <button className="text-[10px] text-[#2C5F2D] dark:text-[#97BC62] font-bold hover:underline">文档</button>
                  </div>
             </div>
         ) : (
