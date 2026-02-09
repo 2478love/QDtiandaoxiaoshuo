@@ -113,6 +113,30 @@ export {
   type SummaryGenerationOptions,
 } from './chapterSummaryGenerator';
 
+// 批量精修流水线
+export {
+  createRefinementTask,
+  createRefinementPipeline,
+  getStagePrompt,
+  getStageName,
+  updateTaskStatus,
+  completeTaskStage,
+  updatePipelineProgress,
+  getNextTask,
+  pausePipeline,
+  resumePipeline,
+  stopPipeline,
+  retryFailedTasks,
+  generatePipelineReport,
+  exportRefinementResults,
+  DEFAULT_REFINEMENT_PROMPTS,
+  type RefinementStage,
+  type RefinementTask,
+  type RefinementPipeline,
+  type RefinementOptions,
+  type RefinementPromptConfig,
+} from './batchRefinementPipeline';
+
 // 内容检查器（如果存在）
 // export { ... } from './contentChecker';
 
