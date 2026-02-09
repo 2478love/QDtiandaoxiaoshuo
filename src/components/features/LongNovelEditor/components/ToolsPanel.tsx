@@ -5,6 +5,7 @@ import { Chapter, Novel, WritingGoal, WritingRecord, ChapterTemplate } from '../
 import { createChapterId } from '../../../../utils/id';
 import { escapeHtml, isNovel, safeParseJson } from '../../../../utils';
 import { generateCreativeContentStream, GenerateOptions } from '../../../../services/api/gemini';
+import AnalysisPanel from './AnalysisPanel';
 
 // 格式化番茄钟时间
 const formatPomodoroTime = (seconds: number): string => {
@@ -97,6 +98,9 @@ const ToolsPanel: React.FC = () => {
   // 文件输入 ref
   const fileInputRef = useRef<HTMLInputElement>(null);
   const backupInputRef = useRef<HTMLInputElement>(null);
+
+  // 智能分析面板状态
+  const [showAnalysisPanel, setShowAnalysisPanel] = useState(false);
 
   // 语音合成
   const [availableVoices, setAvailableVoices] = useState<SpeechSynthesisVoice[]>([]);
@@ -625,9 +629,52 @@ ${currentChapter.content}`;
   }, [onUpdateNovel]);
 
   return (
-    <div className={`flex-1 overflow-y-auto p-4 space-y-6 text-sm ${themeClasses.text}`}>
-      {/* 创作管理 */}
-      <section className="space-y-3">
+    <>
+      {showAnalysisPanel ? (
+        <AnalysisPanel chapter={currentChapter} themeClasses={themeClasses} />
+      ) : (
+        <div className={`flex-1 overflow-y-auto p-4 space-y-6 text-sm ${themeClasses.text}`}>
+          {/* 智能分析 */}
+          <section className={`space-y-3 rounded-2xl border ${themeClasses.card} ${themeClasses.border} p-4 bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-950 dark:to-purple-950`}>
+            <div className="flex items-center justify-between">
+              <div>
+                <p className={`text-sm font-semibold ${themeClasses.text}`}>📊 智能分析</p>
+                <p className={`text-xs ${themeClasses.textMuted} mt-1`}>AI 驱动的章节质量分析</p>
+              </div>
+              <button
+                onClick={() => setShowAnalysisPanel(true)}
+                disabled={!currentChapter}
+                className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors ${
+                  currentChapter
+                    ? 'bg-indigo-600 text-white hover:bg-indigo-700'
+                    : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                }`}
+              >
+                开始分析
+              </button>
+            </div>
+            <div className="grid grid-cols-4 gap-2 text-xs">
+              <div className="text-center p-2 rounded bg-white/50 dark:bg-black/20">
+                <div className="text-indigo-600 dark:text-indigo-400">✍️</div>
+                <div className={themeClasses.textMuted}>写作风格</div>
+              </div>
+              <div className="text-center p-2 rounded bg-white/50 dark:bg-black/20">
+                <div className="text-purple-600 dark:text-purple-400">⚡</div>
+                <div className={themeClasses.textMuted}>情节张力</div>
+              </div>
+              <div className="text-center p-2 rounded bg-white/50 dark:bg-black/20">
+                <div className="text-pink-600 dark:text-pink-400">💓</div>
+                <div className={themeClasses.textMuted}>情绪曲线</div>
+              </div>
+              <div className="text-center p-2 rounded bg-white/50 dark:bg-black/20">
+                <div className="text-blue-600 dark:text-blue-400">🎯</div>
+                <div className={themeClasses.textMuted}>综合评分</div>
+              </div>
+            </div>
+          </section>
+
+          {/* 创作管理 */}
+          <section className="space-y-3">
         <div className="flex items-center justify-between">
           <p className={`text-xs font-semibold ${themeClasses.textMuted}`}>创作管理</p>
         </div>
@@ -1367,7 +1414,22 @@ ${currentChapter.content}`;
           备份包含：章节、人物、大纲、伏笔等所有数据
         </p>
       </section>
-    </div>
+        </div>
+      )}
+
+      {/* 返回按钮（分析面板时显示） */}
+      {showAnalysisPanel && (
+        <div className="fixed bottom-6 right-6 z-50">
+          <button
+            onClick={() => setShowAnalysisPanel(false)}
+            className="px-6 py-3 rounded-full bg-indigo-600 text-white shadow-lg hover:bg-indigo-700 transition-all hover:scale-105 flex items-center gap-2"
+          >
+            <span>←</span>
+            <span>返回工具面板</span>
+          </button>
+        </div>
+      )}
+    </>
   );
 };
 
