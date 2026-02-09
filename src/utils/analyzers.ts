@@ -25,7 +25,7 @@ export {
   analyzeSuspense,
   analyzeTwist,
   analyzeClimax,
-  analyzePacing,
+  analyzePacing as analyzePlotPacing,
   generateTensionReport,
   generateTensionPrompt,
   type PlotTensionAnalysis,
@@ -33,7 +33,7 @@ export {
   type SuspenseAnalysis,
   type TwistAnalysis,
   type ClimaxAnalysis,
-  type PacingAnalysis,
+  type PacingAnalysis as PlotPacingAnalysis,
   type TensionIssue,
 } from './plotTensionAnalyzer';
 
@@ -41,7 +41,7 @@ export {
 export {
   analyzeEmotion,
   detectEmotionPoints,
-  analyzeEmotionCurve,
+  analyzeEmotionCurve as analyzeEmotionCurveBasic,
   analyzeEmotionDistribution,
   calculateResonance,
   calculateBalance,
@@ -267,6 +267,19 @@ export {
   type EmotionCurveAnalysis,
   type ChapterPacingData,
 } from './pacingSuggestionSystem';
+
+// 里程碑系统
+export {
+  MilestoneSystem,
+  formatMilestoneReport,
+  PREDEFINED_MILESTONES,
+  PREDEFINED_ACHIEVEMENTS,
+  type Milestone,
+  type Achievement,
+  type WritingStats,
+  type QualityStats,
+  type MilestoneReport,
+} from './milestoneSystem';
 
 // 内容检查器（如果存在）
 // export { ... } from './contentChecker';
