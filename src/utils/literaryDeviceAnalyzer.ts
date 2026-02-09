@@ -155,8 +155,6 @@ export function detectMetaphors(text: string): MetaphorAnalysis[] {
   
   return metaphors;
 }
-  return metaphors;
-}
 
 /**
  * 检测拟人
