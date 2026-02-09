@@ -253,6 +253,21 @@ export {
   type TwistInspiration,
 } from './inspirationGenerator';
 
+// 节奏建议系统
+export {
+  analyzePacing,
+  analyzeCoolPointDistribution,
+  analyzeEmotionCurve,
+  suggestNextChapterPacing,
+  generatePacingReport,
+  type PacingAnalysis,
+  type PacingIssue,
+  type PacingRecommendation,
+  type CoolPointDistributionAnalysis,
+  type EmotionCurveAnalysis,
+  type ChapterPacingData,
+} from './pacingSuggestionSystem';
+
 // 内容检查器（如果存在）
 // export { ... } from './contentChecker';
 
