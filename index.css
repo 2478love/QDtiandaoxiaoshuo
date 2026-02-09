@@ -5,6 +5,9 @@
 /* 导入配色方案 */
 @import './src/styles/colors.css';
 
+/* 导入深色主题 */
+@import './src/styles/dark-theme.css';
+
 /* 自定义滚动条 */
 .custom-scrollbar::-webkit-scrollbar {
   width: 4px;

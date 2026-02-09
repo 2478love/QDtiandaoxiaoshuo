@@ -17,10 +17,12 @@ import { ToastProvider } from './components/ui/Toast';
 import { OfflineIndicator } from './components/ui/ProgressModal';
 import { SessionExpiryWarning } from './components/ui/SessionExpiryWarning';
 import { BackupReminder } from './components/ui/BackupReminder';
-import { usePersistentState, useOnlineStatus } from './hooks';
+import SearchModal from './components/ui/SearchModal';
+import { usePersistentState, useOnlineStatus, useSearch } from './hooks';
 import { ViewState, User, Theme, Novel, ActivityEntry, InviteRecord, PromptEntry, ShortWork, StoredUser, LoginHistoryEntry, LOGIN_MAX_ATTEMPTS, LOGIN_LOCKOUT_MINUTES } from './types';
 import { createId, createInviteCode, hashPassword, verifyPassword, passwordNeedsUpgrade } from './utils';
 import { defaultPrompts } from './data/defaultPrompts';
+import { Search, Moon, Sun } from 'lucide-react';
 
 // 检查用户是否被锁定
 const isUserLocked = (user: StoredUser): { isLocked: boolean; remainingMinutes: number } => {
@@ -38,7 +40,6 @@ const isUserLocked = (user: StoredUser): { isLocked: boolean; remainingMinutes: 
 function App() {
   const [currentView, setCurrentView] = useState<ViewState>(ViewState.DASHBOARD);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
-  const [theme, setTheme] = useState<Theme>('light');
   const [selectedNovelId, setSelectedNovelId] = useState<string | null>(null);
   const [authError, setAuthError] = useState<string | null>(null);
   const [lockoutInfo, setLockoutInfo] = useState<{ isLocked: boolean; remainingMinutes: number } | null>(null);
@@ -53,6 +54,22 @@ function App() {
   const [prompts, setPrompts] = usePersistentState<PromptEntry[]>('tiandao_prompts', defaultPrompts);
   const [invites, setInvites] = usePersistentState<InviteRecord[]>('tiandao_invites', []);
   const [shortWorks, setShortWorks] = usePersistentState<ShortWork[]>('tiandao_short_works', []);
+  const [theme, setTheme] = usePersistentState<Theme>('tiandao_theme', 'light');
+
+  // 搜索功能
+  const {
+    isOpen: isSearchOpen,
+    query: searchQuery,
+    results: searchResults,
+    isSearching,
+    setQuery: setSearchQuery,
+    openSearch,
+    closeSearch,
+  } = useSearch({
+    novels,
+    prompts,
+    shortWorks,
+  });
 
   const user = useMemo<User | null>(() => {
     if (!sessionId) return null;
@@ -396,6 +413,25 @@ function App() {
     recordActivity({ type: 'novel', description: `创建作品《${novel.title}》`, deltaPoints: 5 });
   };
 
+  // 处理搜索结果点击
+  const handleSearchResultClick = useCallback((result: any) => {
+    if (result.type === 'novel') {
+      const novel = novels.find(n => n.id === result.id);
+      if (novel) {
+        handleNovelClick(novel);
+      }
+    } else if (result.type === 'prompt') {
+      setCurrentView(ViewState.PROMPTS);
+    } else if (result.type === 'short-work') {
+      setCurrentView(ViewState.SHORT_NOVEL);
+    }
+  }, [novels]);
+
+  // 切换主题
+  const toggleTheme = useCallback(() => {
+    setTheme(prev => prev === 'light' ? 'dark' : 'light');
+  }, [setTheme]);
+
   const contentFallback = (
     <div className="flex items-center justify-center py-16 text-sm text-slate-500 dark:text-slate-400">
       正在加载模块...
@@ -469,6 +505,33 @@ function App() {
                           </span>
                       </div>
                   </div>
+                  <div className="flex items-center gap-3">
+                      {/* 搜索按钮 */}
+                      <button
+                        onClick={openSearch}
+                        className="flex items-center gap-2 px-4 py-2 bg-[#F5F3EE] dark:bg-slate-800 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                        title="搜索 (Ctrl+K)"
+                      >
+                        <Search className="w-4 h-4 text-[#7F8C8D] dark:text-slate-400" />
+                        <span className="text-sm text-[#7F8C8D] dark:text-slate-400 hidden sm:inline">搜索...</span>
+                        <kbd className="hidden md:inline-flex items-center gap-1 px-2 py-0.5 text-xs text-[#7F8C8D] dark:text-slate-400 bg-white dark:bg-slate-700 rounded border border-slate-300 dark:border-slate-600">
+                          Ctrl+K
+                        </kbd>
+                      </button>
+                      
+                      {/* 主题切换按钮 */}
+                      <button
+                        onClick={toggleTheme}
+                        className="p-2 text-[#7F8C8D] dark:text-slate-400 hover:text-[#2C5F2D] dark:hover:text-[#a8d5aa] hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
+                        title={theme === 'dark' ? '切换到浅色模式' : '切换到深色模式'}
+                      >
+                        {theme === 'dark' ? (
+                          <Sun className="w-5 h-5" />
+                        ) : (
+                          <Moon className="w-5 h-5" />
+                        )}
+                      </button>
+                  </div>
               </header>
           )}
           <div className={currentView === ViewState.LONG_NOVEL ? "" : "px-6 lg:px-10 pb-10"}>
@@ -484,6 +547,17 @@ function App() {
           onPasswordReset={handlePasswordReset}
           error={authError}
           lockoutInfo={lockoutInfo}
+        />
+        
+        {/* 搜索模态框 */}
+        <SearchModal
+          isOpen={isSearchOpen}
+          query={searchQuery}
+          results={searchResults}
+          isSearching={isSearching}
+          onQueryChange={setSearchQuery}
+          onClose={closeSearch}
+          onResultClick={handleSearchResultClick}
         />
       </div>
     </ToastProvider>

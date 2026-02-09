@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { ActivityEntry } from '../../../types';
 import { generateCreativeContentStream } from '../../../services/api/gemini';
 import { getApiSettings, getAvailableModels, getProviderDisplayName } from '../../../config/apiConfig';
+import { Maximize2, Minimize2 } from 'lucide-react';
+import { useFocusMode } from '../../../hooks';
 
 interface ToolCard {
   id: string;
@@ -273,6 +275,9 @@ const WritingTool: React.FC<WritingToolProps> = ({ onRecordActivity }) => {
   const [selectedTool, setSelectedTool] = useState<ToolCard>(TOOLS_DATA[0]);
   const [tone, setTone] = useState(TONES[0].id);
 
+  // 专注模式
+  const { isFocusMode, setIsFocusMode } = useFocusMode();
+
   // 从 API 设置获取当前配置
   const [apiSettings, setApiSettings] = useState(getApiSettings);
   const [availableModels, setAvailableModels] = useState(getAvailableModels);
@@ -360,6 +365,76 @@ const WritingTool: React.FC<WritingToolProps> = ({ onRecordActivity }) => {
     });
   };
 
+  // 专注模式渲染
+  if (isFocusMode) {
+    return (
+      <div className="fixed inset-0 z-50 bg-[#FAF9F6] dark:bg-slate-950 flex flex-col">
+        {/* 顶部工具栏 */}
+        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800">
+          <div className="flex items-center gap-4">
+            <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">{selectedTool.title}</h2>
+            <span className="text-sm text-slate-500 dark:text-slate-400">专注模式</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <span className="text-sm text-slate-500 dark:text-slate-400">
+              {generatedText.length} 字
+            </span>
+            <button
+              onClick={() => setIsFocusMode(false)}
+              className="flex items-center gap-2 px-4 py-2 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
+              title="退出专注模式 (ESC)"
+            >
+              <Minimize2 className="w-4 h-4" />
+              退出专注
+            </button>
+          </div>
+        </div>
+
+        {/* 主编辑区域 */}
+        <div className="flex-1 overflow-hidden flex">
+          <div className="flex-1 flex flex-col max-w-4xl mx-auto w-full p-8">
+            <textarea
+              value={prompt}
+              onChange={(e) => setPrompt(e.target.value)}
+              rows={4}
+              placeholder='请输入指令，例如"帮我写一段热血战斗桥段"。'
+              className="w-full rounded-xl border border-slate-200 dark:border-slate-700 px-4 py-3 text-base bg-white dark:bg-slate-900 mb-4"
+            />
+            <div className="flex items-center gap-3 mb-4">
+              <button
+                onClick={handleGenerate}
+                disabled={isGenerating}
+                className="px-6 py-2.5 rounded-xl bg-[#2C5F2D] dark:bg-[#3a7a3d] text-white text-sm font-medium disabled:opacity-60 hover:bg-[#234d24] dark:hover:bg-[#2d6230] transition-colors"
+              >
+                {isGenerating ? '生成中...' : '开始生成'}
+              </button>
+              <button
+                onClick={handleCopy}
+                disabled={!generatedText}
+                className="px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-sm disabled:opacity-50 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+              >
+                {isCopied ? '已复制' : '复制内容'}
+              </button>
+            </div>
+
+            <div ref={outputRef} className="flex-1 overflow-auto bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-6">
+              {generatedText ? (
+                <article className="prose dark:prose-invert max-w-none text-base leading-relaxed">
+                  {generatedText}
+                  {isGenerating && <span className="inline-block w-2 h-6 bg-[#2C5F2D] ml-1 animate-pulse" />}
+                </article>
+              ) : (
+                <div className="h-full flex flex-col items-center justify-center text-slate-400 dark:text-slate-600">
+                  <p>输入需求后点击"开始生成"，AI 将为你输出内容。</p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="h-[calc(100vh-140px)] flex gap-6 max-w-[1600px] mx-auto">
       <div className="w-[360px] bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-4 flex flex-col gap-4 overflow-y-auto">
@@ -389,13 +464,20 @@ const WritingTool: React.FC<WritingToolProps> = ({ onRecordActivity }) => {
             <p className="text-sm font-semibold text-slate-600 dark:text-slate-300">当前助手</p>
             <p className="text-lg font-bold text-slate-900 dark:text-slate-100">{selectedTool.title}</p>
           </div>
-          <div className="flex gap-3 text-sm">
-            <select value={tone} onChange={(e) => setTone(e.target.value)} className="rounded-xl border border-slate-200 px-3 py-1.5">
+          <div className="flex gap-3 text-sm items-center">
+            <button
+              onClick={() => setIsFocusMode(true)}
+              className="p-2 text-[#7F8C8D] dark:text-slate-400 hover:text-[#2C5F2D] dark:hover:text-[#a8d5aa] hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
+              title="专注模式 (F11)"
+            >
+              <Maximize2 className="w-5 h-5" />
+            </button>
+            <select value={tone} onChange={(e) => setTone(e.target.value)} className="rounded-xl border border-slate-200 dark:border-slate-700 px-3 py-1.5 bg-white dark:bg-slate-900">
               {TONES.map((item) => (
                 <option key={item.id} value={item.id}>{item.label}</option>
               ))}
             </select>
-            <select value={model} onChange={(e) => setModel(e.target.value)} className="rounded-xl border border-slate-200 px-3 py-1.5">
+            <select value={model} onChange={(e) => setModel(e.target.value)} className="rounded-xl border border-slate-200 dark:border-slate-700 px-3 py-1.5 bg-white dark:bg-slate-900">
               {availableModels.map((item) => (
                 <option key={item.id} value={item.id}>{item.name}</option>
               ))}

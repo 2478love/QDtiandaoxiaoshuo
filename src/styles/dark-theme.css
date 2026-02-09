@@ -1,0 +1,270 @@
+/* 深色主题样式 */
+
+:root.dark {
+  /* 背景色 */
+  --dark-bg-primary: #0f172a;
+  --dark-bg-secondary: #1e293b;
+  --dark-bg-card: #1e293b;
+  
+  /* 文字色 */
+  --dark-text-primary: #e2e8f0;
+  --dark-text-secondary: #94a3b8;
+  
+  /* 主色调（保持绿色系） */
+  --dark-primary: #3a7a3d;
+  --dark-primary-light: #a8d5aa;
+  
+  /* 边框 */
+  --dark-border: #334155;
+}
+
+/* 深色模式下的全局样式 */
+.dark {
+  color-scheme: dark;
+}
+
+.dark body {
+  background-color: var(--dark-bg-primary);
+  color: var(--dark-text-primary);
+}
+
+/* 卡片和容器 */
+.dark .bg-white {
+  background-color: var(--dark-bg-card) !important;
+}
+
+.dark .bg-\[\#FAF9F6\] {
+  background-color: var(--dark-bg-primary) !important;
+}
+
+.dark .bg-\[\#F5F3EE\] {
+  background-color: var(--dark-bg-secondary) !important;
+}
+
+/* 文字颜色 */
+.dark .text-\[\#2C3E50\] {
+  color: var(--dark-text-primary) !important;
+}
+
+.dark .text-\[\#7F8C8D\] {
+  color: var(--dark-text-secondary) !important;
+}
+
+.dark .text-gray-600 {
+  color: var(--dark-text-secondary) !important;
+}
+
+.dark .text-gray-700 {
+  color: var(--dark-text-primary) !important;
+}
+
+.dark .text-gray-800 {
+  color: var(--dark-text-primary) !important;
+}
+
+.dark .text-gray-900 {
+  color: var(--dark-text-primary) !important;
+}
+
+.dark .text-slate-600 {
+  color: var(--dark-text-secondary) !important;
+}
+
+.dark .text-slate-700 {
+  color: var(--dark-text-primary) !important;
+}
+
+.dark .text-slate-800 {
+  color: var(--dark-text-primary) !important;
+}
+
+.dark .text-slate-900 {
+  color: var(--dark-text-primary) !important;
+}
+
+/* 边框 */
+.dark .border-gray-200 {
+  border-color: var(--dark-border) !important;
+}
+
+.dark .border-gray-300 {
+  border-color: var(--dark-border) !important;
+}
+
+.dark .border-slate-200 {
+  border-color: var(--dark-border) !important;
+}
+
+.dark .border-slate-300 {
+  border-color: var(--dark-border) !important;
+}
+
+/* 悬停效果 */
+.dark .hover\:bg-gray-50:hover {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+.dark .hover\:bg-gray-100:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark .hover\:bg-slate-50:hover {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+.dark .hover\:bg-slate-100:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* 主色调按钮 */
+.dark .bg-\[\#2C5F2D\] {
+  background-color: var(--dark-primary) !important;
+}
+
+.dark .text-\[\#2C5F2D\] {
+  color: var(--dark-primary-light) !important;
+}
+
+.dark .hover\:text-\[\#2C5F2D\]:hover {
+  color: var(--dark-primary-light) !important;
+}
+
+.dark .hover\:bg-\[\#2C5F2D\]:hover {
+  background-color: var(--dark-primary) !important;
+}
+
+/* 输入框 */
+.dark input,
+.dark textarea,
+.dark select {
+  background-color: var(--dark-bg-secondary);
+  color: var(--dark-text-primary);
+  border-color: var(--dark-border);
+}
+
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: var(--dark-text-secondary);
+}
+
+.dark input:focus,
+.dark textarea:focus,
+.dark select:focus {
+  border-color: var(--dark-primary);
+  outline-color: var(--dark-primary);
+}
+
+/* 滚动条 */
+.dark ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: var(--dark-bg-secondary);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: var(--dark-border);
+  border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+/* 阴影 */
+.dark .shadow-sm {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+}
+
+.dark .shadow {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px -1px rgba(0, 0, 0, 0.3);
+}
+
+.dark .shadow-md {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+}
+
+.dark .shadow-lg {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+}
+
+.dark .shadow-xl {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+}
+
+.dark .shadow-2xl {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+/* 分隔线 */
+.dark .divide-gray-200 > :not([hidden]) ~ :not([hidden]) {
+  border-color: var(--dark-border);
+}
+
+.dark .divide-slate-200 > :not([hidden]) ~ :not([hidden]) {
+  border-color: var(--dark-border);
+}
+
+/* 代码块 */
+.dark code {
+  background-color: var(--dark-bg-secondary);
+  color: var(--dark-primary-light);
+}
+
+.dark pre {
+  background-color: var(--dark-bg-secondary);
+  border-color: var(--dark-border);
+}
+
+/* 表格 */
+.dark table {
+  border-color: var(--dark-border);
+}
+
+.dark th {
+  background-color: var(--dark-bg-secondary);
+  color: var(--dark-text-primary);
+  border-color: var(--dark-border);
+}
+
+.dark td {
+  border-color: var(--dark-border);
+}
+
+.dark tr:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* 模态框 */
+.dark .modal-overlay {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* Toast 通知 */
+.dark .toast {
+  background-color: var(--dark-bg-card);
+  color: var(--dark-text-primary);
+  border-color: var(--dark-border);
+}
+
+/* 禁用状态 */
+.dark .disabled,
+.dark :disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* 选中状态 */
+.dark ::selection {
+  background-color: var(--dark-primary);
+  color: white;
+}
+
+/* 平滑过渡 */
+* {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}

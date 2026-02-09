@@ -5,6 +5,8 @@ import { getApiSettings, getAvailableModels } from '../../../config/apiConfig';
 import CreativeManagementModal from './CreativeManagement';
 import OutlineManager from './OutlineManager';
 import ForeshadowingTracker from './ForeshadowingTracker';
+import { Maximize2, Minimize2 } from 'lucide-react';
+import { useFocusMode } from '../../../hooks';
 import {
   createId,
   createChapterId,
@@ -400,6 +402,9 @@ const LongNovelEditor: React.FC<LongNovelEditorProps> = ({ novel, onUpdateNovel,
   // 文件导入状态
   const [showImportModal, setShowImportModal] = useState(false);
   const [importPreview, setImportPreview] = useState<{title: string; content: string}[]>([]);
+
+  // 专注模式
+  const { isFocusMode, setIsFocusMode } = useFocusMode();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // 番茄钟状态
@@ -2879,6 +2884,13 @@ ${charDescriptions}
             </div>
             <div className="flex-1" />
             <button
+              onClick={() => setIsFocusMode(true)}
+              className={`p-1 rounded hover:bg-slate-100 ${themeClasses.textMuted}`}
+              title="专注模式 (F11)"
+            >
+              <Maximize2 className="w-4 h-4" />
+            </button>
+            <button
               onClick={() => setShowRichTextToolbar(false)}
               className={`p-1 rounded hover:bg-slate-100 ${themeClasses.textMuted}`}
               title="隐藏工具栏"
@@ -3092,6 +3104,48 @@ ${charDescriptions}
           <button className="text-[#2C5F2D] text-sm underline" onClick={onBack}>
             返回小说管理
           </button>
+        </div>
+      </div>
+    );
+  }
+
+  // 专注模式渲染
+  if (isFocusMode && currentChapter) {
+    return (
+      <div className="fixed inset-0 z-50 bg-[#FAF9F6] dark:bg-slate-950 flex flex-col">
+        {/* 顶部工具栏 */}
+        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800">
+          <div className="flex items-center gap-4">
+            <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">{currentChapter.title}</h2>
+            <span className="text-sm text-slate-500 dark:text-slate-400">专注模式</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <span className="text-sm text-slate-500 dark:text-slate-400">
+              {currentChapter.wordCount} 字
+            </span>
+            <button
+              onClick={() => setIsFocusMode(false)}
+              className="flex items-center gap-2 px-4 py-2 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
+              title="退出专注模式 (ESC)"
+            >
+              <Minimize2 className="w-4 h-4" />
+              退出专注
+            </button>
+          </div>
+        </div>
+
+        {/* 主编辑区域 */}
+        <div className="flex-1 overflow-hidden flex">
+          <div className="flex-1 max-w-5xl mx-auto w-full">
+            <textarea
+              ref={textareaRef}
+              value={currentChapter.content}
+              onChange={(e) => updateChapter(currentChapter.id, { content: e.target.value })}
+              style={{ fontFamily, fontSize: `${fontSize}px`, lineHeight }}
+              className="w-full h-full p-12 text-base leading-relaxed focus:outline-none bg-[#FAF9F6] dark:bg-slate-950 text-slate-800 dark:text-slate-100 resize-none"
+              placeholder="在此开始书写正文..."
+            />
+          </div>
         </div>
       </div>
     );

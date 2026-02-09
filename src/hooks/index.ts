@@ -19,6 +19,8 @@
  * - useAcl: 访问控制
  * - useCollaboration: 多人协作
  * - useExport: 文档导出
+ * - useFocusMode: 专注模式
+ * - useSearch: 全文搜索
  */
 
 export { usePersistentState, usePersistentStateWithLoading, forceSaveAll, getPendingSaveCount } from './usePersistentState';
@@ -50,6 +52,8 @@ export {
   useOnlineCollaboratorCount
 } from './useCollaboration';
 export { useExport, useQuickExport, useExportEvent, useBatchExport } from './useExport';
+export { useFocusMode } from './useFocusMode';
+export { useSearch } from './useSearch';
 
 // 类型导出
 export type { AutoSaveStatus } from './useAutoSave';
