@@ -319,6 +319,25 @@ export {
   type OptimizationSuggestion,
 } from './aiOptimizationSuggester';
 
+// 增量分析缓存系统
+export {
+  AnalysisCacheManager,
+  withCache,
+  clearAllCaches,
+  getAllCacheStats,
+  cleanAllExpiredCaches,
+  generateCacheReport,
+  comprehensiveAnalysisCache,
+  styleAnalysisCache,
+  tensionAnalysisCache,
+  emotionAnalysisCache,
+  DEFAULT_CACHE_CONFIG,
+  type CacheEntry,
+  type CacheStats,
+  type CacheConfig,
+  type IncrementalAnalysisResult,
+} from './incrementalAnalysisCache';
+
 // 内容检查器（如果存在）
 // export { ... } from './contentChecker';
 
