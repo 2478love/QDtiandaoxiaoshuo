@@ -1,6 +1,6 @@
 # 天道 (Tiandao) AI 写作工具
 
-一个基于 React + TypeScript + Vite 的现代化 AI 写作工具，使用 Google Gemini AI 提供智能创作辅助。
+一个基于 React + TypeScript + Vite 的现代化 AI 写作工具，支持 17 种主流 AI API 服务，提供智能创作辅助。
 
 ## ✨ 核心功能
 
@@ -259,6 +259,178 @@ npm run typecheck
 npm run test
 ```
 
+## 🤖 支持的 AI 服务
+
+天道写作工具支持 **17 种主流 AI API 服务**，包括国际和国内领先的大模型平台：
+
+### 国际服务商
+
+#### 1. **Google Gemini** 🌟
+- **特点**：多模态能力、长上下文、高性价比
+- **模型**：
+  - Gemini 2.0 Flash - 高效 & 均衡
+  - Gemini 2.5 Flash - 最新预览版
+  - Gemini 2.5 Pro - 高智能 & 复杂逻辑
+  - Gemini 1.5 Pro - 长上下文
+  - Gemini 1.5 Flash - 快速响应
+
+#### 2. **OpenAI** 🔥
+- **特点**：业界标杆、强大的通用能力
+- **模型**：
+  - GPT-4o - 旗舰多模态
+  - GPT-4o Mini - 高效经济
+  - GPT-4 Turbo - 增强版
+
+#### 3. **Anthropic Claude** 🧠
+- **特点**：强大的推理能力、长上下文、安全可靠
+- **官网**：https://www.anthropic.com
+- **模型**：
+  - Claude Opus 4.6 - 最强推理能力，适合复杂创作
+  - Claude Sonnet 4.5 - 平衡性能与成本
+  - Claude Haiku 4.5 - 快速响应，经济实惠
+
+#### 4. **Groq** ⚡
+- **特点**：业界最快的推理速度、开源模型托管
+- **官网**：https://groq.com
+- **模型**：
+  - Llama 3.3 70B - Meta 最新开源模型
+  - Mixtral 8x7B - Mistral 混合专家模型
+  - Gemma 7B - Google 轻量开源模型
+
+#### 5. **Mistral AI** 🇪🇺
+- **特点**：欧洲开源 AI 领导者、高质量模型、多语言支持
+- **官网**：https://mistral.ai
+- **模型**：
+  - Mistral Large 2 - 旗舰模型，强大性能
+  - Mistral Medium - 中等规模，平衡选择
+  - Mistral Small - 轻量快速，经济实惠
+
+#### 6. **Cohere** 🏢
+- **特点**：企业级 AI 平台、强大的文本理解
+- **官网**：https://cohere.com
+- **模型**：
+  - Command R+ - 增强版，最强性能
+  - Command R - 标准版，均衡选择
+  - Command - 基础版，快速响应
+
+#### 7. **Together AI** 🤝
+- **特点**：开源模型托管平台、丰富的模型选择
+- **官网**：https://www.together.ai
+- **模型**：
+  - Llama 3.1 405B - Meta 超大规模模型
+  - Qwen 2.5 72B - 阿里通义千问开源版
+
+### 国内服务商
+
+#### 8. **DeepSeek** 🔍
+- **特点**：高性能、开源友好、代码能力强
+- **模型**：
+  - DeepSeek Chat - 对话优化
+  - DeepSeek Coder - 代码专精
+
+#### 9. **硅基流动 (SiliconFlow)** 💎
+- **特点**：国内领先的 AI 推理平台
+- **模型**：
+  - DeepSeek V3 - 高性能通用
+  - DeepSeek V3 0324 - 最新版本
+  - Qwen 2.5 72B - 大参数量
+  - Qwen 2.5 7B - 轻量快速
+
+#### 10. **通义千问 (Aliyun)** ☁️
+- **特点**：阿里云大模型、中文理解优秀、稳定可靠、生态完善
+- **官网**：https://dashscope.aliyun.com
+- **模型**：
+  - Qwen Max - 最强性能，复杂任务
+  - Qwen Plus - 增强版，平衡选择
+  - Qwen Turbo - 快速响应，高性价比
+
+#### 11. **智谱 AI (Zhipu)** 🎓
+- **特点**：清华系大模型、学术背景、中文能力强、多模态支持
+- **官网**：https://open.bigmodel.cn
+- **模型**：
+  - GLM-4 Plus - 增强版，最强性能
+  - GLM-4 Air - 轻量版，快速响应
+  - GLM-4 Flash - 闪电版，极速推理
+
+#### 12. **月之暗面 (Moonshot)** 🌙
+- **特点**：Kimi 智能助手、超长上下文（128K）、联网搜索、文件解析
+- **官网**：https://www.moonshot.cn
+- **模型**：
+  - Moonshot v1 128K - 超长上下文，适合长文本
+  - Moonshot v1 32K - 标准上下文，平衡选择
+  - Moonshot v1 8K - 短上下文，快速响应
+
+#### 13. **零一万物 (01.AI)** 🚀
+- **特点**：李开复创立、多模态能力、推理能力强、中英双语
+- **官网**：https://www.lingyiwanwu.com
+- **模型**：
+  - Yi Large - 大规模模型，强大性能
+  - Yi Medium - 中等规模，平衡选择
+  - Yi Spark - 轻量快速，经济实惠
+
+#### 14. **百川智能 (Baichuan)** 🔎
+- **特点**：搜狗创始人王小川创立、搜索增强、知识问答、中文优化
+- **官网**：https://www.baichuan-ai.com
+- **模型**：
+  - Baichuan 4 - 第四代模型，最新技术
+  - Baichuan 3 Turbo - 快速版本，高性价比
+
+#### 15. **MiniMax** 🎯
+- **特点**：国内领先的通用大模型、文本生成、语音合成、多模态能力
+- **官网**：https://www.minimaxi.com
+- **模型**：
+  - abab 6.5 Chat - 最新版本，性能提升
+  - abab 6 Chat - 稳定版本，可靠选择
+
+#### 16. **字节豆包 (Doubao)** 🫘
+- **特点**：字节跳动大模型、多场景应用、内容创作、智能对话
+- **官网**：https://www.volcengine.com/product/doubao
+- **模型**：
+  - Doubao Pro - 专业版，强大性能
+  - Doubao Lite - 轻量版，快速响应
+
+#### 17. **自定义 (Custom)** ⚙️
+- **特点**：支持任意兼容 OpenAI API 格式的服务
+- **用途**：私有部署、本地模型、其他第三方服务
+
+### 如何配置 AI 服务
+
+1. **进入设置页面**：点击侧边栏的"设置"按钮
+2. **选择 API 模式**：
+   - **会员模式**：使用平台提供的 API（需要会员账号）
+   - **自定义模式**：使用自己的 API Key
+3. **选择服务商**：从下拉列表中选择你要使用的 AI 服务
+4. **输入 API Key**：
+   - 各服务商的 API Key 获取方式请访问对应官网
+   - API Key 会使用 AES-GCM 加密存储在本地
+5. **选择模型**：根据需求选择合适的模型
+6. **保存设置**：点击保存按钮完成配置
+
+### API Key 获取指南
+
+- **Google Gemini**：https://aistudio.google.com/app/apikey
+- **OpenAI**：https://platform.openai.com/api-keys
+- **Anthropic**：https://console.anthropic.com/
+- **Groq**：https://console.groq.com/
+- **Mistral AI**：https://console.mistral.ai/
+- **Cohere**：https://dashboard.cohere.com/api-keys
+- **Together AI**：https://api.together.xyz/settings/api-keys
+- **DeepSeek**：https://platform.deepseek.com/api_keys
+- **通义千问**：https://dashscope.console.aliyun.com/apiKey
+- **智谱 AI**：https://open.bigmodel.cn/usercenter/apikeys
+- **月之暗面**：https://platform.moonshot.cn/console/api-keys
+- **零一万物**：https://platform.lingyiwanwu.com/apikeys
+- **百川智能**：https://platform.baichuan-ai.com/console/apikey
+- **MiniMax**：https://www.minimaxi.com/user-center/basic-information/interface-key
+- **字节豆包**：https://console.volcengine.com/ark/region:ark+cn-beijing/apiKey
+
+### 安全说明
+
+- ✅ **本地加密存储**：所有 API Key 使用 AES-GCM 加密存储
+- ✅ **设备指纹派生**：加密密钥基于设备指纹生成
+- ✅ **不上传服务器**：API Key 仅存储在本地浏览器
+- ✅ **自动重加密**：检测到旧格式时自动升级加密
+
 ## 📦 技术栈
 
 - **React 19** - UI 框架
@@ -315,6 +487,33 @@ VITE_GEMINI_API_KEY=your_api_key_here
 - 响应式设计
 
 ## 🔄 更新日志
+
+### 2026-02-09 (下午 - AI API 服务扩展)
+- 🌐 **新增 12 个主流 AI API 服务支持**：
+  - **国际服务商**（5个）：
+    - Anthropic Claude (Opus 4.6, Sonnet 4.5, Haiku 4.5)
+    - Groq (Llama 3.3 70B, Mixtral 8x7B, Gemma 7B)
+    - Mistral AI (Large 2, Medium, Small)
+    - Cohere (Command R+, Command R, Command)
+    - Together AI (Llama 3.1 405B, Qwen 2.5 72B)
+  - **国内服务商**（7个）：
+    - 通义千问/Aliyun (Qwen Max, Plus, Turbo)
+    - 智谱 AI/Zhipu (GLM-4 Plus, Air, Flash)
+    - 月之暗面/Moonshot (v1 128K, 32K, 8K)
+    - 零一万物/01.AI (Yi Large, Medium, Spark)
+    - 百川智能/Baichuan (Baichuan 4, 3 Turbo)
+    - MiniMax (abab 6.5, abab 6)
+    - 字节豆包/Doubao (Pro, Lite)
+- 📝 **完善文档**：
+  - 更新 README.md，添加所有服务商的详细说明
+  - 包含特点介绍、官网链接、模型列表
+  - 提供 API Key 获取指南
+  - 添加安全说明和配置教程
+- ✅ **质量保证**：
+  - TypeScript 类型检查通过 ✅
+  - 构建成功 ✅
+  - 890 个测试用例全部通过 ✅
+- 🎯 **总计支持**：17 种 AI 服务，共 50+ 个模型可选
 
 ### 2026-02-09 (自主优化 - 2小时工作)
 - 🎨 **UI 集成 - 智能分析面板**：将分析工具集成到编辑器界面

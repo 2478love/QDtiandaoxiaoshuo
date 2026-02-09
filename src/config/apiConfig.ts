@@ -52,15 +52,34 @@ export const MEMBERSHIP_API_CONFIG = {
 
 // 服务商配置
 export const API_PROVIDERS = [
+  // 原有服务商
   { id: 'google', name: 'Google Gemini', baseUrl: '' },
   { id: 'siliconflow', name: '硅基流动 (SiliconFlow)', baseUrl: 'https://api.siliconflow.cn/v1' },
   { id: 'openai', name: 'OpenAI', baseUrl: 'https://api.openai.com/v1' },
   { id: 'deepseek', name: 'DeepSeek', baseUrl: 'https://api.deepseek.com/v1' },
+  
+  // 国际服务商
+  { id: 'anthropic', name: 'Anthropic Claude', baseUrl: 'https://api.anthropic.com/v1' },
+  { id: 'groq', name: 'Groq', baseUrl: 'https://api.groq.com/openai/v1' },
+  { id: 'mistral', name: 'Mistral AI', baseUrl: 'https://api.mistral.ai/v1' },
+  { id: 'cohere', name: 'Cohere', baseUrl: 'https://api.cohere.ai/v1' },
+  { id: 'together', name: 'Together AI', baseUrl: 'https://api.together.xyz/v1' },
+  
+  // 国内服务商
+  { id: 'aliyun', name: '通义千问 (Aliyun)', baseUrl: 'https://dashscope.aliyuncs.com/compatible-mode/v1' },
+  { id: 'zhipu', name: '智谱 AI (Zhipu)', baseUrl: 'https://open.bigmodel.cn/api/paas/v4' },
+  { id: 'moonshot', name: '月之暗面 (Moonshot)', baseUrl: 'https://api.moonshot.cn/v1' },
+  { id: 'lingyiwanwu', name: '零一万物 (01.AI)', baseUrl: 'https://api.lingyiwanwu.com/v1' },
+  { id: 'baichuan', name: '百川智能 (Baichuan)', baseUrl: 'https://api.baichuan-ai.com/v1' },
+  { id: 'minimax', name: 'MiniMax', baseUrl: 'https://api.minimax.chat/v1' },
+  { id: 'doubao', name: '字节豆包 (Doubao)', baseUrl: 'https://ark.cn-beijing.volces.com/api/v3' },
+  
   { id: 'custom', name: '自定义 (Custom)', baseUrl: '' },
 ];
 
 // 各服务商默认模型
 export const PROVIDER_MODELS: Record<string, { id: string; name: string; description?: string }[]> = {
+  // ==================== 原有服务商 ====================
   google: [
     { id: MODEL_IDS.GEMINI_2_FLASH, name: 'Gemini 2.0 Flash', description: '高效 & 均衡' },
     { id: MODEL_IDS.GEMINI_2_5_FLASH_PREVIEW, name: 'Gemini 2.5 Flash', description: '最新预览版' },
@@ -83,6 +102,139 @@ export const PROVIDER_MODELS: Record<string, { id: string; name: string; descrip
     { id: MODEL_IDS.DEEPSEEK_CHAT, name: 'DeepSeek Chat', description: '对话优化' },
     { id: MODEL_IDS.DEEPSEEK_CODER, name: 'DeepSeek Coder', description: '代码专精' },
   ],
+
+  // ==================== 国际服务商 ====================
+  
+  /**
+   * Anthropic Claude - 最先进的 AI 助手
+   * 特点：强大的推理能力、长上下文、安全可靠
+   * 官网：https://www.anthropic.com
+   */
+  anthropic: [
+    { id: 'claude-opus-4.6', name: 'Claude Opus 4.6', description: '最强推理能力，适合复杂创作' },
+    { id: 'claude-sonnet-4.5', name: 'Claude Sonnet 4.5', description: '平衡性能与成本' },
+    { id: 'claude-haiku-4.5', name: 'Claude Haiku 4.5', description: '快速响应，经济实惠' },
+  ],
+
+  /**
+   * Groq - 超快推理速度
+   * 特点：业界最快的推理速度、开源模型托管
+   * 官网：https://groq.com
+   */
+  groq: [
+    { id: 'llama-3.3-70b', name: 'Llama 3.3 70B', description: 'Meta 最新开源模型' },
+    { id: 'mixtral-8x7b', name: 'Mixtral 8x7B', description: 'Mistral 混合专家模型' },
+    { id: 'gemma-7b', name: 'Gemma 7B', description: 'Google 轻量开源模型' },
+  ],
+
+  /**
+   * Mistral AI - 欧洲开源 AI 领导者
+   * 特点：高质量开源模型、多语言支持
+   * 官网：https://mistral.ai
+   */
+  mistral: [
+    { id: 'mistral-large-2', name: 'Mistral Large 2', description: '旗舰模型，强大性能' },
+    { id: 'mistral-medium', name: 'Mistral Medium', description: '中等规模，平衡选择' },
+    { id: 'mistral-small', name: 'Mistral Small', description: '轻量快速，经济实惠' },
+  ],
+
+  /**
+   * Cohere - 企业级 AI 平台
+   * 特点：专注企业应用、强大的文本理解
+   * 官网：https://cohere.com
+   */
+  cohere: [
+    { id: 'command-r-plus', name: 'Command R+', description: '增强版，最强性能' },
+    { id: 'command-r', name: 'Command R', description: '标准版，均衡选择' },
+    { id: 'command', name: 'Command', description: '基础版，快速响应' },
+  ],
+
+  /**
+   * Together AI - 开源模型托管平台
+   * 特点：丰富的开源模型选择、灵活部署
+   * 官网：https://www.together.ai
+   */
+  together: [
+    { id: 'meta-llama/Meta-Llama-3.1-405B', name: 'Llama 3.1 405B', description: 'Meta 超大规模模型' },
+    { id: 'Qwen/Qwen2.5-72B', name: 'Qwen 2.5 72B', description: '阿里通义千问开源版' },
+  ],
+
+  // ==================== 国内服务商 ====================
+
+  /**
+   * 通义千问 (Aliyun) - 阿里云大模型
+   * 特点：中文理解优秀、稳定可靠、生态完善
+   * 官网：https://dashscope.aliyun.com
+   */
+  aliyun: [
+    { id: 'qwen-max', name: 'Qwen Max', description: '最强性能，复杂任务' },
+    { id: 'qwen-plus', name: 'Qwen Plus', description: '增强版，平衡选择' },
+    { id: 'qwen-turbo', name: 'Qwen Turbo', description: '快速响应，高性价比' },
+  ],
+
+  /**
+   * 智谱 AI (Zhipu) - 清华系大模型
+   * 特点：学术背景、中文能力强、多模态支持
+   * 官网：https://open.bigmodel.cn
+   */
+  zhipu: [
+    { id: 'glm-4-plus', name: 'GLM-4 Plus', description: '增强版，最强性能' },
+    { id: 'glm-4-air', name: 'GLM-4 Air', description: '轻量版，快速响应' },
+    { id: 'glm-4-flash', name: 'GLM-4 Flash', description: '闪电版，极速推理' },
+  ],
+
+  /**
+   * 月之暗面 (Moonshot) - Kimi 智能助手
+   * 特点：超长上下文（128K）、联网搜索、文件解析
+   * 官网：https://www.moonshot.cn
+   */
+  moonshot: [
+    { id: 'moonshot-v1-128k', name: 'Moonshot v1 128K', description: '超长上下文，适合长文本' },
+    { id: 'moonshot-v1-32k', name: 'Moonshot v1 32K', description: '标准上下文，平衡选择' },
+    { id: 'moonshot-v1-8k', name: 'Moonshot v1 8K', description: '短上下文，快速响应' },
+  ],
+
+  /**
+   * 零一万物 (01.AI) - 李开复创立
+   * 特点：多模态能力、推理能力强、中英双语
+   * 官网：https://www.lingyiwanwu.com
+   */
+  lingyiwanwu: [
+    { id: 'yi-large', name: 'Yi Large', description: '大规模模型，强大性能' },
+    { id: 'yi-medium', name: 'Yi Medium', description: '中等规模，平衡选择' },
+    { id: 'yi-spark', name: 'Yi Spark', description: '轻量快速，经济实惠' },
+  ],
+
+  /**
+   * 百川智能 (Baichuan) - 搜狗创始人王小川创立
+   * 特点：搜索增强、知识问答、中文优化
+   * 官网：https://www.baichuan-ai.com
+   */
+  baichuan: [
+    { id: 'baichuan4', name: 'Baichuan 4', description: '第四代模型，最新技术' },
+    { id: 'baichuan3-turbo', name: 'Baichuan 3 Turbo', description: '快速版本，高性价比' },
+  ],
+
+  /**
+   * MiniMax - 国内领先的通用大模型
+   * 特点：文本生成、语音合成、多模态能力
+   * 官网：https://www.minimaxi.com
+   */
+  minimax: [
+    { id: 'abab6.5-chat', name: 'abab 6.5 Chat', description: '最新版本，性能提升' },
+    { id: 'abab6-chat', name: 'abab 6 Chat', description: '稳定版本，可靠选择' },
+  ],
+
+  /**
+   * 字节豆包 (Doubao) - 字节跳动大模型
+   * 特点：多场景应用、内容创作、智能对话
+   * 官网：https://www.volcengine.com/product/doubao
+   */
+  doubao: [
+    { id: 'doubao-pro', name: 'Doubao Pro', description: '专业版，强大性能' },
+    { id: 'doubao-lite', name: 'Doubao Lite', description: '轻量版，快速响应' },
+  ],
+
   custom: [],
 };
 
