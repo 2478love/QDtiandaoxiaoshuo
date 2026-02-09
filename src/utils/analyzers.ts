@@ -235,6 +235,24 @@ export {
   type AlertSystemConfig,
 } from './qualityAlertSystem';
 
+// 灵感生成器
+export {
+  generateNextStepIdeas,
+  generateRandomEvent,
+  generateConflict,
+  generateTwist,
+  generateDialogueIdea,
+  generateSceneIdea,
+  generateInspirationBatch,
+  filterInspirationsByTags,
+  sortByImpact,
+  sortByDifficulty,
+  type InspirationOptions,
+  type Inspiration,
+  type ConflictInspiration,
+  type TwistInspiration,
+} from './inspirationGenerator';
+
 // 内容检查器（如果存在）
 // export { ... } from './contentChecker';
 
