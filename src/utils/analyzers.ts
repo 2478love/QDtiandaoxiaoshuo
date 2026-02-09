@@ -91,7 +91,7 @@ export type {
   WebNovelPattern,
   ChapterStructure,
   PlotArc,
-  CoolPoint,
+  CoolPoint as WebNovelCoolPoint,
   WebNovelAnalysis,
 } from './webNovelAnalyzer';
 
@@ -223,6 +223,17 @@ export {
   type OutlineStructure,
   type Arc,
 } from './batchOutlineGenerator';
+
+// 质量预警系统
+export {
+  QualityAlertSystem,
+  createQualityMetrics,
+  DEFAULT_THRESHOLDS,
+  type QualityAlert,
+  type QualityMetrics,
+  type AlertThresholds,
+  type AlertSystemConfig,
+} from './qualityAlertSystem';
 
 // 内容检查器（如果存在）
 // export { ... } from './contentChecker';
