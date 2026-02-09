@@ -169,6 +169,21 @@ export {
   type DynamicHeightItem,
 } from './virtualScroll';
 
+// 分层记忆系统
+export {
+  LayeredMemorySystem,
+  extractMemoryFromChapter,
+  type CoreMemory,
+  type CharacterInfo,
+  type WorldSetting,
+  type PlotPoint,
+  type PowerSystemInfo,
+  type RecentMemory,
+  type LongTermMemory,
+  type MemoryQuery,
+  type MemorySearchResult,
+} from './layeredMemorySystem';
+
 // 内容检查器（如果存在）
 // export { ... } from './contentChecker';
 
