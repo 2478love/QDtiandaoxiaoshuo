@@ -31,6 +31,35 @@
 
 ---
 
+### [11:53-11:57] 优化 #2: 批量初稿生成 - 基于大纲批量生成章节 ✅
+**目标：** 提供批量初稿生成功能，提升创作效率
+
+**实现内容：**
+- ✅ 新增 `batchDraftGenerator.ts` 工具（370行代码）
+- ✅ 支持基于大纲节点批量生成章节初稿
+- ✅ 支持暂停/继续/停止控制
+- ✅ 自动保存进度到本地存储
+- ✅ 可调整生成参数（字数、风格、语气、视角等）
+- ✅ 失败重试机制（最多3次）
+- ✅ 生成报告和导出功能（TXT/Markdown）
+- ✅ 预计剩余时间计算
+
+**核心功能：**
+- `createBatchDraftPipeline()` - 创建批量生成流水线
+- `generateDraftPrompt()` - 生成初稿提示词
+- `updatePipelineProgress()` - 更新进度和预估时间
+- `savePipelineProgress()` - 保存进度到本地
+- `exportDraftResults()` - 导出生成结果
+
+**测试结果：**
+- ✅ typecheck passed
+- ✅ build passed
+- ✅ 746 tests passed (+28)
+
+**提交：** 664cbd0
+
+---
+
 # 夜间优化报告 (2026-02-08 22:32 - 2026-02-09 06:00)
 
 ## 任务目标

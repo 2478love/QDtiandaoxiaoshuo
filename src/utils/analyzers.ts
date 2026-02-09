@@ -306,6 +306,19 @@ export {
   type MilestoneReport,
 } from './milestoneSystem';
 
+// AI 优化建议生成器
+export {
+  generateOptimizationSuggestion,
+  batchGenerateOptimizationSuggestions,
+  generateOptimizationReport,
+  exportOptimizationSuggestionAsJSON,
+  getTopPriorityPrompt,
+  filterPromptsByFocus,
+  type OptimizationFocus,
+  type OptimizationPrompt,
+  type OptimizationSuggestion,
+} from './aiOptimizationSuggester';
+
 // 内容检查器（如果存在）
 // export { ... } from './contentChecker';
 
