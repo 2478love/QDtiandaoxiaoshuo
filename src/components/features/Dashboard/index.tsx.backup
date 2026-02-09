@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { ActivityEntry, Novel, ShortWork, User } from '../../../types';
 import { getApiSettings, ApiSettings } from '../../../config/apiConfig';
 import { BookOpen, FileText, Sparkles, TrendingUp } from 'lucide-react';
-import WritingStats from '../WritingStats';
 
 interface DashboardProps {
   user: User | null;
@@ -284,12 +283,6 @@ const Dashboard: React.FC<DashboardProps> = ({ user, novels, shortWorks, activit
             <EmptyState label="暂无作品" icon={<BookOpen className="w-8 h-8 text-slate-300 dark:text-slate-600" />} />
           )}
         </div>
-      </div>
-
-      {/* Writing Statistics Section */}
-      <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-8 shadow-sm">
-        <h2 className="text-2xl font-semibold text-slate-900 dark:text-slate-100 mb-6">📊 写作统计</h2>
-        <WritingStats novels={novels} />
       </div>
     </div>
   );
