@@ -373,6 +373,15 @@ export {
   type BatchSelectionState,
 } from './batchChapterOperations';
 
+// 项目质量报告生成器
+export {
+  generateProjectQualityReport,
+  exportReportAsMarkdown,
+  type ProjectQualityReport,
+  type ProjectIssue,
+  type ProjectRecommendation,
+} from './projectQualityReporter';
+
 // 内容检查器（如果存在）
 // export { ... } from './contentChecker';
 
