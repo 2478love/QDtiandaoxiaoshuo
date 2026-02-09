@@ -95,6 +95,24 @@ export type {
   WebNovelAnalysis,
 } from './webNovelAnalyzer';
 
+// 章节摘要生成器
+export {
+  generateChapterSummary,
+  batchGenerateSummaries,
+  extractKeyCharacters,
+  extractKeyEvents,
+  extractKeyLocations,
+  analyzeEmotionalTone,
+  generateBriefSummary,
+  generateDetailedSummary,
+  generatePlotTags,
+  formatSummaryAsText,
+  formatSummaryAsMarkdown,
+  formatSummaryForRAG,
+  type ChapterSummary,
+  type SummaryGenerationOptions,
+} from './chapterSummaryGenerator';
+
 // 内容检查器（如果存在）
 // export { ... } from './contentChecker';
 
