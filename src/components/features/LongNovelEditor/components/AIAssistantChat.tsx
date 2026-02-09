@@ -803,7 +803,7 @@ const AIAssistantChat: React.FC = () => {
                   step="0.1"
                   value={temperature}
                   onChange={(e) => setTemperature(parseFloat(e.target.value))}
-                  className="w-full h-1.5 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-indigo-500"
+                  className="w-full h-1.5 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-[#2C5F2D]"
                 />
                 <div className={`flex justify-between text-[10px] ${themeClasses.textMuted} mt-0.5`}>
                   <span>保守</span>
@@ -844,7 +844,7 @@ const AIAssistantChat: React.FC = () => {
                     step="5"
                     value={stylePreservation}
                     onChange={(e) => setStylePreservation(parseInt(e.target.value))}
-                    className="w-full h-1.5 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-purple-500"
+                    className="w-full h-1.5 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-[#2C5F2D]"
                   />
                   <div className={`flex justify-between text-[10px] ${themeClasses.textMuted} mt-0.5`}>
                     <span>大幅改写</span>

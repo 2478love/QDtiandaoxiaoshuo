@@ -73,7 +73,7 @@ const SettingsPanel: React.FC = () => {
             step={2}
             value={fontSize}
             onChange={(e) => setFontSize(parseInt(e.target.value))}
-            className="w-full accent-indigo-500"
+            className="w-full accent-[#2C5F2D]"
           />
         </div>
         <div>
@@ -88,7 +88,7 @@ const SettingsPanel: React.FC = () => {
             step={0.1}
             value={lineHeight}
             onChange={(e) => setLineHeight(parseFloat(e.target.value))}
-            className="w-full accent-indigo-500"
+            className="w-full accent-[#2C5F2D]"
           />
         </div>
       </section>
@@ -107,7 +107,7 @@ const SettingsPanel: React.FC = () => {
             step={0.1}
             value={temperature}
             onChange={(e) => setTemperature(parseFloat(e.target.value))}
-            className="w-full accent-indigo-500"
+            className="w-full accent-[#2C5F2D]"
           />
         </div>
         <div>

@@ -2779,7 +2779,7 @@ ${charDescriptions}
             onClick={() => setSelectedNodeId(node.id)}
             className={`px-4 py-2 rounded-xl text-white text-sm font-medium shadow-md transition-all duration-200 whitespace-nowrap ${node.color} ${
               isSelected
-                ? 'ring-4 ring-indigo-300 ring-offset-2 scale-105'
+                ? 'ring-4 ring-[#97BC62] ring-offset-2 scale-105'
                 : 'hover:scale-102 hover:shadow-lg'
             }`}
           >
@@ -4516,7 +4516,7 @@ ${charDescriptions}
                         step="0.1"
                         value={temperature}
                         onChange={(e) => setTemperature(parseFloat(e.target.value))}
-                        className="w-full h-1.5 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-indigo-500"
+                        className="w-full h-1.5 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-[#2C5F2D]"
                       />
                       <div className={`flex justify-between text-[10px] ${themeClasses.textMuted} mt-0.5`}>
                         <span>保守</span>
@@ -4866,7 +4866,7 @@ ${charDescriptions}
                     step={0.1}
                     value={voiceRate}
                     onChange={(e) => setVoiceRate(parseFloat(e.target.value))}
-                    className="flex-1 accent-indigo-500"
+                    className="flex-1 accent-[#2C5F2D]"
                   />
                 </div>
               </div>
@@ -5236,14 +5236,14 @@ ${charDescriptions}
                   <span>字号</span>
                   <span>{fontSize}px</span>
                 </div>
-                <input type="range" min={12} max={24} step={2} value={fontSize} onChange={(e) => setFontSize(parseInt(e.target.value))} className="w-full accent-indigo-500" />
+                <input type="range" min={12} max={24} step={2} value={fontSize} onChange={(e) => setFontSize(parseInt(e.target.value))} className="w-full accent-[#2C5F2D]" />
               </div>
               <div>
                 <div className={`flex items-center justify-between text-xs ${themeClasses.textMuted}`}>
                   <span>行高</span>
                   <span>{lineHeight.toFixed(1)}</span>
                 </div>
-                <input type="range" min={1.2} max={2.4} step={0.1} value={lineHeight} onChange={(e) => setLineHeight(parseFloat(e.target.value))} className="w-full accent-indigo-500" />
+                <input type="range" min={1.2} max={2.4} step={0.1} value={lineHeight} onChange={(e) => setLineHeight(parseFloat(e.target.value))} className="w-full accent-[#2C5F2D]" />
               </div>
             </section>
             <section className={`rounded-2xl border ${themeClasses.card} ${themeClasses.border} p-4 space-y-4`}>
@@ -5252,7 +5252,7 @@ ${charDescriptions}
                   <span>温度 (Temperature)</span>
                   <span>{temperature.toFixed(1)}</span>
                 </div>
-                <input type="range" min={0.1} max={2} step={0.1} value={temperature} onChange={(e) => setTemperature(parseFloat(e.target.value))} className="w-full accent-indigo-500" />
+                <input type="range" min={0.1} max={2} step={0.1} value={temperature} onChange={(e) => setTemperature(parseFloat(e.target.value))} className="w-full accent-[#2C5F2D]" />
               </div>
               <div>
                 <div className={`flex items-center justify-between text-xs ${themeClasses.textMuted}`}>

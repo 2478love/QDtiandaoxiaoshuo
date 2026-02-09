@@ -98,7 +98,7 @@ const MemberCenter: React.FC<MemberCenterProps> = ({ user, activityLog, onPlanCh
 
       {/* 当前 API 使用状态（只读展示） */}
       <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden">
-        <div className="px-6 py-4 border-b border-slate-100 dark:border-slate-800 bg-gradient-to-r from-indigo-50/50 to-violet-50/50 dark:from-indigo-900/20 dark:to-violet-900/20 flex items-center justify-between">
+        <div className="px-6 py-4 border-b border-slate-100 dark:border-slate-800 bg-gradient-to-r from-[#F0F7F0]/50 to-[#F0F7F0]/50 dark:from-indigo-900/20 dark:to-violet-900/20 flex items-center justify-between">
           <div>
             <h3 className="font-bold text-slate-700 dark:text-slate-200">当前 API 配置</h3>
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">查看当前使用的 AI 服务配置</p>

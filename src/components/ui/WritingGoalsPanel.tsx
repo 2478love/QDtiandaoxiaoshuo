@@ -209,7 +209,7 @@ const WritingGoalsPanel: React.FC<WritingGoalsPanelProps> = ({
   return (
     <div className={`${themeClasses.bg} rounded-xl border ${themeClasses.border} overflow-hidden`}>
       {/* 统计概览 */}
-      <div className={`p-4 border-b ${themeClasses.border} bg-gradient-to-r from-indigo-50 to-violet-50 dark:from-indigo-900/20 dark:to-violet-900/20`}>
+      <div className={`p-4 border-b ${themeClasses.border} bg-gradient-to-r from-[#F0F7F0] to-[#F0F7F0] dark:from-indigo-900/20 dark:to-violet-900/20`}>
         <h3 className={`font-semibold ${themeClasses.text} mb-3`}>写作统计</h3>
         <div className="grid grid-cols-3 gap-4">
           <div className="text-center">

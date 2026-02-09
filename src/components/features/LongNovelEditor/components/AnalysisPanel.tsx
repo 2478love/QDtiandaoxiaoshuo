@@ -186,7 +186,7 @@ const AnalysisPanel: React.FC<AnalysisPanelProps> = ({ chapter, themeClasses }) 
                   <span className={`text-xs w-20 ${themeClasses.textMuted}`}>写作风格</span>
                   <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
                     <div
-                      className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 transition-all"
+                      className="h-full bg-gradient-to-r from-[#2C5F2D] to-[#97BC62] transition-all"
                       style={{ width: `${comprehensiveResult.style.score}%` }}
                     />
                   </div>

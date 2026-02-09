@@ -366,7 +366,7 @@ ${userDirection ? `4. 重点围绕用户指定的方向进行扩展` : ''}
             onClick={() => setSelectedNodeId(node.id)}
             className={`px-4 py-2 rounded-xl text-white text-sm font-medium shadow-md transition-all duration-200 whitespace-nowrap ${node.color} ${
               isSelected
-                ? 'ring-4 ring-indigo-300 ring-offset-2 scale-105'
+                ? 'ring-4 ring-[#97BC62] ring-offset-2 scale-105'
                 : 'hover:scale-102 hover:shadow-lg'
             }`}
           >

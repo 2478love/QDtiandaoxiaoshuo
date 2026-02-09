@@ -580,7 +580,7 @@ const AuthModal: React.FC<AuthModalProps> = ({
         <button
           type="submit"
           disabled={isLoading || lockoutInfo?.isLocked || !isFormValid}
-          className="w-full py-3.5 bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-bold rounded-xl shadow-lg shadow-indigo-200 dark:shadow-none hover:shadow-indigo-300 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center disabled:opacity-60 disabled:hover:scale-100"
+          className="w-full py-3.5 bg-gradient-to-r from-[#2C5F2D] to-[#1E4620] text-white font-bold rounded-xl shadow-lg shadow-[#E8F5E8] dark:shadow-none hover:shadow-[#97BC62] hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center disabled:opacity-60 disabled:hover:scale-100"
         >
           {isLoading ? (
             <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -617,7 +617,7 @@ const AuthModal: React.FC<AuthModalProps> = ({
       />
 
       <div className="relative w-full max-w-md bg-white dark:bg-slate-900 rounded-2xl shadow-2xl shadow-slate-900/20 dark:shadow-black/50 overflow-hidden transform transition-all scale-100 border border-slate-100 dark:border-slate-800">
-        <div className="h-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500" />
+        <div className="h-2 bg-gradient-to-r from-[#2C5F2D] via-[#97BC62] to-[#F4A460]" />
 
         <div className="p-8 max-h-[85vh] overflow-y-auto">
           {mode === 'forgot-password' ? renderForgotPassword() : renderLoginRegister()}

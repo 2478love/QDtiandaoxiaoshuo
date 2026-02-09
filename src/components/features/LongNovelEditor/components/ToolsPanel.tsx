@@ -635,7 +635,7 @@ ${currentChapter.content}`;
       ) : (
         <div className={`flex-1 overflow-y-auto p-4 space-y-6 text-sm ${themeClasses.text}`}>
           {/* 智能分析 */}
-          <section className={`space-y-3 rounded-2xl border ${themeClasses.card} ${themeClasses.border} p-4 bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-950 dark:to-purple-950`}>
+          <section className={`space-y-3 rounded-2xl border ${themeClasses.card} ${themeClasses.border} p-4 bg-gradient-to-br from-[#F0F7F0] to-[#F0F7F0] dark:from-indigo-950 dark:to-[#1E4620]`}>
             <div className="flex items-center justify-between">
               <div>
                 <p className={`text-sm font-semibold ${themeClasses.text}`}>📊 智能分析</p>
@@ -930,7 +930,7 @@ ${currentChapter.content}`;
               step={0.1}
               value={voiceRate}
               onChange={(e) => setVoiceRate(parseFloat(e.target.value))}
-              className="flex-1 accent-indigo-500"
+              className="flex-1 accent-[#2C5F2D]"
             />
           </div>
         </div>
@@ -1219,7 +1219,7 @@ ${currentChapter.content}`;
                         type="checkbox"
                         checked={batchPolishChapters.includes(chapter.id)}
                         onChange={() => toggleBatchPolishChapter(chapter.id)}
-                        className="accent-purple-500"
+                        className="accent-[#2C5F2D]"
                       />
                       <span className="text-xs truncate flex-1">{chapter.title}</span>
                       <span className={`text-[10px] ${themeClasses.textMuted}`}>{chapter.wordCount}字</span>

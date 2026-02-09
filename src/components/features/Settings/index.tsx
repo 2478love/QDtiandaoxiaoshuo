@@ -637,7 +637,7 @@ export default function Settings({ user, storedUser, theme, onThemeChange, onPas
       onClick={() => setActiveTab(id)}
       className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl transition-all ${
         activeTab === id
-          ? 'bg-[#F0F7F0] dark:bg-[#2C5F2D]/10 text-[#1E4620] dark:text-[#97BC62] shadow-sm ring-1 ring-indigo-100 dark:ring-indigo-500/20'
+          ? 'bg-[#F0F7F0] dark:bg-[#2C5F2D]/10 text-[#1E4620] dark:text-[#97BC62] shadow-sm ring-1 ring-[#F0F7F0] dark:ring-[#2C5F2D]/20'
           : 'text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-700 dark:hover:text-slate-300'
       }`}
     >
@@ -833,7 +833,7 @@ export default function Settings({ user, storedUser, theme, onThemeChange, onPas
                                     onClick={() => setPreferences({...preferences, defaultModel: model.id})}
                                     className={`cursor-pointer p-4 rounded-xl border transition-all ${
                                         preferences.defaultModel === model.id
-                                        ? 'border-[#2C5F2D] bg-[#F0F7F0] dark:bg-[#2C5F2D]/10 ring-1 ring-indigo-500'
+                                        ? 'border-[#2C5F2D] bg-[#F0F7F0] dark:bg-[#2C5F2D]/10 ring-1 ring-[#2C5F2D]'
                                         : 'border-slate-200 dark:border-slate-700 hover:border-[#E8F5E8] dark:hover:border-[#2C5F2D]/30 hover:bg-slate-50 dark:hover:bg-slate-800'
                                     }`}
                                  >
@@ -934,7 +934,7 @@ export default function Settings({ user, storedUser, theme, onThemeChange, onPas
           {activeTab === 'api' && (
               <div className="space-y-6 max-w-2xl">
                   {/* API 模式切换 */}
-                  <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-gradient-to-r from-indigo-50 to-violet-50 dark:from-indigo-900/20 dark:to-violet-900/20">
+                  <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-gradient-to-r from-[#F0F7F0] to-[#F0F7F0] dark:from-indigo-900/20 dark:to-violet-900/20">
                       <div className="flex items-center justify-between mb-3">
                           <div>
                               <p className="text-sm font-bold text-slate-700 dark:text-slate-300">
@@ -1106,7 +1106,7 @@ export default function Settings({ user, storedUser, theme, onThemeChange, onPas
                                       key={preset.id}
                                       className={`group relative p-3 rounded-xl border cursor-pointer transition-all ${
                                           activePresetId === preset.id
-                                              ? 'border-[#2C5F2D] bg-[#F0F7F0] dark:bg-[#2C5F2D]/10 ring-1 ring-indigo-500'
+                                              ? 'border-[#2C5F2D] bg-[#F0F7F0] dark:bg-[#2C5F2D]/10 ring-1 ring-[#2C5F2D]'
                                               : 'border-slate-200 dark:border-slate-600 hover:border-[#97BC62] dark:hover:border-[#2C5F2D]/50 bg-white dark:bg-slate-800'
                                       }`}
                                       onClick={() => handleLoadPreset(preset)}
@@ -1454,7 +1454,7 @@ export default function Settings({ user, storedUser, theme, onThemeChange, onPas
              </button>
              <button
                 onClick={handleSave}
-                className="px-8 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-bold shadow-lg shadow-indigo-200 dark:shadow-none hover:shadow-indigo-300 hover:scale-[1.02] active:scale-[0.98] transition-all"
+                className="px-8 py-2.5 rounded-xl bg-gradient-to-r from-[#2C5F2D] to-[#1E4620] text-white font-bold shadow-lg shadow-[#E8F5E8] dark:shadow-none hover:shadow-[#97BC62] hover:scale-[1.02] active:scale-[0.98] transition-all"
              >
                  保存更改
              </button>

@@ -221,7 +221,7 @@ const ShortNovel: React.FC<ShortNovelProps> = ({ works, onSaveWork, onRecordActi
             <button
               onClick={handleGenerate}
               disabled={isGenerating}
-              className="w-full py-3.5 bg-[#2C5F2D] hover:bg-[#1E4620] text-white rounded-xl font-bold shadow-lg shadow-indigo-200 dark:shadow-none transition-all disabled:opacity-50"
+              className="w-full py-3.5 bg-[#2C5F2D] hover:bg-[#1E4620] text-white rounded-xl font-bold shadow-lg shadow-[#E8F5E8] dark:shadow-none transition-all disabled:opacity-50"
             >
               {isGenerating ? '生成中...' : '开始创作'}
             </button>

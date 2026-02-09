@@ -165,7 +165,7 @@ export const SessionExpiryWarning: React.FC<SessionExpiryWarningProps> = ({
                   // 这里可以触发打开登录模态框的操作
                   window.dispatchEvent(new CustomEvent('tiandao:openLogin'));
                 }}
-                className="w-full py-3 bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-bold rounded-xl shadow-lg shadow-indigo-200 dark:shadow-none hover:shadow-indigo-300 hover:scale-[1.02] active:scale-[0.98] transition-all"
+                className="w-full py-3 bg-gradient-to-r from-[#2C5F2D] to-[#1E4620] text-white font-bold rounded-xl shadow-lg shadow-[#E8F5E8] dark:shadow-none hover:shadow-[#97BC62] hover:scale-[1.02] active:scale-[0.98] transition-all"
               >
                 重新登录
               </button>
