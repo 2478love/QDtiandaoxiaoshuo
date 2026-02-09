@@ -16,6 +16,7 @@ const LongNovelEditor = lazy(() => import('./components/features/LongNovelEditor
 import { ToastProvider } from './components/ui/Toast';
 import { OfflineIndicator } from './components/ui/ProgressModal';
 import { SessionExpiryWarning } from './components/ui/SessionExpiryWarning';
+import { BackupReminder } from './components/ui/BackupReminder';
 import { usePersistentState, useOnlineStatus } from './hooks';
 import { ViewState, User, Theme, Novel, ActivityEntry, InviteRecord, PromptEntry, ShortWork, StoredUser, LoginHistoryEntry, LOGIN_MAX_ATTEMPTS, LOGIN_LOCKOUT_MINUTES } from './types';
 import { createId, createInviteCode, hashPassword, verifyPassword, passwordNeedsUpgrade } from './utils';
@@ -449,6 +450,9 @@ function App() {
             onRefreshed={() => recordActivity({ type: 'general', description: '会话已续期' })}
           />
         )}
+
+        {/* 备份提醒组件 */}
+        {user && <BackupReminder />}
 
         <Sidebar currentView={currentView} onNavigate={setCurrentView} user={user} onLoginClick={() => setIsAuthModalOpen(true)} />
         <main className={`ml-64 min-h-screen transition-all duration-300`}>
