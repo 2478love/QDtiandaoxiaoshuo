@@ -151,6 +151,24 @@ export {
   type QualityTrendAnalysis,
 } from './qualityTrendAnalyzer';
 
+// 虚拟滚动工具
+export {
+  calculateVirtualScrollState,
+  getVisibleIndices,
+  calculateTotalHeight,
+  isIndexVisible,
+  shouldRenderIndex,
+  scrollToIndex,
+  getIndexAtPosition,
+  VirtualScrollManager,
+  createVirtualScrollManager,
+  throttleScroll,
+  DynamicVirtualScrollManager,
+  type VirtualScrollConfig,
+  type VirtualScrollState,
+  type DynamicHeightItem,
+} from './virtualScroll';
+
 // 内容检查器（如果存在）
 // export { ... } from './contentChecker';
 
