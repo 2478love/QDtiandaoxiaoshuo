@@ -184,6 +184,31 @@ export {
   type MemorySearchResult,
 } from './layeredMemorySystem';
 
+// 一致性检查器
+export {
+  checkCharacterConsistency,
+  checkWorldConsistency,
+  checkTimelineConsistency,
+  checkConsistency,
+  generateConsistencyReport,
+  type ConsistencyCheckResult,
+  type CharacterConsistencyResult,
+  type CharacterConsistencyInfo,
+  type CharacterIssue,
+  type WorldConsistencyResult,
+  type PowerSystemConsistency,
+  type GeographyConsistency,
+  type LocationInfo,
+  type RuleConsistency,
+  type WorldIssue,
+  type TimelineConsistencyResult,
+  type TimelineEvent,
+  type TimelineIssue,
+  type Conflict,
+  type Warning,
+  type ChapterData,
+} from './consistencyChecker';
+
 // 内容检查器（如果存在）
 // export { ... } from './contentChecker';
 
